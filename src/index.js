@@ -1,17 +1,32 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import { CssBaseline } from "@material-ui/core";
+import React from "react";
+import ReactDOM from "react-dom";
+
+import App from "./App";
+import reportWebVitals from "./reportWebVitals";
+import { configureStore } from "@reduxjs/toolkit";
+
+import { Provider } from "react-redux";
+import stepperReducer from "./store/Inventory/stepper";
+import guidelinesReducer from "./store/Inventory/guidelines";
+import detailsReducer from "./store/Inventory/details";
+
+const store = configureStore({
+  reducer: {
+    stepper: stepperReducer,
+    guidelines: guidelinesReducer,
+    details: detailsReducer,
+  },
+});
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
+  <>
+    <CssBaseline />
+    <Provider store={store}>
+      <App />
+    </Provider>
+  </>,
+  document.getElementById("root")
 );
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();
