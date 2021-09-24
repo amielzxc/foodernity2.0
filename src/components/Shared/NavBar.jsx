@@ -165,7 +165,7 @@ function MenuListComposition() {
                     id="menu-list-grow"
                     onKeyDown={handleListKeyDown}
                   >
-                    <MenuItem component={Link} to="/account">
+                    <MenuItem component={Link} to="/account/mydonations">
                       My account
                     </MenuItem>
                     <MenuItem

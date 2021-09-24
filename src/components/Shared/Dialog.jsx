@@ -5,7 +5,7 @@ const useStyles = makeStyles((theme) => ({
   drawer__container: {
     display: "flex",
     flexDirection: "column",
-    width: "350px",
+    width: "300px",
     padding: "20px 16px",
 
     height: "100%",

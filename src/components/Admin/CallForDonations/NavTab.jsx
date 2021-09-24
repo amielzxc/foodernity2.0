@@ -4,8 +4,11 @@ import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import Item from "./Item";
+import { Button } from "@material-ui/core";
+import AddIcon from "@material-ui/icons/Add";
+import Form from "./Form";
 
 function TabPanel(props) {
   const { children, value, index } = props;
@@ -24,60 +27,73 @@ function TabPanel(props) {
 function NavTab() {
   const classes = useStyles();
   const [value, setValue] = useState(0);
-
+  const openFormRef = useRef(null);
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
 
   return (
-    <div className={classes.root}>
-      <Box boxShadow={1} borderRadius={5} bgcolor="white">
-        <Box p={2}>
-          <Typography variant="h5" className={classes.text_bold}>
-            Call For Donations
-          </Typography>
-        </Box>
-        <AppBar
-          position="static"
-          color="default"
-          elevation={0}
-          className={classes.appbar}
-        >
-          <Tabs
-            value={value}
-            onChange={handleChange}
-            indicatorColor="primary"
-            textColor="primary"
-            variant="fullWidth"
+    <>
+      <div className={classes.root}>
+        <Box boxShadow={1} borderRadius={5} bgcolor="white">
+          <Box p={2} display="flex" justifyContent="space-between">
+            <Typography variant="h5" className={classes.text_bold}>
+              Call For Donations
+            </Typography>
+            <Button
+              variant="contained"
+              color="primary"
+              startIcon={<AddIcon />}
+              onClick={() => {
+                openFormRef.current.openForm();
+              }}
+            >
+              Create a Call for Donation
+            </Button>
+          </Box>
+          <AppBar
+            position="static"
+            color="default"
+            elevation={0}
+            className={classes.appbar}
           >
-            <Tab label="Active Requests" />
-            <Tab label="To be claimed" />
-            <Tab label="Fulfilled Requests" />
-          </Tabs>
-        </AppBar>
-      </Box>
-      <TabPanel value={value} index={0}>
-        <div className={classes.grid}>
-          {requestData.map((item, index) => (
-            <Item
-              key={index}
-              pubmat={item.pubmat}
-              title={item.title}
-              description={item.description}
-              donationCount={item.donationCount}
-              date={item.date}
-              categories={item.categories}
-            />
-          ))}
-        </div>
-      </TabPanel>
-      <TabPanel value={value} index={1}>
-        2
-      </TabPanel>
-      <TabPanel value={value} index={2}>
-        3
-      </TabPanel>
-    </div>
+            <Tabs
+              value={value}
+              onChange={handleChange}
+              indicatorColor="primary"
+              textColor="primary"
+              variant="fullWidth"
+            >
+              <Tab label="Active Requests" />
+              <Tab label="To be claimed" />
+              <Tab label="Fulfilled Requests" />
+            </Tabs>
+          </AppBar>
+        </Box>
+        <TabPanel value={value} index={0}>
+          <div className={classes.grid}>
+            {requestData.map((item, index) => (
+              <Item
+                key={index}
+                pubmat={item.pubmat}
+                title={item.title}
+                description={item.description}
+                donationCount={item.donationCount}
+                date={item.date}
+                categories={item.categories}
+              />
+            ))}
+          </div>
+        </TabPanel>
+        <TabPanel value={value} index={1}>
+          2
+        </TabPanel>
+        <TabPanel value={value} index={2}>
+          3
+        </TabPanel>
+      </div>
+      <Form ref={openFormRef} />
+    </>
   );
 }
 

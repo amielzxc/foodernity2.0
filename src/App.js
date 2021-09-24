@@ -18,9 +18,14 @@ const CallForDonation = lazy(() =>
   import("./pages/CallForDonation/CallForDonation")
 );
 
+const MyDonations = lazy(() => import("./pages/Account/Donations"));
+const Profile = lazy(() => import("./pages/Account/Profile"));
+const Edit = lazy(() => import("./pages/Account/Edit"));
+
 const Donations = lazy(() => import("./pages/Admin/Donations"));
 const CallForDonations = lazy(() => import("./pages/Admin/CallForDonations"));
 const StockInventory = lazy(() => import("./pages/Admin/StockInventory"));
+
 function App() {
   return (
     <Router>
@@ -49,6 +54,10 @@ function App() {
               component={CallForDonations}
             />
             <Route path="/admin/inventory" component={StockInventory} />
+            {/* Account */}
+            <Route path="/account/mydonations" component={MyDonations} />
+            <Route path="/account/myprofile" component={Profile} />
+            <Route path="/account/editprofile" component={Edit} />
             <Route path="">
               <p>404</p>
             </Route>
