@@ -125,7 +125,6 @@ export default Item;
 
 const useStyles = makeStyles((theme) => ({
   item: {
-    // width: "93%",
     background: "white",
     display: "flex",
     alignItems: "center",

@@ -5,8 +5,8 @@ import Tab from "@material-ui/core/Tab";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 import { useState } from "react";
-import InventoryTable from "./InventoryTable";
-import Stocks from "./Stocks";
+import RecordsTable from "./RecordsTable";
+
 // import Item from "./Item";
 
 function TabPanel(props) {
@@ -36,7 +36,7 @@ function NavTab() {
       <Box boxShadow={1} borderRadius={5} bgcolor="white">
         <Box p={2}>
           <Typography variant="h5" className={classes.text_bold}>
-            Inventory &amp; Stocks
+            Donation Records
           </Typography>
         </Box>
         <AppBar
@@ -52,16 +52,12 @@ function NavTab() {
             textColor="primary"
             variant="fullWidth"
           >
-            <Tab label="Items" />
-            <Tab label="Stocks per category" />
+            <Tab label="Records" />
           </Tabs>
         </AppBar>
       </Box>
       <TabPanel value={value} index={0}>
-        <InventoryTable />
-      </TabPanel>
-      <TabPanel value={value} index={1}>
-        <Stocks />
+        <RecordsTable />
       </TabPanel>
     </div>
   );

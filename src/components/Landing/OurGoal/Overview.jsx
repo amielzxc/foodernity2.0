@@ -16,7 +16,7 @@ function Overview() {
       item
       xs={12}
       alignItems="center"
-      justify="center"
+      justifyContent="center"
       direction={sm ? "column-reverse" : "row"}
       style={{ padding: "3rem 0", height: sm ? "auto" : "94vh" }}
     >
@@ -76,7 +76,7 @@ function Overview() {
           item
           xs={12}
           spacing={3}
-          justify={sm ? "center" : "flex-start"}
+          justifyContent={sm ? "center" : "flex-start"}
         >
           <Grid item xs={12} sm={6} md={6} lg={4}>
             <Typography
@@ -156,7 +156,7 @@ function Overview() {
       </Grid>
       {/* <Grid item xs={false} md={1} /> */}
       <Hidden smDown>
-        <Grid container item xs={12} md={4} justify="center">
+        <Grid container item xs={12} md={4} justifyContent="center">
           <img
             src={planet}
             alt="phone-mockup"

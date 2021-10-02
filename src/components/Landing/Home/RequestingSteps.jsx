@@ -6,7 +6,7 @@ function RequestingSteps() {
 
   return (
     <Grid container item xs={12} spacing={10} style={{ marginBottom: "5rem" }}>
-      <Grid container item xs={12} md={5} justify="center">
+      <Grid container item xs={12} md={5} justifyContent="center">
         <Grid item>
           <Typography
             variant="h4"

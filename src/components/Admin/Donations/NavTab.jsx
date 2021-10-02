@@ -57,42 +57,46 @@ function NavTab() {
       </Box>
       <TabPanel value={value} index={0}>
         <div className={classes.grid}>
-          {data.map((value, index) => (
-            <Item
-              key={index}
-              donor={value.donor}
-              image={value.image}
-              name={value.name}
-              quantity={value.quantity}
-              category={value.category}
-              expiry={value.expiry}
-              notes={value.notes}
-              claimingMethod={value.claimingMethod}
-              claimingLocation={value.claimingLocation}
-              claimingDate={value.claimingDate}
-              status={value.status}
-            />
-          ))}
+          {data
+            .filter((value) => value.status === "Available")
+            .map((value, index) => (
+              <Item
+                key={index}
+                donor={value.donor}
+                image={value.image}
+                name={value.name}
+                quantity={value.quantity}
+                category={value.category}
+                expiry={value.expiry}
+                notes={value.notes}
+                claimingMethod={value.claimingMethod}
+                claimingLocation={value.claimingLocation}
+                claimingDate={value.claimingDate}
+                status={value.status}
+              />
+            ))}
         </div>
       </TabPanel>
       <TabPanel value={value} index={1}>
         <div className={classes.grid}>
-          {data.map((value, index) => (
-            <Item
-              key={index}
-              donor={value.donor}
-              image={value.image}
-              name={value.name}
-              quantity={value.quantity}
-              category={value.category}
-              expiry={value.expiry}
-              notes={value.notes}
-              claimingMethod={value.claimingMethod}
-              claimingLocation={value.claimingLocation}
-              claimingDate={value.claimingDate}
-              status={value.status}
-            />
-          ))}
+          {data
+            .filter((value) => value.status === "Accepted")
+            .map((value, index) => (
+              <Item
+                key={index}
+                donor={value.donor}
+                image={value.image}
+                name={value.name}
+                quantity={value.quantity}
+                category={value.category}
+                expiry={value.expiry}
+                notes={value.notes}
+                claimingMethod={value.claimingMethod}
+                claimingLocation={value.claimingLocation}
+                claimingDate={value.claimingDate}
+                status={value.status}
+              />
+            ))}
         </div>
       </TabPanel>
     </div>
@@ -117,7 +121,7 @@ const useStyles = makeStyles((theme) => ({
   },
   grid: {
     display: "grid",
-    gridTemplateColumns: "repeat(auto-fill, minmax(340px, 1fr))",
+    gridTemplateColumns: "repeat(auto-fill, minmax(400px, 1fr))",
     gap: "1rem",
   },
 }));
@@ -149,6 +153,6 @@ const data = [
     claimingLocation:
       "National University-Manila, M.F. Jhocson Street, Sampaloc, Manila, Metro Manila",
     claimingDate: "October 10, 2021",
-    status: "Claimed",
+    status: "Accepted",
   },
 ];

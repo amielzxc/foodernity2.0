@@ -18,7 +18,7 @@ function OurGoal() {
       <Helmet>
         <title>Our Goal | Foodernity</title>
       </Helmet>
-      <Grid container justify="center">
+      <Grid container justifyContent="center">
         <NavBar openMenu={openMenu} setOpenMenu={setOpenMenu} />
         <Toolbar />
         {openMenu && <Menu />}

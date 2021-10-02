@@ -23,6 +23,7 @@ function MakeDonation() {
           display: "flex",
           flexDirection: responsive ? "column" : "row",
         }}
+        data-testid="makeDonationComp"
       >
         <NavBar />
         <Stepper />

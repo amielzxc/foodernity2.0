@@ -8,11 +8,12 @@ function Header() {
     <div className={classes.container}>
       <Box>
         <Typography variant="h5" style={{ fontWeight: "600" }}>
-          Maginhawa Community Pantry Current Inventory Count
+          MHTP - PPC Current Inventory Count
         </Typography>
         <Typography variant="body2">
-          * The stocks are counted as per pieces except for rice which is
-          counted as per serving of 90g
+          * The stocks are counted as per pieces
+          {/* except for rice which is
+          counted as per serving of 90g */}
         </Typography>
       </Box>
       <Button
@@ -21,6 +22,7 @@ function Header() {
         startIcon={<AddIcon />}
         component={Link}
         to="/makeadonation"
+        data-testid="makeDonationButton"
       >
         Make a donation
       </Button>

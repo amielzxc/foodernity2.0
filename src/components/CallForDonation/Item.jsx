@@ -12,6 +12,7 @@ import {
   Typography,
 } from "@material-ui/core";
 import { useRef } from "react";
+import { Link } from "react-router-dom";
 import PubmatModal from "./Modal";
 
 function Item({ title, description, pubmat, date, categoryNeeded }) {
@@ -22,7 +23,7 @@ function Item({ title, description, pubmat, date, categoryNeeded }) {
       <Card>
         <CardHeader
           avatar={<Avatar>CP</Avatar>}
-          title="Maginhawa Community Pantry"
+          title="MHTP - PPC"
           subheader={`Posted ${date}`}
         />
         <CardActionArea
@@ -47,7 +48,7 @@ function Item({ title, description, pubmat, date, categoryNeeded }) {
             {title}
           </Typography>
           <Typography>{description}</Typography>
-          <Box my={1}>
+          {/* <Box my={1}>
             <Typography
               variant="body2"
               style={{
@@ -58,8 +59,8 @@ function Item({ title, description, pubmat, date, categoryNeeded }) {
               Food category needed:{" "}
               <span style={{ fontWeight: "bold" }}>{categoryNeeded}</span>
             </Typography>
-            {/* <Chip color="primary" label={categoryNeeded} size="small" /> */}
-          </Box>
+            <Chip color="primary" label={categoryNeeded} size="small" />
+          </Box> */}
         </CardContent>
         <CardActions
           component="div"
@@ -69,7 +70,12 @@ function Item({ title, description, pubmat, date, categoryNeeded }) {
             margin: ".5rem",
           }}
         >
-          <Button color="primary" variant="contained">
+          <Button
+            color="primary"
+            variant="contained"
+            component={Link}
+            to="/makeadonation"
+          >
             Donate now
           </Button>
         </CardActions>

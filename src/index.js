@@ -5,7 +5,7 @@ import ReactDOM from "react-dom";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { configureStore } from "@reduxjs/toolkit";
-
+import { BrowserRouter as Router } from "react-router-dom";
 import { Provider } from "react-redux";
 import stepperReducer from "./store/Inventory/stepper";
 import guidelinesReducer from "./store/Inventory/guidelines";
@@ -23,7 +23,9 @@ ReactDOM.render(
   <>
     <CssBaseline />
     <Provider store={store}>
-      <App />
+      <Router>
+        <App />
+      </Router>
     </Provider>
   </>,
   document.getElementById("root")

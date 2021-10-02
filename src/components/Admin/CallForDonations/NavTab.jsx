@@ -6,7 +6,7 @@ import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 import { useRef, useState } from "react";
 import Item from "./Item";
-import { Button } from "@material-ui/core";
+import { Button, useTheme, useMediaQuery } from "@material-ui/core";
 import AddIcon from "@material-ui/icons/Add";
 import Form from "./Form";
 
@@ -32,11 +32,19 @@ function NavTab() {
     setValue(newValue);
   };
 
+  const theme = useTheme();
+  const responsive = useMediaQuery(theme.breakpoints.down("sm"));
+
   return (
     <>
       <div className={classes.root}>
         <Box boxShadow={1} borderRadius={5} bgcolor="white">
-          <Box p={2} display="flex" justifyContent="space-between">
+          <Box
+            p={2}
+            display="flex"
+            justifyContent="space-between"
+            flexDirection={responsive ? "column" : "row"}
+          >
             <Typography variant="h5" className={classes.text_bold}>
               Call For Donations
             </Typography>
@@ -65,8 +73,7 @@ function NavTab() {
               variant="fullWidth"
             >
               <Tab label="Active Requests" />
-              <Tab label="To be claimed" />
-              <Tab label="Fulfilled Requests" />
+              <Tab label="Fulfilled requests" />
             </Tabs>
           </AppBar>
         </Box>
@@ -87,9 +94,6 @@ function NavTab() {
         </TabPanel>
         <TabPanel value={value} index={1}>
           2
-        </TabPanel>
-        <TabPanel value={value} index={2}>
-          3
         </TabPanel>
       </div>
       <Form ref={openFormRef} />
@@ -115,7 +119,7 @@ const useStyles = makeStyles((theme) => ({
   },
   grid: {
     display: "grid",
-    gridTemplateColumns: "repeat(auto-fill, minmax(340px, 1fr))",
+    gridTemplateColumns: "repeat(auto-fill, minmax(270px, 1fr))",
     gap: "1rem",
   },
 }));

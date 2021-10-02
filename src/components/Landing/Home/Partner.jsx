@@ -5,7 +5,7 @@ function Partner() {
   return (
     <Grid
       container
-      justify="center"
+      justifyContent="center"
       item
       xs={12}
       style={{
@@ -49,7 +49,7 @@ function Partner() {
         container
         item
         xs={12}
-        justify="center"
+        justifyContent="center"
         style={{ marginTop: "4.5rem" }}
       >
         <Button

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Grid, makeStyles, Toolbar } from "@material-ui/core";
+import { Grid, Toolbar } from "@material-ui/core";
 import { Helmet } from "react-helmet";
 
 // Components
@@ -19,7 +19,7 @@ function Home() {
       <Helmet>
         <title>Foodernity</title>
       </Helmet>
-      <Grid container justify="center">
+      <Grid container justifyContent="center">
         <NavBar openMenu={openMenu} setOpenMenu={setOpenMenu} />
         <Toolbar />
         {openMenu && <Menu />}
@@ -35,35 +35,3 @@ function Home() {
 }
 
 export default Home;
-
-const useStyles = makeStyles((theme) => ({
-  button_green: {
-    fontFamily: "Inter",
-    fontWeight: "600",
-    padding: theme.spacing(1.5, 3),
-    color: "white",
-    backgroundColor: "#66BB6A",
-    "&:hover": {
-      backgroundColor: "#5DAC61",
-      // Reset on touch devices, it doesn't add specificity
-      "@media (hover: none)": {
-        backgroundColor: "#66BB6A",
-      },
-    },
-  },
-
-  button_white: {
-    fontFamily: "Inter",
-    fontWeight: "600",
-    padding: theme.spacing(1.5, 3),
-    color: "black",
-    backgroundColor: "white",
-    "&:hover": {
-      backgroundColor: "#E5E5E5",
-      // Reset on touch devices, it doesn't add specificity
-      "@media (hover: none)": {
-        backgroundColor: "white",
-      },
-    },
-  },
-}));

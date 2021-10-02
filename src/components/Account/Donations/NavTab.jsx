@@ -9,6 +9,9 @@ import HourglassFullIcon from "@material-ui/icons/HourglassFull";
 import PriorityHighIcon from "@material-ui/icons/PriorityHigh";
 import CheckIcon from "@material-ui/icons/Check";
 import FavoriteIcon from "@material-ui/icons/Favorite";
+import { useTheme } from "@material-ui/styles";
+import { useMediaQuery } from "@material-ui/core";
+import Item from "./Item";
 
 function TabPanel(props) {
   const { children, value, index } = props;
@@ -31,7 +34,8 @@ function NavTab() {
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
-
+  const theme = useTheme();
+  const responsive = useMediaQuery(theme.breakpoints.down("sm"));
   return (
     <div className={classes.root}>
       <Box boxShadow={1} borderRadius={5} bgcolor="white">
@@ -51,7 +55,8 @@ function NavTab() {
             onChange={handleChange}
             indicatorColor="primary"
             textColor="primary"
-            variant="fullWidth"
+            scrollButtons="auto"
+            variant={responsive ? "scrollable" : "fullWidth"}
           >
             <Tab label="To be accepted" />
             <Tab label="To be collected" />
@@ -65,22 +70,30 @@ function NavTab() {
           icon={messages.accepted.icon}
           label={messages.accepted.message}
         />
-        <div className={classes.grid}>{console.log("1")}</div>
+        <div className={classes.grid}>
+          <Item status="Available" />
+        </div>
       </TabPanel>
       <TabPanel value={value} index={1}>
         <Label
           icon={messages.collected.icon}
           label={messages.collected.message}
         />
-        <div className={classes.grid}>{console.log("2")}</div>
+        <div className={classes.grid}>
+          <Item status="Accepted" />
+        </div>
       </TabPanel>
       <TabPanel value={value} index={2}>
         <Label icon={messages.claimed.icon} label={messages.claimed.message} />
-        <div className={classes.grid}></div>
+        <div className={classes.grid}>
+          <Item status="Claimed" />
+        </div>
       </TabPanel>
       <TabPanel value={value} index={3}>
         <Label icon={messages.donated.icon} label={messages.donated.message} />
-        <div className={classes.grid}></div>
+        <div className={classes.grid}>
+          <Item status="Donated" />
+        </div>
       </TabPanel>
     </div>
   );
@@ -98,6 +111,7 @@ function Label({ icon, label }) {
       display="flex"
       width="100%"
       alignItems="center"
+      mb={2}
     >
       {icon}
       <Typography variant="body2">{label}</Typography>
@@ -121,7 +135,7 @@ const useStyles = makeStyles((theme) => ({
   },
   grid: {
     display: "grid",
-    gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))",
+    gridTemplateColumns: "repeat(auto-fill, minmax(270px, 1fr))",
     gap: "1rem",
   },
 }));

@@ -4,7 +4,7 @@ export default function Footer() {
   return (
     <Grid
       container
-      justify="center"
+      justifyContent="center"
       item
       xs={12}
       spacing={5}

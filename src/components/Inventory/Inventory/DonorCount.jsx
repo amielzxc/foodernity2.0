@@ -14,7 +14,7 @@ function DonorCount() {
       <Typography variant="h6" className={classes.text}>
         Recent Donations from Donors
       </Typography>
-      <div className={classes.container}>
+      <div className={classes.container} data-testid="recentdonations">
         {donorData.map((donor, index) => (
           <RecentDonor
             key={index}

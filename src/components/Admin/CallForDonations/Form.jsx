@@ -91,7 +91,7 @@ function UploadInput() {
   return (
     <Box mt={2}>
       <Typography>Upload pubmat</Typography>
-      <input type="file" />
+      <input type="file" accept=".jpg,.jpeg,.png" />
     </Box>
   );
 }

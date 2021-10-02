@@ -4,6 +4,11 @@ import noodles from "../../../assets/Inventory/noodles.png";
 import vegetables from "../../../assets/Inventory/vegetables.png";
 import eggs from "../../../assets/Inventory/eggs.png";
 import rice from "../../../assets/Inventory/rice.png";
+import bread from "../../../assets/Inventory/bread.png";
+import fruits from "../../../assets/Inventory/fruits.png";
+import snack from "../../../assets/Inventory/snack.png";
+import beverage from "../../../assets/Inventory/beverage.png";
+import other from "../../../assets/Inventory/other.png";
 const categories = [
   {
     image: cannedfood,
@@ -30,49 +35,47 @@ const categories = [
     label: "Uncooked Rice",
     count: 20,
   },
-  // {
-  //    image: bread,
-  //    label: 'Bread & Pastry',
-  //    count: 21,
-  //    color: '#E2F2B5',
-  // },
-  // {
-  //    image: fruits,
-  //    label: 'Fruits',
-  //    count: 10,
-  //    color: '#E2F2B5',
-  // },
-  // {
-  //    image: snack,
-  //    label: 'Biscuits & Snacks',
-  //    count: 51,
-  //    color: '#E2F2B5',
-  // },
-  // {
-  //    image: softdrinks,
-  //    label: 'Beverages',
-  //    count: 20,
-  //    color: '#E2F2B5',
-  // },
-  // {
-  //    image: others,
-  //    label: 'Others',
-  //    count: 15,
-  //    color: '#E2F2B5',
-  // },
+  {
+    image: bread,
+    label: "Bread & Pastry",
+    count: 21,
+  },
+  {
+    image: fruits,
+    label: "Fruits",
+    count: 10,
+  },
+  {
+    image: snack,
+    label: "Biscuits & Snacks",
+    count: 51,
+  },
+  {
+    image: beverage,
+    label: "Beverages",
+    count: 20,
+  },
+  {
+    image: other,
+    label: "Others",
+    count: 15,
+  },
 ];
 
 function InventoryCount() {
   const classes = useStyles();
   return (
-    <div className={classes.container}>
-      {categories.map((category) => (
-        <Stocks
-          image={category.image}
-          label={category.label}
-          count={category.count}
-        />
-      ))}
+    <div className={classes.container} data-testid="inventory">
+      {categories
+        .sort((a, b) => b.count - a.count)
+        .map((category, index) => (
+          <Stocks
+            key={index}
+            image={category.image}
+            label={category.label}
+            count={category.count}
+          />
+        ))}
     </div>
   );
 }

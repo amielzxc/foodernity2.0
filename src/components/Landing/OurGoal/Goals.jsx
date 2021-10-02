@@ -1,12 +1,4 @@
-import {
-  CssBaseline,
-  Grid,
-  Hidden,
-  Toolbar,
-  Typography,
-  useMediaQuery,
-  useTheme,
-} from "@material-ui/core";
+import { Grid, Typography, useMediaQuery, useTheme } from "@material-ui/core";
 import hunger from "../../../assets/Landing/hunger.png";
 import waste from "../../../assets/Landing/waste.png";
 import community from "../../../assets/Landing/community.png";
@@ -20,11 +12,11 @@ function GoalOne() {
       container
       item
       xs={12}
-      justify="center"
+      justifyContent="center"
       style={{ margin: sm ? "2rem 0" : "5rem 0" }}
     >
       <Grid item xs={false} md={1} />
-      <Grid container item xs={12} md={4} justify="center">
+      <Grid container item xs={12} md={4} justifyContent="center">
         <img
           src={waste}
           alt="food-waste"
@@ -35,7 +27,14 @@ function GoalOne() {
         />
       </Grid>
       <Grid item xs={false} md={1} />
-      <Grid container item xs={11} md={5} justify="center" alignItems="center">
+      <Grid
+        container
+        item
+        xs={11}
+        md={5}
+        justifyContent="center"
+        alignItems="center"
+      >
         <Typography
           variant={md ? "h4" : "h3"}
           style={{
@@ -121,11 +120,11 @@ function GoalTwo() {
       container
       item
       xs={12}
-      justify="center"
+      justifyContent="center"
       style={{ margin: sm ? "2rem 0" : "5rem 0" }}
     >
       <Grid item xs={false} md={1} />
-      <Grid container item xs={12} md={4} justify="center">
+      <Grid container item xs={12} md={4} justifyContent="center">
         <img
           src={hunger}
           alt="food-waste"
@@ -136,7 +135,14 @@ function GoalTwo() {
         />
       </Grid>
       <Grid item xs={false} md={1} />
-      <Grid container item xs={11} md={5} justify="center" alignItems="center">
+      <Grid
+        container
+        item
+        xs={11}
+        md={5}
+        justifyContent="center"
+        alignItems="center"
+      >
         <Typography
           variant={md ? "h4" : "h3"}
           style={{
@@ -177,11 +183,11 @@ function GoalThree() {
       container
       item
       xs={12}
-      justify="center"
+      justifyContent="center"
       style={{ margin: sm ? "2rem 0" : "5rem 0" }}
     >
       <Grid item xs={false} md={1} />
-      <Grid container item xs={12} md={4} justify="center">
+      <Grid container item xs={12} md={4} justifyContent="center">
         <img
           src={community}
           alt="food-waste"
@@ -192,7 +198,14 @@ function GoalThree() {
         />
       </Grid>
       <Grid item xs={false} md={1} />
-      <Grid container item xs={11} md={5} justify="center" alignItems="center">
+      <Grid
+        container
+        item
+        xs={11}
+        md={5}
+        justifyContent="center"
+        alignItems="center"
+      >
         <Typography
           variant={md ? "h4" : "h3"}
           style={{

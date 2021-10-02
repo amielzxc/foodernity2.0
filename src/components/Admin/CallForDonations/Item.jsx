@@ -55,77 +55,8 @@ function Item({ title, description, pubmat, donationCount, date, categories }) {
 export default Item;
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    width: "100%",
-    borderRadius: "5px",
-  },
-  appbar: {
-    backgroundColor: "white",
-    borderRadius: "5px",
-  },
-  container__search: {
-    borderRadius: "5px",
-    width: "auto",
-    backgroundColor: "white",
-    padding: "15px 15px 10px 20px",
-    display: "flex",
-    justifyContent: "space-between",
-    [theme.breakpoints.down("xs")]: {
-      flexDirection: "column",
-    },
-  },
   text_bold: {
     fontWeight: "bold",
-  },
-
-  container__listingitem: {
-    margin: ".5rem",
-    width: "100%",
-    backgroundColor: "white",
-    display: "flex",
-    padding: "15px",
-    borderRadius: "5px",
-  },
-  image__listingitem: {
-    // width: '200px',
-    height: "200px",
-    borderRadius: "5px",
-    marginRight: "15px",
-  },
-  container__listingdetail: {
-    flex: "1",
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "space-between",
-  },
-  container__button: {
-    alignSelf: "flex-end",
-    display: "flex",
-    justifyContent: "flex-end",
-    flexWrap: "wrap",
-  },
-  button_lightblue: {
-    marginRight: theme.spacing(1),
-    color: "#2196F3",
-    backgroundColor: "#E3F2FD",
-    "&:hover": {
-      backgroundColor: "#BEE4FF",
-      // Reset on touch devices, it doesn't add specificity
-      "@media (hover: none)": {
-        backgroundColor: "#2196F3",
-      },
-    },
-  },
-  button_green: {
-    color: "white",
-    backgroundColor: "#66BB6A",
-    "&:hover": {
-      backgroundColor: "#57A05A",
-      // Reset on touch devices, it doesn't add specificity
-      "@media (hover: none)": {
-        backgroundColor: "#66BB6A",
-      },
-    },
   },
 
   media: {
