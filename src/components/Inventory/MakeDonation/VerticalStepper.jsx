@@ -8,11 +8,14 @@ import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 // slices
 import { useSelector, useDispatch } from "react-redux";
-import { next, back } from "../../../store/Inventory/stepper";
+import { next, back, reset } from "../../../store/Inventory/stepper";
+import { setDefault } from "../../../store/Inventory/details";
+import { uncheck } from "../../../store/Inventory/guidelines";
 // components
 import { DisplaySnackbar } from "../../Shared/Snackbar";
+
 // import { useHistory } from "react-router-dom";
-// import { clearDetails } from "../../../store/Inventory/details";
+
 const useStyles = makeStyles((theme) => ({
   root: {
     width: "100%",
@@ -52,10 +55,11 @@ export default function VerticalStepper() {
   const stepper = useSelector((state) => state.stepper.value);
   const guidelines = useSelector((state) => state.guidelines.value);
   const details = useSelector((state) => state.details.value);
+  const categories = useSelector((state) => state.details.value.categories);
   const errorSnackbarRef = useRef(null);
   const warningSnackbarRef = useRef(null);
   const successSnackbarRef = useRef(null);
-  // const history = useHistory();
+
   const steps = getSteps();
 
   return (
@@ -87,11 +91,19 @@ export default function VerticalStepper() {
                             ? dispatch(next())
                             : errorSnackbarRef.current.displaySnackbar();
                         } else if (stepper === 1) {
-                          Object.values(details).every((val, index) => val)
+                          Object.values(details).every((val) => val) &&
+                          Object.values(categories).some((val) => val)
                             ? dispatch(next())
                             : warningSnackbarRef.current.displaySnackbar();
                         } else if (stepper === 2) {
                           successSnackbarRef.current.displaySnackbar();
+
+                          setTimeout(() => {
+                            window.location = "/account/mydonations";
+                            dispatch(reset());
+                            dispatch(setDefault());
+                            dispatch(uncheck());
+                          }, 3000);
                         }
                       }}
                       className={classes.button}
@@ -123,7 +135,7 @@ export default function VerticalStepper() {
       />
       <DisplaySnackbar
         ref={successSnackbarRef}
-        message="Thank you for your donation! The organization will start to process it."
+        message="Thank you for your donation! You will now be redirected."
         severity="success"
       />
     </>

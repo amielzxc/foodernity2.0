@@ -1,8 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+const initialStateValue = [false, false, false];
 const guidelinesSlice = createSlice({
   name: "guidelines",
-  initialState: { value: [false, false, false] },
+  initialState: { value: initialStateValue },
   reducers: {
     check1: (state) => {
       state.value[0] = !state.value[0];
@@ -13,8 +14,11 @@ const guidelinesSlice = createSlice({
     check3: (state) => {
       state.value[2] = !state.value[2];
     },
+    uncheck: (state) => {
+      state.value = initialStateValue;
+    },
   },
 });
 
-export const { check1, check2, check3 } = guidelinesSlice.actions;
+export const { check1, check2, check3, uncheck } = guidelinesSlice.actions;
 export default guidelinesSlice.reducer;

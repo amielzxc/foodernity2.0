@@ -144,9 +144,9 @@ export default Signup;
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    background: `url(${BackgroundImage})  no-repeat center center fixed`,
+    background: `url(${BackgroundImage}) `,
     backgroundSize: "cover",
-    height: "100%",
+    height: "100vh",
   },
   container: {
     margin: theme.spacing(5, 0),

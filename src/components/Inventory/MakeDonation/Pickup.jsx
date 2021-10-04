@@ -1,37 +1,29 @@
 import {
   Divider,
-  FormControlLabel,
   Grid,
+  InputAdornment,
   makeStyles,
   Paper,
-  Radio,
-  RadioGroup,
+  TextField,
   Typography,
 } from "@material-ui/core";
-import { useEffect } from "react";
+
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import {
-  setClaimingMethod,
-  setClaimingDate,
-  setClaimingLocation,
+  setDeliverDate,
+  setContactNumber,
+  setNotes,
 } from "../../../store/Inventory/details";
 import {
   MuiPickersUtilsProvider,
   KeyboardDatePicker,
 } from "@material-ui/pickers";
+import ContactPhoneRoundedIcon from "@material-ui/icons/ContactPhoneRounded";
 import MomentUtils from "@date-io/moment";
 
 function Pickup() {
   const classes = useStyles();
-  const claimingMethod = useSelector(
-    (state) => state.details.value.claimingMethod
-  );
-  const dispatch = useDispatch();
-
-  const handleSelected = (event) => {
-    dispatch(setClaimingMethod(event.target.value));
-  };
 
   return (
     <Grid
@@ -43,82 +35,37 @@ function Pickup() {
       direction="column"
     >
       <Typography variant="h6" className={classes.title}>
-        Pickup Details
+        Deliver &amp; Contact Details
       </Typography>
       <Paper className={classes.container}>
         <Typography variant="body1" className={classes.text_bold}>
-          How will you donate your donation?
+          Deliver Address
         </Typography>
-        <RadioGroup value={claimingMethod} onChange={handleSelected}>
-          <FormControlLabel
-            value="Pickup"
-            control={<Radio />}
-            label="Thru Pickup"
-          />
-          <FormControlLabel
-            value="Deliver"
-            control={<Radio />}
-            label="Thru Deliver"
-          />
-        </RadioGroup>
-        {getAddress(claimingMethod)}
-        <Divider className={classes.divider_margin} />
-        <PickupDate />
+        <Typography>National University - Manila</Typography>
+        {/* <Divider className={classes.divider_margin} /> */}
+        <DeliverDate />
+        {/* <Divider className={classes.divider_margin} /> */}
+        <ContactDetails />
+        {/* <Divider className={classes.divider_margin} /> */}
+        <Notes />
       </Paper>
     </Grid>
   );
 }
-function getAddress(selected) {
-  switch (selected) {
-    case "Pickup":
-      return (
-        <Typography>
-          Set the address where the donation will be picked up.
-        </Typography>
-      );
 
-    case "Deliver":
-      return <DeliverAddress />;
-
-    default:
-      return;
-  }
-}
-
-function DeliverAddress() {
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(
-      setClaimingLocation(
-        "National University-Manila, M.F. Jhocson Street, Sampaloc, Manila, Metro Manila"
-      )
-    );
-  }, []);
-  return (
-    <Typography>
-      The address for deliver is{" "}
-      <span style={{ color: "#2196F3" }}>
-        National University-Manila, M.F. Jhocson Street, Sampaloc, Manila, Metro
-        Manila
-      </span>
-    </Typography>
-  );
-}
-
-function PickupDate() {
+function DeliverDate() {
   const classes = useStyles();
-  const claimingDate = useSelector((state) => state.details.value.claimingDate);
+  const deliverDate = useSelector((state) => state.details.value.deliverDate);
   const dispatch = useDispatch();
 
   const onChange = (event) => {
-    dispatch(setClaimingDate(Date.parse(event._d)));
+    dispatch(setDeliverDate(Date.parse(event._d)));
   };
 
   return (
     <>
       <Typography variant="body1" className={classes.text_bold}>
-        Pick up date
+        Deliver date
       </Typography>
 
       <MuiPickersUtilsProvider utils={MomentUtils}>
@@ -129,12 +76,82 @@ function PickupDate() {
           fullWidth
           inputVariant="outlined"
           format="L"
-          value={claimingDate}
+          value={deliverDate}
           InputAdornmentProps={{ position: "end" }}
           onChange={onChange}
           InputProps={{ readOnly: true }}
         />
       </MuiPickersUtilsProvider>
+    </>
+  );
+}
+
+function ContactDetails() {
+  const classes = useStyles();
+  const dispatch = useDispatch();
+  const contactNumber = useSelector(
+    (state) => state.details.value.contactNumber
+  );
+  const onChange = (event) => {
+    const value = event.target.value;
+    if (isNaN(value)) {
+      dispatch(setContactNumber(""));
+    } else {
+      dispatch(setContactNumber(value));
+    }
+  };
+  return (
+    <>
+      <Typography variant="body1" className={classes.text_bold}>
+        Contact Number
+      </Typography>
+      <TextField
+        type="tel"
+        variant="outlined"
+        fullWidth
+        margin="normal"
+        placeholder="Please enter your contact number"
+        onChange={onChange}
+        value={contactNumber}
+        InputProps={{
+          endAdornment: (
+            <InputAdornment position="end">
+              <ContactPhoneRoundedIcon
+                style={{ color: "rgba(0, 0, 0, 0.54)" }}
+              />{" "}
+            </InputAdornment>
+          ),
+        }}
+      />
+    </>
+  );
+}
+
+function Notes() {
+  const classes = useStyles();
+  const notes = useSelector((state) => state.details.value.notes);
+  const dispatch = useDispatch();
+
+  const onChange = (event) => {
+    dispatch(setNotes(event.target.value));
+  };
+  return (
+    <>
+      <Typography variant="body1" className={classes.text_bold}>
+        Notes
+      </Typography>
+      <TextField
+        margin="normal"
+        variant="outlined"
+        fullWidth
+        id="donationNotes"
+        multiline
+        rows={2}
+        value={notes}
+        required
+        onChange={onChange}
+        placeholder="e.g. deliver time"
+      />
     </>
   );
 }
@@ -156,6 +173,7 @@ const useStyles = makeStyles((theme) => ({
   },
   text_bold: {
     fontWeight: "bold",
+    // marginTop: "10px",
   },
   divider_margin: {
     margin: "20px 0",

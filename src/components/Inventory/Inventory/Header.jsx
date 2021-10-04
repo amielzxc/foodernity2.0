@@ -1,12 +1,21 @@
-import { Button, Typography, makeStyles, Box } from "@material-ui/core";
+import {
+  Button,
+  Typography,
+  makeStyles,
+  Box,
+  useMediaQuery,
+} from "@material-ui/core";
 import AddIcon from "@material-ui/icons/Add";
+import { useTheme } from "@material-ui/styles";
 import { Link } from "react-router-dom";
 
 function Header() {
   const classes = useStyles();
+  const theme = useTheme();
+  const responsive = useMediaQuery(theme.breakpoints.down("sm"));
   return (
     <div className={classes.container}>
-      <Box>
+      <Box flex="1">
         <Typography variant="h5" style={{ fontWeight: "600" }}>
           MHTP - PPC Current Inventory Count
         </Typography>
@@ -22,6 +31,7 @@ function Header() {
         startIcon={<AddIcon />}
         component={Link}
         to="/makeadonation"
+        fullWidth={responsive ? true : false}
         data-testid="makeDonationButton"
       >
         Make a donation
@@ -34,7 +44,7 @@ const useStyles = makeStyles(() => ({
   container: {
     display: "flex",
     flexFlow: "row wrap",
-    justifyContent: "space-between",
+
     alignItems: "center",
   },
 }));

@@ -1,9 +1,10 @@
 import { ThemeProvider } from "@material-ui/styles";
 import { lazy, Suspense } from "react";
 import { Switch, Route } from "react-router-dom";
+import Fallback from "./components/Shared/Fallback";
 import theme from "./utils/index";
 //components
-import Home from "./pages/Landing/Home";
+const Home = lazy(() => import("./pages/Landing/Home"));
 const OurGoal = lazy(() => import("./pages/Landing/OurGoal"));
 const GetInvolved = lazy(() => import("./pages/Landing/GetInvolved"));
 const ContactUs = lazy(() => import("./pages/Landing/ContactUs"));
@@ -29,7 +30,7 @@ const Records = lazy(() => import("./pages/Admin/Records"));
 
 function App() {
   return (
-    <Suspense fallback={<div />}>
+    <Suspense fallback={<Fallback />}>
       <ThemeProvider theme={theme}>
         <Switch>
           {/* Landing */}

@@ -69,9 +69,8 @@ function NavTab() {
                 category={value.category}
                 expiry={value.expiry}
                 notes={value.notes}
-                claimingMethod={value.claimingMethod}
-                claimingLocation={value.claimingLocation}
-                claimingDate={value.claimingDate}
+                contactNumber={value.contactNumber}
+                deliverDate={value.deliverDate}
                 status={value.status}
               />
             ))}
@@ -91,9 +90,8 @@ function NavTab() {
                 category={value.category}
                 expiry={value.expiry}
                 notes={value.notes}
-                claimingMethod={value.claimingMethod}
-                claimingLocation={value.claimingLocation}
-                claimingDate={value.claimingDate}
+                contactNumber={value.contactNumber}
+                deliverDate={value.deliverDate}
                 status={value.status}
               />
             ))}
@@ -123,6 +121,9 @@ const useStyles = makeStyles((theme) => ({
     display: "grid",
     gridTemplateColumns: "repeat(auto-fill, minmax(400px, 1fr))",
     gap: "1rem",
+    "@media (max-width: 450px)": {
+      gridTemplateColumns: "repeat(auto-fill, minmax(260px, 1fr))",
+    },
   },
 }));
 
@@ -135,10 +136,8 @@ const data = [
     category: "Instant Noodles",
     expiry: "10/05/2021",
     notes: "notes",
-    claimingMethod: "Deliver",
-    claimingLocation:
-      "National University-Manila, M.F. Jhocson Street, Sampaloc, Manila, Metro Manila",
-    claimingDate: "October 10, 2021",
+    contactNumber: "09123456789",
+    deliverDate: "October 10, 2021",
     status: "Available",
   },
   {
@@ -149,10 +148,8 @@ const data = [
     category: "Instant Noodles",
     expiry: "10/05/2021",
     notes: "notes",
-    claimingMethod: "Deliver",
-    claimingLocation:
-      "National University-Manila, M.F. Jhocson Street, Sampaloc, Manila, Metro Manila",
-    claimingDate: "October 10, 2021",
+    contactNumber: "09123456789",
+    deliverDate: "October 10, 2021",
     status: "Accepted",
   },
 ];

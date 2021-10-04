@@ -73,29 +73,45 @@ function Image() {
 
 function Details() {
   const classes = useStyles();
-  const {
-    name,
-    category,
-    expiry,
-    notes,
-    claimingMethod,
-    claimingLocation,
-    claimingDate,
-  } = useSelector((state) => state.details.value);
+  const { name, expiry, categories, deliverDate, contactNumber, notes } =
+    useSelector((state) => state.details.value);
 
   return (
     <Paper elevation={2} className={classes.container__paper}>
       <Typography variant="h5" className={classes.text_bold}>
         {name}
       </Typography>
-      <div className={classes.container__chipCategory}>
-        <Chip label={category} color="primary" />
+      <div className={classes.container__margin}>
+        <Typography variant="h6" className={classes.text_bold}>
+          Categories
+        </Typography>
+        <div className={classes.container__chipCategory}>
+          {getCategories(Object.values(categories)).map((categ) => (
+            <Chip label={categ} color="primary" />
+          ))}
+        </div>
       </div>
       <div style={{ margin: "5px 0" }}>
         <Typography>
           The expiry date is on{" "}
-          <span className={classes.text_bold}>{getFormattedDate(expiry)} </span>
+          <span className={classes.text_bold}>{getFormattedDate(expiry)}</span>.
+        </Typography>
+      </div>
+
+      <div className={classes.container__margin}>
+        <Typography variant="h6" className={classes.text_bold}>
+          Deliver Instruction
+        </Typography>
+        <Typography>
+          The deliver date is on{" "}
+          <span className={classes.text_bold}>
+            {getFormattedDate(deliverDate)}
+          </span>
           .
+        </Typography>
+        <Typography>
+          Your contact number is{" "}
+          <span className={classes.text_bold}>{contactNumber}</span>.
         </Typography>
       </div>
       <div className={classes.container__margin}>
@@ -104,46 +120,8 @@ function Details() {
         </Typography>
         <Typography>{notes === "" ? <em>none</em> : notes}</Typography>
       </div>
-      <div className={classes.container__margin}>
-        <Typography variant="h6" className={classes.text_bold}>
-          Claiming Instruction
-        </Typography>
-        <Typography>Thru {claimingMethod}</Typography>
-      </div>
-      <div className={classes.container__margin}>
-        <Typography variant="h6" className={classes.text_bold}>
-          Claiming Instruction
-        </Typography>
-        <ClaimingInstruction
-          method={claimingMethod}
-          date={claimingDate}
-          location={claimingLocation}
-        />
-      </div>
     </Paper>
   );
-}
-
-function ClaimingInstruction({ method, date, location }) {
-  const classes = useStyles();
-
-  if (method === "Pickup") {
-    return (
-      <Typography>
-        The organization will pickup your donation at{" "}
-        <span className={classes.text_blue}>{location}</span> on{" "}
-        <span className={classes.text_blue}>{getFormattedDate(date)}</span>.
-      </Typography>
-    );
-  } else if (method === "Deliver") {
-    return (
-      <Typography>
-        The organization will wait for you to deliver the donations on their
-        address at <span className={classes.text_blue}>{location}</span> on{" "}
-        <span className={classes.text_blue}>{getFormattedDate(date)}</span>.
-      </Typography>
-    );
-  }
 }
 
 function getFormattedDate(ms) {
@@ -164,6 +142,29 @@ function getFormattedDate(ms) {
   ];
   return `${months[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()}`;
 }
+
+function getCategories(array) {
+  const categs = [
+    "Instant Noodles",
+    "Canned Goods",
+    "Eggs",
+    "Uncooked Rice",
+    "Snacks & Biscuits",
+    "Bread & Pastry",
+    "Vegatables",
+    "Others",
+  ];
+
+  let arr = [];
+  for (let i = 0; i < array.length; i++) {
+    if (array[i]) {
+      arr.push(categs[i]);
+    }
+  }
+
+  return arr;
+}
+
 export default Confirm;
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -181,6 +182,8 @@ const useStyles = makeStyles((theme) => ({
   container__chipCategory: {
     display: "flex",
     margin: "10px 0",
+    flexWrap: "wrap",
+    gap: "5px",
   },
   text_bold: {
     fontWeight: "bold",

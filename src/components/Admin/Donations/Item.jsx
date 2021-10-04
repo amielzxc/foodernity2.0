@@ -1,6 +1,5 @@
 import { Box, Button, makeStyles, Typography } from "@material-ui/core";
-import LocationOnIcon from "@material-ui/icons/LocationOn";
-import ChatIcon from "@material-ui/icons/Chat";
+import { useRef } from "react";
 
 function Item({
   donor,
@@ -10,70 +9,77 @@ function Item({
   category,
   expiry,
   notes,
-  claimingMethod,
-  claimingLocation,
-  claimingDate,
+  contactNumber,
+  deliverDate,
   status,
 }) {
   const classes = useStyles();
+  const dialogRef = useRef(null);
+
+  const handleItemClick = (event) => {
+    const el = event.target;
+
+    if (el.closest("button")) {
+      console.log("accept");
+    } else if (el.closest("div")) {
+      console.log("display details");
+    } else {
+      return;
+    }
+  };
+
   return (
-    <Box p={1} bgcolor="white" boxShadow={1} borderRadius={5}>
-      <div className={classes.item}>
-        <img src={image} alt="" className={classes.item__image} />
-        <Box
-          pl={2}
-          overflow="hidden"
-          display="flex"
-          flexDirection="column"
-          justifyContent="flex-start"
-        >
-          {/* <Typography>{claimingLocation}</Typography> */}
-          <Details
-            donor={donor}
-            name={name}
-            quantity={quantity}
-            claimingMethod={claimingMethod}
-            claimingLocation={claimingLocation}
-            claimingDate={claimingDate}
-          />
-          <GetButton status={status} />
-        </Box>
-      </div>
-    </Box>
+    <>
+      <Box
+        p={1}
+        bgcolor="white"
+        boxShadow={1}
+        borderRadius={5}
+        onClick={handleItemClick}
+      >
+        <div className={classes.item}>
+          <img src={image} alt="" className={classes.item__image} />
+          <Box
+            pl={2}
+            overflow="hidden"
+            display="flex"
+            flexDirection="column"
+            justifyContent="flex-start"
+            width="100%"
+          >
+            <Details
+              donor={donor}
+              name={name}
+              contactNumber={contactNumber}
+              quantity={quantity}
+              deliverDate={deliverDate}
+            />
+            <GetButton status={status} />
+          </Box>
+        </div>
+      </Box>
+      {/* <Details /> */}
+    </>
   );
 }
 
-function Details({
-  donor,
-  name,
-  quantity,
-  claimingMethod,
-  claimingLocation,
-  claimingDate,
-}) {
+function Details({ donor, name, contactNumber, quantity, deliverDate }) {
   const classes = useStyles();
   return (
     <>
       <Typography className={classes.text_bold}>{name}</Typography>
-      <Box display="flex" alignItems="center" style={{ marginLeft: "-5px" }}>
-        <LocationOnIcon
-          style={{ color: "red", width: "1.1rem", marginRight: "3px" }}
-        />
-        <Typography
-          variant="body2"
-          style={{ fontWeight: "500", color: "#2196F3", width: "50%" }}
-          noWrap={true}
-        >
-          {claimingLocation}
-        </Typography>
-      </Box>
+
       <Typography variant="body2">
         {" "}
         <span style={{ fontWeight: "200" }}>Donor:</span> {donor}
       </Typography>
+      <Typography variant="body2">
+        <span style={{ fontWeight: "200" }}>Contact Number:</span>{" "}
+        {contactNumber}
+      </Typography>
       <Typography variant="body2" style={{ fontWeight: "200" }}>
-        {claimingMethod} on{" "}
-        <span style={{ fontWeight: "500" }}>{claimingDate}</span>
+        Date:
+        <span style={{ fontWeight: "500" }}> {deliverDate}</span>
       </Typography>
 
       <Typography
@@ -108,9 +114,9 @@ function ClaimButton() {
   const classes = useStyles();
   return (
     <Box display="flex" justifyContent="flex-end">
-      <Button variant="contained" className={classes.button_lightblue}>
+      {/* <Button variant="contained" className={classes.button_lightblue}>
         <ChatIcon />
-      </Button>
+      </Button> */}
       <Button
         disableElevation
         variant="contained"
@@ -128,12 +134,9 @@ const useStyles = makeStyles((theme) => ({
     background: "white",
     display: "flex",
     alignItems: "center",
-
-    // flexFlow: "row wrap",
-    // [theme.breakpoints.down("xs")]: {
-    //   flexDirection: "column",
-    //   alignItems: "center",
-    // },
+    "@media (max-width: 450px)": {
+      flexDirection: "column",
+    },
   },
   item__image: {
     background: "rgb(245,245,245)",

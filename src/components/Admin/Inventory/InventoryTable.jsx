@@ -1,5 +1,6 @@
 import { Button, Chip, Typography, withStyles } from "@material-ui/core";
 import { DataGrid } from "@mui/x-data-grid";
+
 function InventoryTable() {
   return (
     <div style={{ height: 600, width: "100%" }}>

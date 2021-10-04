@@ -4,32 +4,30 @@ import {
   Grid,
   Typography,
   Paper,
-  useMediaQuery,
   InputAdornment,
-  MenuItem,
-  Select,
-  InputLabel,
-  FormControl,
   Divider,
 } from "@material-ui/core";
-import { useTheme } from "@material-ui/styles";
 import {
   MuiPickersUtilsProvider,
   KeyboardDatePicker,
 } from "@material-ui/pickers";
 import MomentUtils from "@date-io/moment";
 import UploadImage from "./UploadImage";
-
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-
 import {
   setName,
-  setQuantity,
-  setCategory,
   setExpiry,
-  setNotes,
+  setInstantNoodles,
+  setCannedGoods,
+  setEggs,
+  setUncookedRice,
+  setSnacksBiscuits,
+  setVegetables,
+  setBreadPastry,
+  setOthers,
 } from "../../../store/Inventory/details";
+
 function Item() {
   const classes = useStyles();
   return (
@@ -51,17 +49,42 @@ function Item() {
           <Grid item xs={12} sm={6}>
             <Name />
           </Grid>
-          <Grid item xs={12} sm={6}>
-            <Quantity />
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <Category />
-          </Grid>
+
           <Grid item xs={12} sm={6}>
             <Expiry />
           </Grid>
+          <Grid item xs={12}>
+            <Typography className={classes.text_bold}>Categories</Typography>
+            <Typography variant="caption">
+              Only fill in the necessary
+            </Typography>
+          </Grid>
+          <Grid item xs={6} sm={4}>
+            <CategoryOne />
+          </Grid>
+          <Grid item xs={6} sm={4}>
+            <CategoryTwo />
+          </Grid>
+          <Grid item xs={6} sm={4}>
+            <CategoryThree />
+          </Grid>
+          <Grid item xs={6} sm={4}>
+            <CategoryFour />
+          </Grid>
+          <Grid item xs={6} sm={4}>
+            <CategoryFive />
+          </Grid>
+          <Grid item xs={6} sm={4}>
+            <CategorySix />
+          </Grid>
+          <Grid item xs={6} sm={4}>
+            <CategorySeven />
+          </Grid>
+          <Grid item xs={6} sm={4}>
+            <CategoryOthers />
+          </Grid>
         </Grid>
-        <Notes />
+        {/* <Notes /> */}
       </Paper>
     </Grid>
   );
@@ -76,7 +99,7 @@ function Name() {
   };
   return (
     <TextField
-      margin="normal"
+      // margin="normal"
       type="text"
       variant="outlined"
       id="donationName"
@@ -89,81 +112,81 @@ function Name() {
   );
 }
 
-function Quantity() {
-  const theme = useTheme();
-  //  used to determine whether the page should use components intended for responsive layout
-  const responsiveLayout = useMediaQuery(theme.breakpoints.down("xs"));
+// function Quantity() {
+//   const theme = useTheme();
+//   //  used to determine whether the page should use components intended for responsive layout
+//   const responsiveLayout = useMediaQuery(theme.breakpoints.down("xs"));
 
-  const quantity = useSelector((state) => state.details.value.quantity);
-  const dispatch = useDispatch();
+//   const quantity = useSelector((state) => state.details.value.quantity);
+//   const dispatch = useDispatch();
 
-  const onChange = (event) => {
-    dispatch(setQuantity(event.target.value));
-  };
-  return (
-    <TextField
-      margin={responsiveLayout ? "none" : "normal"}
-      type="text"
-      variant="outlined"
-      id="donationQuantity"
-      label="Quantity"
-      required
-      fullWidth
-      value={quantity}
-      onChange={onChange}
-      InputProps={{
-        endAdornment: <InputAdornment position="end">piece(s)</InputAdornment>,
-      }}
-    />
-  );
-}
+//   const onChange = (event) => {
+//     dispatch(setQuantity(event.target.value));
+//   };
+//   return (
+//     <TextField
+//       margin={responsiveLayout ? "none" : "normal"}
+//       type="text"
+//       variant="outlined"
+//       id="donationQuantity"
+//       label="Quantity"
+//       required
+//       fullWidth
+//       value={quantity}
+//       onChange={onChange}
+//       InputProps={{
+//         endAdornment: <InputAdornment position="end">piece(s)</InputAdornment>,
+//       }}
+//     />
+//   );
+// }
 
-function Category() {
-  const theme = useTheme();
-  const responsiveLayout = useMediaQuery(theme.breakpoints.down("xs"));
+// function Category() {
+//   const theme = useTheme();
+//   const responsiveLayout = useMediaQuery(theme.breakpoints.down("xs"));
 
-  const category = useSelector((state) => state.details.value.category);
-  const dispatch = useDispatch();
+//   const category = useSelector((state) => state.details.value.category);
+//   const dispatch = useDispatch();
 
-  const onChange = (event) => {
-    dispatch(setCategory(event.target.value));
-    // console.log(event.target.value);
-  };
+//   const onChange = (event) => {
+//     dispatch(setCategory(event.target.value));
+//     // console.log(event.target.value);
+//   };
 
-  return (
-    <FormControl
-      variant="outlined"
-      fullWidth
-      required
-      margin={responsiveLayout ? "normal" : "none"}
-    >
-      <InputLabel id="donationCategory">Category</InputLabel>
+//   return (
+//     <FormControl
+//       variant="outlined"
+//       fullWidth
+//       required
+//       margin={responsiveLayout ? "normal" : "none"}
+//     >
+//       <InputLabel id="donationCategory">Category</InputLabel>
 
-      <Select
-        defaultValue={category}
-        labelId="donationRecipient"
-        //id="demo-simple-select-outlined"
-        value={category}
-        onChange={onChange}
-        label="Category"
-      >
-        <MenuItem value="">
-          <em>None</em>
-        </MenuItem>
-        <MenuItem value={"Canned Goods"}>Canned Goods</MenuItem>
-        <MenuItem value={"Instant Noodles"}>Instant Noodles</MenuItem>
-        <MenuItem value={"Vegetables"}>Vegetables</MenuItem>
-        <MenuItem value={"Eggs"}>Eggs</MenuItem>
-        <MenuItem value={"Uncooked Rice"}>Uncooked Rice</MenuItem>
-        <MenuItem value={"Bread"}>Bread &amp; Pastry</MenuItem>
-        <MenuItem value={"Fruits"}>Fruits</MenuItem>
-        <MenuItem value={"Biscuits"}>Biscuits &amp; Snacks</MenuItem>
-        <MenuItem value={"Beverages"}>Beverages</MenuItem>
-        <MenuItem value={"Others"}>Others</MenuItem>
-      </Select>
-    </FormControl>
-  );
-}
+//       <Select
+//         defaultValue={category}
+//         labelId="donationRecipient"
+//         //id="demo-simple-select-outlined"
+//         value={category}
+//         onChange={onChange}
+//         label="Category"
+//       >
+//         <MenuItem value="">
+//           <em>None</em>
+//         </MenuItem>
+//         <MenuItem value={"Canned Goods"}>Canned Goods</MenuItem>
+//         <MenuItem value={"Instant Noodles"}>Instant Noodles</MenuItem>
+//         <MenuItem value={"Vegetables"}>Vegetables</MenuItem>
+//         <MenuItem value={"Eggs"}>Eggs</MenuItem>
+//         <MenuItem value={"Uncooked Rice"}>Uncooked Rice</MenuItem>
+//         <MenuItem value={"Bread"}>Bread &amp; Pastry</MenuItem>
+//         <MenuItem value={"Fruits"}>Fruits</MenuItem>
+//         <MenuItem value={"Biscuits"}>Biscuits &amp; Snacks</MenuItem>
+//         <MenuItem value={"Beverages"}>Beverages</MenuItem>
+//         <MenuItem value={"Others"}>Others</MenuItem>
+//       </Select>
+//     </FormControl>
+//   );
+// }
 
 function Expiry() {
   const expiry = useSelector((state) => state.details.value.expiry);
@@ -190,26 +213,226 @@ function Expiry() {
   );
 }
 
-function Notes() {
-  const notes = useSelector((state) => state.details.value.notes);
+function CategoryOne() {
+  const instantNoodles = useSelector(
+    (state) => state.details.value.categories.instantNoodles
+  );
   const dispatch = useDispatch();
 
   const onChange = (event) => {
-    dispatch(setNotes(event.target.value));
+    const value = event.target.value;
+    if (isNaN(value)) {
+      dispatch(setInstantNoodles(""));
+    } else {
+      dispatch(setInstantNoodles(value));
+    }
+  };
+
+  return (
+    <TextField
+      type="text"
+      label="Instant Noodles"
+      value={instantNoodles}
+      onChange={onChange}
+      InputProps={{
+        inputProps: { maxLength: 4 },
+        startAdornment: <InputAdornment position="start">Pcs:</InputAdornment>,
+      }}
+      variant="outlined"
+    />
+  );
+}
+
+function CategoryTwo() {
+  const cannedGoods = useSelector(
+    (state) => state.details.value.categories.cannedGoods
+  );
+  const dispatch = useDispatch();
+
+  const onChange = (event) => {
+    const value = event.target.value;
+    if (isNaN(value)) {
+      dispatch(setCannedGoods(""));
+    } else {
+      dispatch(setCannedGoods(value));
+    }
+  };
+
+  return (
+    <TextField
+      label="Canned Goods"
+      value={cannedGoods}
+      onChange={onChange}
+      InputProps={{
+        inputProps: { maxLength: 4 },
+        startAdornment: <InputAdornment position="start">Pcs:</InputAdornment>,
+      }}
+      variant="outlined"
+    />
+  );
+}
+
+function CategoryThree() {
+  const eggs = useSelector((state) => state.details.value.categories.eggs);
+  const dispatch = useDispatch();
+
+  const onChange = (event) => {
+    const value = event.target.value;
+    if (isNaN(value)) {
+      dispatch(setEggs(""));
+    } else {
+      dispatch(setEggs(value));
+    }
+  };
+
+  return (
+    <TextField
+      label="Eggs"
+      value={eggs}
+      onChange={onChange}
+      InputProps={{
+        inputProps: { maxLength: 4 },
+        startAdornment: <InputAdornment position="start">Pcs:</InputAdornment>,
+      }}
+      variant="outlined"
+    />
+  );
+}
+
+function CategoryFour() {
+  const uncookedRice = useSelector(
+    (state) => state.details.value.categories.uncookedRice
+  );
+  const dispatch = useDispatch();
+
+  const onChange = (event) => {
+    const value = event.target.value;
+    if (isNaN(value)) {
+      dispatch(setUncookedRice(""));
+    } else {
+      dispatch(setUncookedRice(value));
+    }
   };
   return (
     <TextField
-      margin="normal"
-      variant="outlined"
-      fullWidth
-      id="donationNotes"
-      label="Donation Notes"
-      multiline
-      rows={4}
-      value={notes}
-      required
+      label="Uncooked rice"
+      value={uncookedRice}
       onChange={onChange}
-      placeholder="e.g., instructions"
+      InputProps={{
+        inputProps: { maxLength: 4 },
+        startAdornment: <InputAdornment position="start">Pcs:</InputAdornment>,
+      }}
+      variant="outlined"
+    />
+  );
+}
+
+function CategoryFive() {
+  const snacksBiscuits = useSelector(
+    (state) => state.details.value.categories.snacksBiscuits
+  );
+  const dispatch = useDispatch();
+
+  const onChange = (event) => {
+    const value = event.target.value;
+    if (isNaN(value)) {
+      dispatch(setSnacksBiscuits(""));
+    } else {
+      dispatch(setSnacksBiscuits(value));
+    }
+  };
+  return (
+    <TextField
+      label="Snacks &amp; Biscuits"
+      value={snacksBiscuits}
+      onChange={onChange}
+      InputProps={{
+        inputProps: { maxLength: 4 },
+        startAdornment: <InputAdornment position="start">Pcs:</InputAdornment>,
+      }}
+      variant="outlined"
+    />
+  );
+}
+
+function CategorySix() {
+  const vegetables = useSelector(
+    (state) => state.details.value.categories.vegetables
+  );
+  const dispatch = useDispatch();
+
+  const onChange = (event) => {
+    const value = event.target.value;
+    if (isNaN(value)) {
+      dispatch(setVegetables(""));
+    } else {
+      dispatch(setVegetables(value));
+    }
+  };
+  return (
+    <TextField
+      label="Vegetables"
+      value={vegetables}
+      onChange={onChange}
+      InputProps={{
+        inputProps: { maxLength: 4 },
+        startAdornment: <InputAdornment position="start">Pcs:</InputAdornment>,
+      }}
+      variant="outlined"
+    />
+  );
+}
+
+function CategorySeven() {
+  const breadPastry = useSelector(
+    (state) => state.details.value.categories.breadPastry
+  );
+  const dispatch = useDispatch();
+
+  const onChange = (event) => {
+    const value = event.target.value;
+    if (isNaN(value)) {
+      dispatch(setBreadPastry(""));
+    } else {
+      dispatch(setBreadPastry(value));
+    }
+  };
+  return (
+    <TextField
+      label="Bread &amp; Pastry"
+      value={breadPastry}
+      onChange={onChange}
+      InputProps={{
+        inputProps: { maxLength: 4 },
+        startAdornment: <InputAdornment position="start">Pcs:</InputAdornment>,
+      }}
+      variant="outlined"
+    />
+  );
+}
+
+function CategoryOthers() {
+  const others = useSelector((state) => state.details.value.categories.others);
+  const dispatch = useDispatch();
+
+  const onChange = (event) => {
+    const value = event.target.value;
+    if (isNaN(value)) {
+      dispatch(setOthers(""));
+    } else {
+      dispatch(setOthers(value));
+    }
+  };
+  return (
+    <TextField
+      label="Others"
+      value={others}
+      onChange={onChange}
+      InputProps={{
+        inputProps: { maxLength: 4 },
+        startAdornment: <InputAdornment position="start">Pcs:</InputAdornment>,
+      }}
+      variant="outlined"
     />
   );
 }
@@ -229,6 +452,9 @@ const useStyles = makeStyles((theme) => ({
   },
   divider_margin: {
     margin: "20px 0",
+  },
+  text_bold: {
+    fontWeight: "bold",
   },
 }));
 export default Item;
