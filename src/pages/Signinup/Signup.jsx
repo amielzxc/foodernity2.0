@@ -26,7 +26,7 @@ import { Link } from "react-router-dom";
 import Axios from "axios";
 import moment from "moment";
 import Snackbar from "../../components/Shared/Snackbar";
-import { ErrorAlert } from "../../components/Signinup/Signup/Alerts";
+import { ErrorAlert, SuccessAlert } from "../../components/Signinup/Signup/Alerts";
 
 function Signup() {
   const classes = useStyles();
@@ -36,6 +36,7 @@ function Signup() {
   const shortPasswordRef = useRef(null);
   const invalidInputRef = useRef(null);
   const emailTakenRef = useRef(null);
+  const successRef = useRef(null)
   // function onSubmit(data) {
   //    // console.log(data)
 
@@ -85,7 +86,7 @@ function Signup() {
   // }
 
   function checkName(name) {
-    var letters = /^[A-Za-z]+$/;
+    var letters = /^(?![\s.]+$)[a-zA-Z\s.]*$/;
 
     if (name.match(letters)) {
       //  console.log("all alphabet");
@@ -142,6 +143,7 @@ function Signup() {
                   } else {
                     console.log(res.data);
                     localStorage.setItem("vc", res.data);
+
                   }
                 })
                 .catch((error) => {
@@ -245,6 +247,7 @@ function Signup() {
         message="Numbers and special characters are not allowed in the first name field."
       />
       <ErrorAlert ref={emailTakenRef} message="Email is already taken." />
+      <SuccessAlert ref={successRef} message="" />
     </>
   );
 }
