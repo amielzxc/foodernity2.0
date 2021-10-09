@@ -26,7 +26,11 @@ import { Link } from "react-router-dom";
 import Axios from "axios";
 import moment from "moment";
 import Snackbar from "../../components/Shared/Snackbar";
-import { ErrorAlert, SuccessAlert } from "../../components/Signinup/Signup/Alerts";
+import {
+  ErrorAlert,
+  SuccessAlert,
+} from "../../components/Signinup/Signup/Alerts";
+import VerificationDialog from "../../components/Signinup/Signup/Dialog";
 
 function Signup() {
   const classes = useStyles();
@@ -36,7 +40,8 @@ function Signup() {
   const shortPasswordRef = useRef(null);
   const invalidInputRef = useRef(null);
   const emailTakenRef = useRef(null);
-  const successRef = useRef(null)
+  const successRef = useRef(null);
+  const verificationRef = useRef(null);
   // function onSubmit(data) {
   //    // console.log(data)
 
@@ -143,7 +148,7 @@ function Signup() {
                   } else {
                     console.log(res.data);
                     localStorage.setItem("vc", res.data);
-
+                    verificationRef.current.setDisplay();
                   }
                 })
                 .catch((error) => {
@@ -229,7 +234,6 @@ function Signup() {
         </Grid>
         <Grid item xs={false} md={2} lg={3} />
       </Grid>
-      {/* <PasswordMismatchAlert ref={passwordMismatchRef} /> */}
       <ErrorAlert
         ref={passwordMismatchRef}
         message="Password and confirm password did not match."
@@ -248,6 +252,7 @@ function Signup() {
       />
       <ErrorAlert ref={emailTakenRef} message="Email is already taken." />
       <SuccessAlert ref={successRef} message="" />
+      <VerificationDialog ref={verificationRef} />
     </>
   );
 }
