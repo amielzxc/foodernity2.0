@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import {
   Grid,
   CssBaseline,
@@ -24,11 +24,14 @@ import {
 } from "../../components/Signinup/Signup/Buttons";
 import { Link } from "react-router-dom";
 import Axios from "axios";
-import moment from "moment"
+import moment from "moment";
+import Snackbar from "../../components/Shared/Snackbar";
+import { PasswordMismatchAlert } from "../../components/Signinup/Signup/Alerts";
 
 function Signup() {
   const classes = useStyles();
   const { handleSubmit, control } = useForm();
+  const passwordMismatchRef = useRef(null);
 
   // function onSubmit(data) {
   //    // console.log(data)
@@ -78,89 +81,88 @@ function Signup() {
   //    }
   // }
 
-  function checkName(name){
+  function checkName(name) {
     var letters = /^[A-Za-z]+$/;
 
-   if(name.match(letters)){
+    if (name.match(letters)) {
       //  console.log("all alphabet");
       return true;
-   }else{
-    //  alert("contains special characters");
-     return false;
-   }
+    } else {
+      //  alert("contains special characters");
+      return false;
+    }
   }
 
-  
-  function checkPassword(password){
+  function checkPassword(password) {
     var regex = /^[A-Za-z0-9]*$/;
 
-   if(password.match(regex)){
+    if (password.match(regex)) {
       //  console.log("all alphabet");
       return true;
-   }else{
-    //  alert("contains special characters");
-     return false;
-   }
+    } else {
+      //  alert("contains special characters");
+      return false;
+    }
   }
 
   function onSubmit(data) {
-     console.log("Hello")
+    console.log("Hello");
 
-     //if firstname and lastname contains numbers or symbols
-     if(checkName(data.firstName)===true){
-        if(checkName(data.lastName)===true){
-          if (String(data.password).length >= 8) {
-            if(checkPassword(data.password)===true){
-              if (data.password !== data.confirmPassword) {
-           console.log('Password and confirm password did not match.')
-          //  setPasswordMismatch(true)
-        } else {
-         // let changePasscode = Math.floor((Math.random() * 888888)+111111); ilagay to sa server side
-           const obj = {
-              email: data.emailAddress,
-              password: data.password,
-              givenName: data.firstName,
-              surname: data.lastName,
-              dateOfReg: moment(new Date()).format('MM/DD/YYYY'),
-              loginMethod: 'default',
-              userType: 'user',
-              userStatus: 'active',
-           }
+    //if firstname and lastname contains numbers or symbols
+    if (checkName(data.firstName) === true) {
+      if (checkName(data.lastName) === true) {
+        if (String(data.password).length >= 8) {
+          if (checkPassword(data.password) === true) {
+            if (data.password !== data.confirmPassword) {
+              passwordMismatchRef.current.setDisplay();
+              //  setPasswordMismatch(true)
+            } else {
+              // let changePasscode = Math.floor((Math.random() * 888888)+111111); ilagay to sa server side
+              const obj = {
+                email: data.emailAddress,
+                password: data.password,
+                givenName: data.firstName,
+                surname: data.lastName,
+                dateOfReg: moment(new Date()).format("MM/DD/YYYY"),
+                loginMethod: "default",
+                userType: "user",
+                userStatus: "active",
+              };
 
-           console.log(obj)
-           Axios.post('http://localhost:3001/signup/signup', obj)
-              .then((res) => {
-                 if (String(res.data) === 'email is already taken') {
+              console.log(obj);
+              Axios.post("http://localhost:3001/signup/signup", obj)
+                .then((res) => {
+                  if (String(res.data) === "email is already taken") {
                     // setEmailTaken(true)
                     //put the notification/alert code here if the email is already taken.
-                 }else{
-                  console.log(res.data)
-                  localStorage.setItem("vc",res.data);
-                 }
-                 
-              })
-              .catch((error) => {
-                 console.log(error)
-              })
+                  } else {
+                    console.log(res.data);
+                    localStorage.setItem("vc", res.data);
+                  }
+                })
+                .catch((error) => {
+                  console.log(error);
+                });
+            }
+          } else {
+            console.log("Password must only contain letters and numbers.");
+          }
+        } else {
+          // setInvalidPassword(true)
+          console.log(
+            "Password too short. Please make it at least 8 characters long."
+          );
         }
-        
-      }else{
+      } else {
         console.log(
-          "Password must only contain letters and numbers."
-       )
+          "Numbers and special characters are not allowed in the last name field."
+        );
       }
-     } else {
-        // setInvalidPassword(true)
-        console.log(
-           'Password too short. Please make it at least 8 characters long.'
-        )
-     }
-    }else{
-      console.log("Numbers and special characters are not allowed in the last name field.");
+    } else {
+      console.log(
+        "Numbers and special characters are not allowed in the first name field."
+      );
     }
-  }else{
-    console.log("Numbers and special characters are not allowed in the first name field.");
-}
   }
 
   return (
@@ -173,9 +175,7 @@ function Signup() {
         <Grid item xs={false} sm={2} lg={3} />
         <Grid container item xs={12} sm={8} lg={6}>
           <Paper className={classes.container}>
-            <form
-            onSubmit={handleSubmit(onSubmit)}
-            >
+            <form onSubmit={handleSubmit(onSubmit)}>
               <Typography
                 variant="h3"
                 className={`${classes.text_highlighted} ${classes.title}`}
@@ -219,10 +219,7 @@ function Signup() {
         </Grid>
         <Grid item xs={false} md={2} lg={3} />
       </Grid>
-      {/* <PasswordMismatchAlert open={passwordMismatch} close={handleClose} />
-      <InvalidPasswordAlert open={invalidPassword} close={handleClose} />
-      <EmailTakenAlert open={emailTaken} close={handleClose} />
-      <SuccessfulAlert open={successfulRegister} close={handleClose} /> */}
+      <PasswordMismatchAlert ref={passwordMismatchRef} />
     </>
   );
 }

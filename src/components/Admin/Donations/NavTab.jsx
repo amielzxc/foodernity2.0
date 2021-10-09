@@ -60,19 +60,7 @@ function NavTab() {
           {data
             .filter((value) => value.status === "Available")
             .map((value, index) => (
-              <Item
-                key={index}
-                donor={value.donor}
-                image={value.image}
-                name={value.name}
-                quantity={value.quantity}
-                category={value.category}
-                expiry={value.expiry}
-                notes={value.notes}
-                contactNumber={value.contactNumber}
-                deliverDate={value.deliverDate}
-                status={value.status}
-              />
+              <Item key={index} item={value} />
             ))}
         </div>
       </TabPanel>
@@ -83,16 +71,17 @@ function NavTab() {
             .map((value, index) => (
               <Item
                 key={index}
-                donor={value.donor}
-                image={value.image}
-                name={value.name}
-                quantity={value.quantity}
-                category={value.category}
-                expiry={value.expiry}
-                notes={value.notes}
-                contactNumber={value.contactNumber}
-                deliverDate={value.deliverDate}
-                status={value.status}
+                item={value}
+                // donor={value.donor}
+                // image={value.image}
+                // name={value.name}
+                // quantity={value.quantity}
+                // category={value.category}
+                // expiry={value.expiry}
+                // notes={value.notes}
+                // contactNumber={value.contactNumber}
+                // deliverDate={value.deliverDate}
+                // status={value.status}
               />
             ))}
         </div>
@@ -133,7 +122,7 @@ const data = [
     image: "https://c1.staticflickr.com/5/4158/33593402264_bedafb79d1_c.jpg",
     name: "Pancit Canton Noodles",
     quantity: 7,
-    category: "Instant Noodles",
+    categories: ["Instant Noodles", "Canned Goods"],
     expiry: "10/05/2021",
     notes: "notes",
     contactNumber: "09123456789",
@@ -145,7 +134,7 @@ const data = [
     image: "https://c1.staticflickr.com/5/4158/33593402264_bedafb79d1_c.jpg",
     name: "Pancit Canton Noodles",
     quantity: 7,
-    category: "Instant Noodles",
+    categories: ["Instant Noodles", "Canned Goods"],
     expiry: "10/05/2021",
     notes: "notes",
     contactNumber: "09123456789",

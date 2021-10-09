@@ -27,7 +27,7 @@ const PasswordMismatchAlert = forwardRef((props, ref) => {
   useImperativeHandle(
     (ref,
     (bool) => ({
-      setPasswordMismatch() {
+      setDisplay() {
         setToggle(bool);
       },
     }))

@@ -1,18 +1,10 @@
 import { Box, Button, makeStyles, Typography } from "@material-ui/core";
 import { useRef } from "react";
+import ItemDetails from "./Details";
 
-function Item({
-  donor,
-  image,
-  name,
-  quantity,
-  category,
-  expiry,
-  notes,
-  contactNumber,
-  deliverDate,
-  status,
-}) {
+function Item(props) {
+  const { donor, image, name, quantity, contactNumber, deliverDate, status } =
+    props.item;
   const classes = useStyles();
   const dialogRef = useRef(null);
 
@@ -22,7 +14,7 @@ function Item({
     if (el.closest("button")) {
       console.log("accept");
     } else if (el.closest("div")) {
-      console.log("display details");
+      dialogRef.current.showModal();
     } else {
       return;
     }
@@ -58,7 +50,7 @@ function Item({
           </Box>
         </div>
       </Box>
-      {/* <Details /> */}
+      <ItemDetails ref={dialogRef} item={props.item} />
     </>
   );
 }
@@ -134,6 +126,7 @@ const useStyles = makeStyles((theme) => ({
     background: "white",
     display: "flex",
     alignItems: "center",
+    cursor: "pointer",
     "@media (max-width: 450px)": {
       flexDirection: "column",
     },

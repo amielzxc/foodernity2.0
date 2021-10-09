@@ -91,6 +91,9 @@ function NavigationButtons() {
         <Button component={Link} to="/admin/records">
           Records
         </Button>
+        <Button component={Link} to="/admin/users">
+          Users
+        </Button>
         <Button>Logout</Button>
       </div>
     </Hidden>
@@ -130,6 +133,7 @@ function MenuButton() {
         <MenuItem component={Link} to="/admin/records">
           Records
         </MenuItem>
+        <MenuItem to="/admin/users">Users</MenuItem>
         <MenuItem>Logout</MenuItem>
       </Menu>
     </Hidden>

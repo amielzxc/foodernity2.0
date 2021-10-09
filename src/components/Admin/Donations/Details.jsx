@@ -7,8 +7,22 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import { useTheme } from "@material-ui/core/styles";
+import { Chip, Typography } from "@material-ui/core";
 
-const Details = forwardRef((props, ref) => {
+const ItemDetails = forwardRef((props, ref) => {
+  const {
+    donor,
+    image,
+    name,
+    quantity,
+    categories,
+    expiry,
+    notes,
+    contactNumber,
+    deliverDate,
+    status,
+  } = props.item;
+
   const [open, setOpen] = useState(false);
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("sm"));
@@ -26,31 +40,40 @@ const Details = forwardRef((props, ref) => {
     setOpen(false);
   };
   return (
-    <Dialog
-      fullScreen={fullScreen}
-      open={open}
-      onClose={handleClose}
-      aria-labelledby="responsive-dialog-title"
-    >
-      <DialogTitle id="responsive-dialog-title">
-        {"Use Google's location service?"}
-      </DialogTitle>
+    <Dialog fullScreen={fullScreen} open={open} onClose={handleClose}>
+      <DialogTitle>{"Donation Details"}</DialogTitle>
       <DialogContent>
-        <DialogContentText>
-          Let Google help apps determine location. This means sending anonymous
-          location data to Google, even when no apps are running.
-        </DialogContentText>
+        {/* <Typography></Typography> */}
+        <Typography>Donation: {name}</Typography>
+        <Typography>Expiry Date: {expiry}</Typography>
+        <Typography>Categories</Typography>
+        {categories.map((item, index) => (
+          <Chip
+            key={index}
+            color="primary"
+            label={item}
+            size="small"
+            style={{ marginRight: "5px" }}
+          />
+        ))}
+        <Typography>Donor: {donor}</Typography>
+        <Typography>Deliver date: {deliverDate} </Typography>
+        <Typography>Contact Number: {contactNumber}</Typography>
+        <Typography>Notes: {notes}</Typography>
+        <Typography></Typography>
       </DialogContent>
       <DialogActions>
-        <Button autoFocus onClick={handleClose} color="primary">
-          Disagree
-        </Button>
-        <Button onClick={handleClose} color="primary" autoFocus>
-          Agree
+        <Button
+          onClick={handleClose}
+          color="primary"
+          variant="contained"
+          autoFocus
+        >
+          Accept Donation
         </Button>
       </DialogActions>
     </Dialog>
   );
 });
 
-export default Details;
+export default ItemDetails;

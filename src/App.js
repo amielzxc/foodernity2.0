@@ -27,7 +27,7 @@ const Donations = lazy(() => import("./pages/Admin/Donations"));
 const CallForDonations = lazy(() => import("./pages/Admin/CallForDonations"));
 const StockInventory = lazy(() => import("./pages/Admin/StockInventory"));
 const Records = lazy(() => import("./pages/Admin/Records"));
-
+const Users = lazy(() => import("./pages/Admin/Users"));
 function App() {
   return (
     <Suspense fallback={<Fallback />}>
@@ -53,6 +53,7 @@ function App() {
           <Route path="/admin/callfordonations" component={CallForDonations} />
           <Route path="/admin/inventory" component={StockInventory} />
           <Route path="/admin/records" component={Records} />
+          <Route path="/admin/users" component={Users} />
           {/* Account */}
           <Route path="/account/mydonations" component={MyDonations} />
           <Route path="/account/myprofile" component={Profile} />
