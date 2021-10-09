@@ -1,37 +1,19 @@
 import { Snackbar } from "@material-ui/core";
 import MuiAlert from "@material-ui/lab/Alert";
 import { forwardRef, useImperativeHandle, useState } from "react";
+
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
 
-// function PasswordMismatchAlert(props) {
-//   const { close, open } = props;
-//   const message = "Password and confirm password did not match.";
-
-//   return (
-//     <>
-//       <Snackbar open={open} autoHideDuration={2000} onClose={close}>
-//         <Alert onClose={close} severity="error">
-//           {message}
-//         </Alert>
-//       </Snackbar>
-//     </>
-//   );
-// }
-
 const PasswordMismatchAlert = forwardRef((props, ref) => {
   const [toggle, setToggle] = useState(false);
-  const message = "Password and confirm password did not match.";
 
-  useImperativeHandle(
-    (ref,
-    (bool) => ({
-      setDisplay() {
-        setToggle(bool);
-      },
-    }))
-  );
+  useImperativeHandle(ref, () => ({
+    setDisplay() {
+      setToggle(true);
+    },
+  }));
 
   const handleClose = (event, reason) => {
     if (reason === "clickaway") {
@@ -41,66 +23,144 @@ const PasswordMismatchAlert = forwardRef((props, ref) => {
   };
 
   return (
-    <>
-      <Snackbar open={toggle} autoHideDuration={2000} onClose={setToggle}>
-        <Alert onClose={handleClose} severity="error">
-          {" "}
-          {message}{" "}
-        </Alert>
-      </Snackbar>
-    </>
+    <Snackbar open={toggle} autoHideDuration={3000} onClose={setToggle}>
+      <Alert onClose={handleClose} severity="error">
+        Password and confirm password did not match.
+      </Alert>
+    </Snackbar>
   );
 });
 
-function InvalidPasswordAlert(props) {
-  const { close, open } = props;
+const InvalidPasswordAlert = forwardRef((props, ref) => {
+  const [toggle, setToggle] = useState(false);
+  const message = "Password must only contain letters and numbers.";
+
+  useImperativeHandle(ref, () => ({
+    setDisplay() {
+      setToggle(true);
+    },
+  }));
+
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setToggle(false);
+  };
+
+  return (
+    <Snackbar open={toggle} autoHideDuration={2000} onClose={handleClose}>
+      <Alert onClose={toggle} severity="error">
+        {message}
+      </Alert>
+    </Snackbar>
+  );
+});
+
+const ShortPasswordAlert = forwardRef((props, ref) => {
+  const [toggle, setToggle] = useState(false);
   const message =
     "Password too short. Please make it at least 8 characters long.";
 
-  return (
-    <>
-      <Snackbar open={open} autoHideDuration={2000} onClose={close}>
-        <Alert onClose={close} severity="error">
-          {message}
-        </Alert>
-      </Snackbar>
-    </>
-  );
-}
+  useImperativeHandle(ref, () => ({
+    setDisplay() {
+      setToggle(true);
+    },
+  }));
 
-function EmailTakenAlert(props) {
-  const { close, open } = props;
-  const message = "Email is already taken.";
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setToggle(false);
+  };
 
   return (
-    <>
-      <Snackbar open={open} autoHideDuration={2000} onClose={close}>
-        <Alert onClose={close} severity="error">
-          {message}
-        </Alert>
-      </Snackbar>
-    </>
+    <Snackbar open={toggle} autoHideDuration={2000} onClose={handleClose}>
+      <Alert onClose={toggle} severity="error">
+        {message}
+      </Alert>
+    </Snackbar>
   );
-}
+});
 
-function SuccessfulAlert(props) {
-  const { close, open } = props;
-  const message = "New user added successfully.";
+const InvalidInputAlert = forwardRef((props, ref) => {
+  const [toggle, setToggle] = useState(false);
+  const message =
+    "Numbers and special characters are not allowed in the last name field.";
+
+  useImperativeHandle(ref, () => ({
+    setDisplay() {
+      setToggle(true);
+    },
+  }));
+
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setToggle(false);
+  };
 
   return (
-    <>
-      <Snackbar open={open} autoHideDuration={2000} onClose={close}>
-        <Alert onClose={close} severity="success">
-          {message}
-        </Alert>
-      </Snackbar>
-    </>
+    <Snackbar open={toggle} autoHideDuration={2000} onClose={handleClose}>
+      <Alert onClose={toggle} severity="error">
+        {message}
+      </Alert>
+    </Snackbar>
   );
-}
+});
 
-export {
-  PasswordMismatchAlert,
-  InvalidPasswordAlert,
-  EmailTakenAlert,
-  SuccessfulAlert,
-};
+const EmailTakenAlert = forwardRef((props, ref) => {
+  const [toggle, setToggle] = useState(false);
+  const message =
+    "Numbers and special characters are not allowed in the last name field.";
+
+  useImperativeHandle(ref, () => ({
+    setDisplay() {
+      setToggle(true);
+    },
+  }));
+
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setToggle(false);
+  };
+
+  return (
+    <Snackbar open={toggle} autoHideDuration={2000} onClose={handleClose}>
+      <Alert onClose={toggle} severity="error">
+        {message}
+      </Alert>
+    </Snackbar>
+  );
+});
+
+const ErrorAlert = forwardRef((props, ref) => {
+  const [toggle, setToggle] = useState(false);
+
+  useImperativeHandle(ref, () => ({
+    setDisplay() {
+      setToggle(true);
+    },
+  }));
+
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setToggle(false);
+  };
+
+  return (
+    <Snackbar open={toggle} autoHideDuration={2000} onClose={handleClose}>
+      <Alert onClose={toggle} severity="error">
+        {props.message}
+      </Alert>
+    </Snackbar>
+  );
+});
+
+export { ErrorAlert };

@@ -26,13 +26,16 @@ import { Link } from "react-router-dom";
 import Axios from "axios";
 import moment from "moment";
 import Snackbar from "../../components/Shared/Snackbar";
-import { PasswordMismatchAlert } from "../../components/Signinup/Signup/Alerts";
+import { ErrorAlert } from "../../components/Signinup/Signup/Alerts";
 
 function Signup() {
   const classes = useStyles();
   const { handleSubmit, control } = useForm();
   const passwordMismatchRef = useRef(null);
-
+  const invalidPasswordRef = useRef(null);
+  const shortPasswordRef = useRef(null);
+  const invalidInputRef = useRef(null);
+  const emailTakenRef = useRef(null);
   // function onSubmit(data) {
   //    // console.log(data)
 
@@ -133,6 +136,7 @@ function Signup() {
               Axios.post("http://localhost:3001/signup/signup", obj)
                 .then((res) => {
                   if (String(res.data) === "email is already taken") {
+                    emailTakenRef.current.setDisplay();
                     // setEmailTaken(true)
                     //put the notification/alert code here if the email is already taken.
                   } else {
@@ -145,20 +149,24 @@ function Signup() {
                 });
             }
           } else {
+            invalidPasswordRef.current.setDisplay();
             console.log("Password must only contain letters and numbers.");
           }
         } else {
           // setInvalidPassword(true)
+          shortPasswordRef.current.setDisplay();
           console.log(
             "Password too short. Please make it at least 8 characters long."
           );
         }
       } else {
+        invalidInputRef.current.setDisplay();
         console.log(
           "Numbers and special characters are not allowed in the last name field."
         );
       }
     } else {
+      invalidInputRef.current.setDisplay();
       console.log(
         "Numbers and special characters are not allowed in the first name field."
       );
@@ -219,7 +227,24 @@ function Signup() {
         </Grid>
         <Grid item xs={false} md={2} lg={3} />
       </Grid>
-      <PasswordMismatchAlert ref={passwordMismatchRef} />
+      {/* <PasswordMismatchAlert ref={passwordMismatchRef} /> */}
+      <ErrorAlert
+        ref={passwordMismatchRef}
+        message="Password and confirm password did not match."
+      />
+      <ErrorAlert
+        ref={invalidPasswordRef}
+        message="Password must only contain letters and numbers."
+      />{" "}
+      <ErrorAlert
+        ref={shortPasswordRef}
+        message="Password too short. Please make it at least 8 characters long."
+      />
+      <ErrorAlert
+        ref={invalidInputRef}
+        message="Numbers and special characters are not allowed in the first name field."
+      />
+      <ErrorAlert ref={emailTakenRef} message="Email is already taken." />
     </>
   );
 }
