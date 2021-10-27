@@ -10,18 +10,7 @@ import { useTheme } from "@material-ui/core/styles";
 import { Chip, Typography } from "@material-ui/core";
 
 const ItemDetails = forwardRef((props, ref) => {
-  const {
-    donor,
-    image,
-    name,
-    quantity,
-    categories,
-    expiry,
-    notes,
-    contactNumber,
-    deliverDate,
-    status,
-  } = props.item;
+  console.log(props);
 
   const [open, setOpen] = useState(false);
   const theme = useTheme();
@@ -44,10 +33,10 @@ const ItemDetails = forwardRef((props, ref) => {
       <DialogTitle>{"Donation Details"}</DialogTitle>
       <DialogContent>
         {/* <Typography></Typography> */}
-        <Typography>Donation: {name}</Typography>
-        <Typography>Expiry Date: {expiry}</Typography>
+        {/* <Typography>Donation: {name}</Typography> */}
+        {/* <Typography>Expiry Date: {expiry}</Typography> */}
         <Typography>Categories</Typography>
-        {categories.map((item, index) => (
+        {/* {categories.map((item, index) => (
           <Chip
             key={index}
             color="primary"
@@ -59,10 +48,10 @@ const ItemDetails = forwardRef((props, ref) => {
         <Typography>Donor: {donor}</Typography>
         <Typography>Deliver date: {deliverDate} </Typography>
         <Typography>Contact Number: {contactNumber}</Typography>
-        <Typography>Notes: {notes}</Typography>
+        <Typography>Notes: {notes}</Typography> */}
         <Typography></Typography>
       </DialogContent>
-      <DialogActions>
+      {/* <DialogActions>
         <Button
           onClick={handleClose}
           color="primary"
@@ -71,7 +60,7 @@ const ItemDetails = forwardRef((props, ref) => {
         >
           Accept Donation
         </Button>
-      </DialogActions>
+      </DialogActions> */}
     </Dialog>
   );
 });

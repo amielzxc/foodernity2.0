@@ -10,12 +10,14 @@ import { Provider } from "react-redux";
 import stepperReducer from "./store/Inventory/stepper";
 import guidelinesReducer from "./store/Inventory/guidelines";
 import detailsReducer from "./store/Inventory/details";
+import ctaReducer from "./store/cta";
 
 const store = configureStore({
   reducer: {
     stepper: stepperReducer,
     guidelines: guidelinesReducer,
     details: detailsReducer,
+    cta: ctaReducer,
   },
 });
 

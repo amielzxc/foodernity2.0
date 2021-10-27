@@ -9,6 +9,7 @@ import Item from "./Item";
 import { Button, useTheme, useMediaQuery } from "@material-ui/core";
 import AddIcon from "@material-ui/icons/Add";
 import Form from "./Form";
+import { useSelector } from "react-redux";
 
 function TabPanel(props) {
   const { children, value, index } = props;
@@ -26,6 +27,7 @@ function TabPanel(props) {
 
 function NavTab() {
   const classes = useStyles();
+  const ctaList = useSelector((state) => state.cta.value);
   const [value, setValue] = useState(0);
   const openFormRef = useRef(null);
   const handleChange = (event, newValue) => {
@@ -79,9 +81,10 @@ function NavTab() {
         </Box>
         <TabPanel value={value} index={0}>
           <div className={classes.grid}>
-            {requestData.map((item, index) => (
+            {ctaList.map((item, index) => (
               <Item
                 key={index}
+                id={item.id}
                 pubmat={item.pubmat}
                 title={item.title}
                 description={item.description}
@@ -123,39 +126,3 @@ const useStyles = makeStyles((theme) => ({
     gap: "1rem",
   },
 }));
-
-const requestData = [
-  {
-    title: "Call for donations for the victims of Typhoon Rolly",
-    description:
-      "In support of the disaster relief efforts of the Ateneo Graduate School of Business",
-    pubmat: "http://gsb.ateneo.edu/wp-content/uploads/2020/11/Rolly-1.jpg",
-    donationCount: 123,
-    // status: 'Fulfilled',
-    date: "June 22, 2021",
-    categories: ["Instant Noodles", "Vegetables"],
-  },
-  {
-    title: "Call for Donations for Mindanao Earthquake Survivors",
-    description:
-      " The maryknoll//Miriam College Alumni Association appeals for in kind donations for victims of recent earthquakes in Mindanao.",
-    pubmat:
-      "https://www.mc.edu.ph/Portals/21/xBlog/uploads/2019/11/19/MMCAADonations1.jpg",
-    donationCount: 89,
-
-    date: "June 27, 2021",
-    categories: ["Canned Goods"],
-  },
-  {
-    title:
-      "Help us raise funds and relief goods for the victims of fire in Jolo, Sulu",
-    description:
-      "Help us raise funds and relief goods for the 3,500 families affected by the July 25, 2018 fire in Jolo, Sulu",
-    pubmat:
-      "https://iisupd.files.wordpress.com/2018/07/social-card-jolo-fire.jpg",
-    donationCount: 81,
-    status: "Active",
-    date: "June 29, 2021",
-    categories: ["Vegetables", "Canned Goods"],
-  },
-];

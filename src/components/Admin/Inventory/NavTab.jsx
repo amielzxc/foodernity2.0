@@ -4,9 +4,11 @@ import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import InventoryTable from "./InventoryTable";
 import Stocks from "./Stocks";
+import { Button } from "@material-ui/core";
+import Donate from "./Donate";
 // import Item from "./Item";
 
 function TabPanel(props) {
@@ -26,7 +28,7 @@ function TabPanel(props) {
 function NavTab() {
   const classes = useStyles();
   const [value, setValue] = useState(0);
-
+  const formRef = useRef(null);
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -34,10 +36,22 @@ function NavTab() {
   return (
     <div className={classes.root}>
       <Box boxShadow={1} borderRadius={5} bgcolor="white">
-        <Box p={2}>
+        <Box
+          p={2}
+          display="flex"
+          justifyContent="space-between"
+          flexWrap="wrap"
+        >
           <Typography variant="h5" className={classes.text_bold}>
-            Inventory &amp; Stocks
+            Inventory
           </Typography>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={() => formRef.current.openForm()}
+          >
+            Release Donation
+          </Button>
         </Box>
         <AppBar
           position="static"
@@ -52,17 +66,18 @@ function NavTab() {
             textColor="primary"
             variant="fullWidth"
           >
-            <Tab label="Items" />
-            <Tab label="Stocks per category" />
+            <Tab label="Items on hand" />
+            {/* <Tab label="Stocks per category" /> */}
           </Tabs>
         </AppBar>
       </Box>
       <TabPanel value={value} index={0}>
         <InventoryTable />
       </TabPanel>
-      <TabPanel value={value} index={1}>
+      {/* <TabPanel value={value} index={1}>
         <Stocks />
-      </TabPanel>
+      </TabPanel> */}
+      <Donate ref={formRef} />
     </div>
   );
 }

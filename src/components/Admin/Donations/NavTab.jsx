@@ -6,6 +6,7 @@ import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 import { useState } from "react";
 import Item from "./Item";
+import ReceiveDonationsTable from "./ReceiveDonationsTable";
 
 function TabPanel(props) {
   const { children, value, index } = props;
@@ -34,7 +35,7 @@ function NavTab() {
       <Box boxShadow={1} borderRadius={5} bgcolor="white">
         <Box p={2}>
           <Typography variant="h5" className={classes.text_bold}>
-            Donations
+            Receive Donations
           </Typography>
         </Box>
         <AppBar
@@ -50,21 +51,22 @@ function NavTab() {
             textColor="primary"
             variant="fullWidth"
           >
-            <Tab label="Available" />
-            <Tab label="To be claimed" />
+            <Tab label="List of donations " />
+            {/* <Tab label="To be claimed" /> */}
           </Tabs>
         </AppBar>
       </Box>
       <TabPanel value={value} index={0}>
-        <div className={classes.grid}>
+        <ReceiveDonationsTable />
+        {/* <div className={classes.grid}>
           {data
             .filter((value) => value.status === "Available")
             .map((value, index) => (
               <Item key={index} item={value} />
             ))}
-        </div>
+        </div> */}
       </TabPanel>
-      <TabPanel value={value} index={1}>
+      {/* <TabPanel value={value} index={1}>
         <div className={classes.grid}>
           {data
             .filter((value) => value.status === "Accepted")
@@ -85,7 +87,7 @@ function NavTab() {
               />
             ))}
         </div>
-      </TabPanel>
+      </TabPanel> */}
     </div>
   );
 }

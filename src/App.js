@@ -12,16 +12,16 @@ const Signin = lazy(() => import("./pages/Signinup/Signin"));
 const Signup = lazy(() => import("./pages/Signinup/Signup"));
 const ForgotPassword = lazy(() => import("./pages/Signinup/ForgotPassword"));
 
-const Inventory = lazy(() => import("./pages/Inventory/Inventory"));
-const MakeDonation = lazy(() => import("./pages/Inventory/MakeDonation"));
+// const Inventory = lazy(() => import("./pages/Inventory/Inventory"));
+// const MakeDonation = lazy(() => import("./pages/Inventory/MakeDonation"));
 
-const CallForDonation = lazy(() =>
-  import("./pages/CallForDonation/CallForDonation")
-);
+// const CallForDonation = lazy(() =>
+//   import("./pages/CallForDonation/CallForDonation")
+// );
 
-const MyDonations = lazy(() => import("./pages/Account/Donations"));
-const Profile = lazy(() => import("./pages/Account/Profile"));
-const Edit = lazy(() => import("./pages/Account/Edit"));
+// const MyDonations = lazy(() => import("./pages/Account/Donations"));
+// const Profile = lazy(() => import("./pages/Account/Profile"));
+// const Edit = lazy(() => import("./pages/Account/Edit"));
 
 const Donations = lazy(() => import("./pages/Admin/Donations"));
 const CallForDonations = lazy(() => import("./pages/Admin/CallForDonations"));
@@ -45,19 +45,19 @@ function App() {
           <Route path="/forgotpassword" component={ForgotPassword} />
 
           {/* Inventory */}
-          <Route path="/inventory" component={Inventory} />
-          <Route path="/makeadonation" component={MakeDonation} />
+          {/* <Route path="/inventory" component={Inventory} />
+          <Route path="/makeadonation" component={MakeDonation} /> */}
           {/* Callfordonations */}
-          <Route path="/callfordonation" component={CallForDonation} />
+          {/* <Route path="/callfordonation" component={CallForDonation} /> */}
           <Route path="/admin/donations" component={Donations} />
           <Route path="/admin/callfordonations" component={CallForDonations} />
           <Route path="/admin/inventory" component={StockInventory} />
           <Route path="/admin/records" component={Records} />
           <Route path="/admin/users" component={Users} />
           {/* Account */}
-          <Route path="/account/mydonations" component={MyDonations} />
+          {/* <Route path="/account/mydonations" component={MyDonations} />
           <Route path="/account/myprofile" component={Profile} />
-          <Route path="/account/editprofile" component={Edit} />
+          <Route path="/account/editprofile" component={Edit} /> */}
           <Route path="">
             <p>404</p>
           </Route>

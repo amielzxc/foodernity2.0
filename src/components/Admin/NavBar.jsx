@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
     textDecoration: "none",
   },
   navbar__actions: {
-    width: "40rem",
+    width: "45rem",
     display: "flex",
     justifyContent: "flex-end",
     marginRight: theme.spacing(2),
@@ -79,7 +79,7 @@ function NavigationButtons() {
     <Hidden smDown>
       <div className={classes.navbar__actions}>
         <Button component={Link} to="/admin/donations">
-          Donations
+          Receive Donations
         </Button>
         <Button component={Link} to="/admin/callfordonations">
           Call for donations
@@ -88,9 +88,9 @@ function NavigationButtons() {
         <Button component={Link} to="/admin/inventory">
           Inventory
         </Button>
-        <Button component={Link} to="/admin/records">
+        {/* <Button component={Link} to="/admin/records">
           Records
-        </Button>
+        </Button> */}
         <Button component={Link} to="/admin/users">
           Users
         </Button>
@@ -122,7 +122,7 @@ function MenuButton() {
         onClose={handleClose}
       >
         <MenuItem component={Link} to="/admin/donations">
-          Donations
+          Receive Donations
         </MenuItem>
         <MenuItem component={Link} to="/admin/callfordonations">
           Call for donations
@@ -130,9 +130,9 @@ function MenuButton() {
         <MenuItem component={Link} to="/admin/inventory">
           Inventory
         </MenuItem>
-        <MenuItem component={Link} to="/admin/records">
+        {/* <MenuItem component={Link} to="/admin/records">
           Records
-        </MenuItem>
+        </MenuItem> */}
         <MenuItem to="/admin/users">Users</MenuItem>
         <MenuItem>Logout</MenuItem>
       </Menu>

@@ -12,14 +12,28 @@ import {
 } from "@material-ui/core";
 import DoneIcon from "@material-ui/icons/Done";
 
-function Item({ title, description, pubmat, donationCount, date, categories }) {
+function Item({
+  id,
+  title,
+  description,
+  pubmat,
+  donationCount,
+  date,
+  categories,
+}) {
   const classes = useStyles();
   return (
     <Card>
       <CardHeader
         action={
           <Tooltip title="Mark as fulfilled">
-            <IconButton>
+            <IconButton
+              onClick={() => {
+                if (window.confirm("Are you sure to mark it as fulfilled?")) {
+                  // post here and fetch
+                }
+              }}
+            >
               <DoneIcon />
             </IconButton>
           </Tooltip>
