@@ -3,7 +3,7 @@ import { Grid, CssBaseline, makeStyles, Typography } from "@material-ui/core";
 import { Helmet } from "react-helmet";
 import { useForm } from "react-hook-form";
 import { Link, useHistory } from "react-router-dom";
-
+import Axios, * as others from 'axios';
 import BackgroundImage from "../../assets/Signinup/signin.png";
 //components
 import {
@@ -24,36 +24,36 @@ function Signin() {
   const history = useHistory();
   const classes = useStyles();
 
-  // function onSubmit(data) {
-  //    // console.log(data)
-  //    const obj = {
-  //       email: data.emailAddress,
-  //       password: data.password,
-  //    }
+  function onSubmit(data) {
+     // console.log(data)
+     const obj = {
+        email: data.emailAddress,
+        password: data.password,
+     }
 
-  //    console.log(obj)
-  //    Axios.post('http://localhost:3001/login', obj)
-  //       .then((res) => {
-  //          if (res.data === 'Wrong email/password!') {
-  //             setWrongCredentials(true)
-  //             console.log('Wrong email/password!')
-  //          } else if (res.data === 'No account matched!') {
-  //             setNoAccount(true)
-  //             console.log('No account matched!')
-  //          } else {
-  //             setWrongCredentials(false)
-  //             setNoAccount(false)
-  //             console.log('hello')
-  //             console.log(res.data)
-  //             history.replace('/donations')
-  //             console.log('token: ' + res.data.userID)
-  //             localStorage.setItem('token', res.data.userID)
-  //          }
-  //       })
-  //       .catch((error) => {
-  //          console.log(error)
-  //       })
-  // }
+     console.log(obj)
+     Axios.post('https://foodernity.herokuapp.com/loginAdmin/loginAdmin', obj)
+        .then((res) => {
+           if (res.data === 'Wrong email/password.') {
+              setWrongCredentials(true)
+              console.log('Wrong email/password.')
+           } else if (res.data === 'No existing account.') {
+              setNoAccount(true)
+              console.log('No existing account.')
+           } else {
+              setWrongCredentials(false)
+              setNoAccount(false)
+              console.log('hello')
+              console.log(res.data)
+              history.replace('/admin/donations')
+              console.log('token: ' + res.data.changePasswordCode)
+              localStorage.setItem('token', res.data.changePasswordCode)
+           }
+        })
+        .catch((error) => {
+           console.log(error)
+        })
+  }
 
   const [wrongCredentials, setWrongCredentials] = useState(false);
   const [noAccount, setNoAccount] = useState(false);
@@ -98,7 +98,7 @@ function Signin() {
             </Typography>
             <form
               className={classes.form}
-              // onSubmit={handleSubmit(onSubmit)}
+              onSubmit={handleSubmit(onSubmit)}
             >
               <EmailInput control={control} />
               <PasswordInput control={control} />

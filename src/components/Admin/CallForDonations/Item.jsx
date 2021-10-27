@@ -11,46 +11,64 @@ import {
   Typography,
 } from "@material-ui/core";
 import DoneIcon from "@material-ui/icons/Done";
+import Axios, * as others from 'axios';
 
 function Item({
   id,
   title,
   description,
-  pubmat,
-  donationCount,
+  imgPath,
+
   date,
-  categories,
+  status
 }) {
   const classes = useStyles();
   return (
     <Card>
       <CardHeader
         action={
+            status === 'active' && (
           <Tooltip title="Mark as fulfilled">
             <IconButton
               onClick={() => {
-                if (window.confirm("Are you sure to mark it as fulfilled?")) {
+                if (window.confirm(`Are you sure to mark it as fulfilled ${id}?`)) {
                   // post here and fetch
+
+                  const obj={ID:id};
+                  Axios.post('https://foodernity.herokuapp.com/donations/updateCallForDonations',obj)
+                  .then((res) => {
+                     
+                        console.log(res.data)
+                        //dispatch(setDonations(res.data))
+                        // history.replace('/admin/donations')
+                        // console.log('token: ' + res.data.changePasswordCode)
+                        // localStorage.setItem('token', res.data.changePasswordCode)
+                     
+                        setTimeout(() => window.location.reload(), 0)
+                  })
+                  .catch((error) => {
+                     console.log(error)
+              
+                  })
                 }
               }}
             >
               <DoneIcon />
             </IconButton>
           </Tooltip>
+            )
         }
         title={`Posted on ${date}`}
-        subheader={`Donation count: ${donationCount}`}
         titleTypographyProps={{ variant: "body1" }}
-        subheaderTypographyProps={{ variant: "body2" }}
       />
-      <CardMedia className={classes.media} image={pubmat} title="pubmat" />
+      <CardMedia className={classes.media} image={imgPath} title="pubmat" />
       <CardContent>
         <Typography variant="body1" className={classes.text_bold} noWrap>
           {title}
         </Typography>
 
         <Typography variant="body2">{description}</Typography>
-        <Box my={1}>
+        {/* <Box my={1}>
           {categories.map((item, index) => (
             <Chip
               key={index}
@@ -60,7 +78,7 @@ function Item({
               style={{ marginRight: "5px" }}
             />
           ))}
-        </Box>
+        </Box> */}
       </CardContent>
     </Card>
   );

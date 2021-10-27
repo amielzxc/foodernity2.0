@@ -4,7 +4,7 @@ import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Item from "./Item";
 import { Button, useTheme, useMediaQuery } from "@material-ui/core";
 import AddIcon from "@material-ui/icons/Add";
@@ -37,6 +37,9 @@ function NavTab() {
   const theme = useTheme();
   const responsive = useMediaQuery(theme.breakpoints.down("sm"));
 
+  useEffect(() => {
+    console.log('cta ' + ctaList)
+  },[])
   return (
     <>
       <div className={classes.root}>
@@ -81,22 +84,33 @@ function NavTab() {
         </Box>
         <TabPanel value={value} index={0}>
           <div className={classes.grid}>
-            {ctaList.map((item, index) => (
+            {ctaList.filter(item => item.status ==='active').map((item, index) => (
               <Item
                 key={index}
-                id={item.id}
-                pubmat={item.pubmat}
+                id={item.callForDonationID}
                 title={item.title}
                 description={item.description}
-                donationCount={item.donationCount}
+                imgPath={item.imgPath}
                 date={item.date}
-                categories={item.categories}
+                status={item.status}
               />
             ))}
           </div>
         </TabPanel>
         <TabPanel value={value} index={1}>
-          2
+        <div className={classes.grid}>
+            {ctaList.filter(item => item.status ==='fulfilled').map((item, index) => (
+              <Item
+                key={index}
+                id={item.callForDonationID}
+                title={item.title}
+                description={item.description}
+                imgPath={item.imgPath}
+                date={item.date}
+                status={item.status}
+              />
+            ))}
+          </div>
         </TabPanel>
       </div>
       <Form ref={openFormRef} />

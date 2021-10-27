@@ -12,6 +12,7 @@ import {
   Typography,
 } from "@material-ui/core";
 import { forwardRef, useImperativeHandle, useState } from "react";
+import Axios, * as others from 'axios';
 
 const Form = forwardRef((props, ref) => {
   const [toggle, setToggle] = useState(false);
@@ -19,10 +20,10 @@ const Form = forwardRef((props, ref) => {
 
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [categories, setCategories] = useState({
-    "Canned Goods": false,
-    "Instant Noodles": false,
-  });
+  // const [categories, setCategories] = useState({
+  //   "Canned Goods": false,
+  //   "Instant Noodles": false,
+  // });
   const [image, setImage] = useState(null);
 
   useImperativeHandle(ref, () => ({
@@ -38,15 +39,51 @@ const Form = forwardRef((props, ref) => {
   const onPostClick = () => {
     if (!title) return setAlert(true);
     if (!description) return setAlert(true);
-    if (Object.values(categories).every((value) => !value))
-      return setAlert(true);
+    // if (Object.values(categories).every((value) => !value))
+    //   return setAlert(true);
     if (!image) return setAlert(true);
     //post here
     setAlert(false);
     console.log(title);
     console.log(description);
-    console.log(categories);
+    // console.log(categories);
     console.log(image);
+
+
+    const formData = new FormData()
+    formData.append('file', image)
+    formData.append('upload_preset', 'b4jy8nar')
+    Axios.post(
+       'https://api.cloudinary.com/v1_1/dftq12ab0/image/upload',
+       formData
+    ).then(async (response, err) => {
+       if (!err) {
+          console.log(response.data.secure_url)
+
+          const obj = {
+           title:title,
+           description:description,
+            imgPath:response.data.secure_url,
+            status:"active",
+            date:getDate(),
+          }
+
+          Axios.post('https://foodernity.herokuapp.com/donations/addCallForDonations', obj).then(
+             (response, err) => {
+                if (err) {
+                   console.log('error: ' + err)
+                }
+                console.log(response);
+                setTimeout(() => window.location.reload(), 0)
+             }
+          )
+          console.log('call for donation successfully posted')
+          // history.replace('/donations')
+          
+       } else {
+          console.log(err)
+       }
+    })
     handleClose();
   };
 
@@ -63,10 +100,10 @@ const Form = forwardRef((props, ref) => {
               setDescription={setDescription}
             />
             <Divider />
-            <CategoriesInput
+            {/* <CategoriesInput
               categories={categories}
               setCategories={setCategories}
-            />
+            /> */}
             <UploadInput setImage={setImage} />
           </DialogContent>
           <DialogActions>
@@ -122,8 +159,9 @@ function CategoriesInput({ categories, setCategories }) {
   return (
     <Box mt={1}>
       <Typography variant="h6">Food Categories Needed</Typography>
-      {Object.entries(categories).map((category) => (
+      {Object.entries(categories).map((category, index) => (
         <FormControlLabel
+        key={index}
           control={<Checkbox checked={category[1]} />}
           label={category[0]}
           onChange={(e) => {
@@ -152,4 +190,14 @@ function UploadInput({ setImage }) {
       />
     </Box>
   );
+}
+
+function getDate() {
+  const months = ['January', 'February', 'March', 'April','May','June','July','August','September','October','November','December']
+  const date = new Date()
+  const month = date.getMonth()
+  const day = date.getDate()
+  const year = date.getFullYear()
+
+  return `${months[month]} ${day}, ${year}`
 }
