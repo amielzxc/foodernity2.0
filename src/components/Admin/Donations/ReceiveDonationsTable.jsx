@@ -3,10 +3,14 @@ import { Details, VisibilityRounded } from "@material-ui/icons";
 import { DataGrid } from "@mui/x-data-grid";
 import { useRef } from "react";
 import ItemDetails from "./Details";
+import Axios, * as others from 'axios';
 
+import {useSelector} from 'react-redux';
 function ReceiveDonationsTable() {
+  const donations = useSelector(state => state.donations.value)
   const detailsRef = useRef(null);
 
+  console.log(donations)
   const onClick = (e) => {
     // console.log(e);
     const element = e.target;
@@ -21,7 +25,13 @@ function ReceiveDonationsTable() {
     <>
       <div style={{ height: 600, width: "100%" }} onClick={onClick}>
         <StyledDataGrid
-          rows={data}
+          rows={
+
+           donations.map((row) => {
+              const {donationID,...rest} = row
+              return {id: donationID,...rest }
+            })
+          }
           columns={column}
           pageSize={7}
           checkboxSelection={false}
@@ -36,13 +46,19 @@ export default ReceiveDonationsTable;
 
 const column = [
   {
-    field: "id",
-    headerName: "ID",
-    width: 100,
-    type: "number",
+    field:'id',
+    headerName:'ID',
+    width:100,
+    type:"number"
   },
+  // {
+  //   field: "donationID",
+  //   headerName: "ID",
+  //   width: 100,
+  //   type: "number",
+  // },
   {
-    field: "imgLoc",
+    field: "imgPath",
     headerName: "Image",
     sortable: false,
     width: 100,
@@ -51,7 +67,7 @@ const column = [
     renderCell: (params) => {
       return (
         <img
-          src={params.row.imgLoc}
+          src={params.row.imgPath}
           alt="donation"
           style={{ width: "50px", height: "50px", margin: "10px" }}
         />
@@ -86,9 +102,27 @@ const column = [
     sortable: false,
     renderCell: (params) => {
       const onClick = () => {
-        return alert("accept donation " + params.row.id);
+        // return alert("accept donation " + params.row.id);
+        const obj={donationID:params.row.id};
+        Axios.post('https://foodernity.herokuapp.com/donations/acceptDonations',obj)
+        .then((res) => {
+           
+              console.log(res.data)
+              //dispatch(setDonations(res.data))
+              // history.replace('/admin/donations')
+              // console.log('token: ' + res.data.changePasswordCode)
+              // localStorage.setItem('token', res.data.changePasswordCode)
+           
+              setTimeout(() => window.location.reload(), 0)
+        })
+        .catch((error) => {
+           console.log(error)
+    
+        })
+        
+
       };
-      return params.row.status === "Pending" ? (
+      return params.row.status === "pending" ? (
         <Button variant="contained" color="primary" onClick={onClick}>
           Accept Donation
         </Button>
@@ -107,9 +141,24 @@ const column = [
     sortable: false,
     renderCell: (params) => {
       const onClick = () => {
-        return alert("mark as claimed donation " + params.row.id);
+        const obj={donationID:params.row.id};
+        Axios.post('https://foodernity.herokuapp.com/donations/receiveDonations',obj)
+        .then((res) => {
+           
+              console.log(res.data)
+              //dispatch(setDonations(res.data))
+              // history.replace('/admin/donations')
+              // console.log('token: ' + res.data.changePasswordCode)
+              // localStorage.setItem('token', res.data.changePasswordCode)
+           
+              setTimeout(() => window.location.reload(), 0)
+        })
+        .catch((error) => {
+           console.log(error)
+    
+        })
       };
-      return params.row.status === "Accepted" ? (
+      return params.row.status === "accepted" ? (
         <Button
           style={{
             color: "white",
