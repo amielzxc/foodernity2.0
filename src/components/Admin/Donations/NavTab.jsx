@@ -5,7 +5,6 @@ import Tab from "@material-ui/core/Tab";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 import { useState } from "react";
-import Item from "./Item";
 import ReceiveDonationsTable from "./ReceiveDonationsTable";
 
 function TabPanel(props) {

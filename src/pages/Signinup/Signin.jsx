@@ -2,18 +2,15 @@ import { useState } from "react";
 import { Grid, CssBaseline, makeStyles, Typography } from "@material-ui/core";
 import { Helmet } from "react-helmet";
 import { useForm } from "react-hook-form";
-import { Link, useHistory } from "react-router-dom";
-import Axios, * as others from 'axios';
+import { useHistory } from "react-router-dom";
+import Axios from "axios";
 import BackgroundImage from "../../assets/Signinup/signin.png";
 //components
 import {
   EmailInput,
   PasswordInput,
 } from "../../components/Signinup/Signin/Inputs";
-import {
-  SignInButton,
-  GoogleSignInButton,
-} from "../../components/Signinup/Signin/Buttons";
+import { SignInButton } from "../../components/Signinup/Signin/Buttons";
 import {
   WrongCredentialsAlert,
   NoAccountAlert,
@@ -23,40 +20,38 @@ function Signin() {
   const { handleSubmit, control } = useForm();
   const history = useHistory();
   const classes = useStyles();
-
-  function onSubmit(data) {
-     // console.log(data)
-     const obj = {
-        email: data.emailAddress,
-        password: data.password,
-     }
-
-     console.log(obj)
-     Axios.post('https://foodernity.herokuapp.com/loginAdmin/loginAdmin', obj)
-        .then((res) => {
-           if (res.data === 'Wrong email/password.') {
-              setWrongCredentials(true)
-              console.log('Wrong email/password.')
-           } else if (res.data === 'No existing account.') {
-              setNoAccount(true)
-              console.log('No existing account.')
-           } else {
-              setWrongCredentials(false)
-              setNoAccount(false)
-              console.log('hello')
-              console.log(res.data)
-              history.replace('/admin/donations')
-              console.log('token: ' + res.data.changePasswordCode)
-              localStorage.setItem('token', res.data.changePasswordCode)
-           }
-        })
-        .catch((error) => {
-           console.log(error)
-        })
-  }
-
   const [wrongCredentials, setWrongCredentials] = useState(false);
   const [noAccount, setNoAccount] = useState(false);
+
+  function onSubmit(data) {
+    const obj = {
+      email: data.emailAddress,
+      password: data.password,
+    };
+
+    console.log(obj);
+    Axios.post("https://foodernity.herokuapp.com/loginAdmin/loginAdmin", obj)
+      .then((res) => {
+        if (res.data === "Wrong email/password.") {
+          setWrongCredentials(true);
+          console.log("Wrong email/password.");
+        } else if (res.data === "No existing account.") {
+          setNoAccount(true);
+          console.log("No existing account.");
+        } else {
+          setWrongCredentials(false);
+          setNoAccount(false);
+          console.log("hello");
+          console.log(res.data);
+          history.replace("/admin/donations");
+          console.log("token: " + res.data.changePasswordCode);
+          localStorage.setItem("token", res.data.changePasswordCode);
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
 
   const handleClose = (event, reason) => {
     if (reason === "clickaway") {
@@ -96,14 +91,11 @@ function Signin() {
             <Typography variant="h3" component="h1" className={classes.title}>
               Welcome to Foodernity
             </Typography>
-            <form
-              className={classes.form}
-              onSubmit={handleSubmit(onSubmit)}
-            >
+            <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
               <EmailInput control={control} />
               <PasswordInput control={control} />
               <SignInButton className={classes.button__signin} />
-              <Typography
+              {/* <Typography
                 variant="body1"
                 className={`${classes.text} ${classes.text__or}`}
               >
@@ -129,7 +121,7 @@ function Signin() {
                 >
                   Forgot password?
                 </Typography>
-              </Link>
+              </Link> */}
             </form>
           </div>
         </Grid>

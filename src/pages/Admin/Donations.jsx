@@ -4,34 +4,35 @@ import { Helmet } from "react-helmet";
 import Main from "../../components/Shared/Main";
 import NavBar from "../../components/Admin/NavBar";
 import NavTab from "../../components/Admin/Donations/NavTab";
-import { useEffect } from "react";
-import Axios, * as others from 'axios';
-import {useDispatch} from 'react-redux'
-import {setDonations} from '../../store/donations'
+import { useEffect, useState } from "react";
+import Axios from "axios";
+import { useDispatch } from "react-redux";
+import { setDonations } from "../../store/donations";
+import Loading from "../../components/Shared/Loading";
 function Donations() {
+  const [loading, setLoading] = useState(true);
   const theme = useTheme();
   const responsive = useMediaQuery(theme.breakpoints.down("sm"));
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    Axios.post('https://foodernity.herokuapp.com/donations/getDonations')
-    .then((res) => {
-          // setWrongCredentials(false)
-          // setNoAccount(false)
-          // console.log('hello')
-          console.log(res.data)
-          dispatch(setDonations(res.data))
-          // history.replace('/admin/donations')
-          // console.log('token: ' + res.data.changePasswordCode)
-          // localStorage.setItem('token', res.data.changePasswordCode)
-       
-    })
-    .catch((error) => {
-       console.log(error)
+    Axios.post("https://foodernity.herokuapp.com/donations/getDonations")
+      .then((res) => {
+        // setWrongCredentials(false)
+        // setNoAccount(false)
+        // console.log('hello')
 
-    })
+        dispatch(setDonations(res.data));
+        setLoading(false);
+        // history.replace('/admin/donations')
+        // console.log('token: ' + res.data.changePasswordCode)
+        // localStorage.setItem('token', res.data.changePasswordCode)
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, [dispatch]);
 
-  },[])
   return (
     <>
       <Helmet>
@@ -48,7 +49,7 @@ function Donations() {
             <Toolbar />
           </Hidden>
           <NavBar />
-          <NavTab />
+          {loading ? <Loading /> : <NavTab />}
         </Main>
       </div>
     </>

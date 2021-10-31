@@ -1,40 +1,32 @@
-import { Button, IconButton, withStyles } from "@material-ui/core";
-import { Details, VisibilityRounded } from "@material-ui/icons";
+import { Button, Typography, withStyles } from "@material-ui/core";
 import { DataGrid } from "@mui/x-data-grid";
 import { useRef } from "react";
 import ItemDetails from "./Details";
-import Axios, * as others from 'axios';
+import Axios from "axios";
 
-import {useSelector} from 'react-redux';
+import { useSelector } from "react-redux";
 function ReceiveDonationsTable() {
-  const donations = useSelector(state => state.donations.value)
+  const donations = useSelector((state) => state.donations.value);
   const detailsRef = useRef(null);
 
-  console.log(donations)
   const onClick = (e) => {
-    // console.log(e);
     const element = e.target;
     if (!element.textContent.startsWith("View ")) return;
     const childElement = element.firstElementChild;
     const id = childElement.textContent;
-    console.log(id);
-    detailsRef.current.showModal();
+    detailsRef.current.showModal(id);
   };
 
   return (
     <>
       <div style={{ height: 600, width: "100%" }} onClick={onClick}>
         <StyledDataGrid
-          rows={
-
-           donations.map((row) => {
-              const {donationID,...rest} = row
-              return {id: donationID,...rest }
-            })
-          }
+          rows={donations.map((row) => {
+            const { donationID, ...rest } = row;
+            return { id: donationID, ...rest };
+          })}
           columns={column}
           pageSize={7}
-          checkboxSelection={false}
         />
       </div>
       <ItemDetails ref={detailsRef} />
@@ -46,17 +38,11 @@ export default ReceiveDonationsTable;
 
 const column = [
   {
-    field:'id',
-    headerName:'ID',
-    width:100,
-    type:"number"
+    field: "id",
+    headerName: "ID",
+    width: 100,
+    type: "number",
   },
-  // {
-  //   field: "donationID",
-  //   headerName: "ID",
-  //   width: 100,
-  //   type: "number",
-  // },
   {
     field: "imgPath",
     headerName: "Image",
@@ -80,7 +66,7 @@ const column = [
     width: 170,
   },
   {
-    field: "donationDonor",
+    field: "fullName",
     headerName: "Donor",
     width: 170,
   },
@@ -88,39 +74,56 @@ const column = [
     field: "donationQuantities",
     headerName: "Quantity",
     width: 160,
+    type: "number",
+    renderCell: (params) => {
+      const str = params.row.donationQuantities;
+      let trimmed = str.slice(1, str.length - 1);
+      let splitted = trimmed.split(", ");
+      let total = splitted.reduce((acc, val) => acc + Number(val), 0);
+
+      return <Typography>{Number(total)}</Typography>;
+    },
   },
   {
     field: "status",
     headerName: "Status",
     width: 160,
+
+    renderCell: (params) => {
+      return (
+        <Typography
+          style={{
+            color: params.row.status === "pending" ? "#2196f3" : "#66BB6A",
+          }}
+        >
+          {params.row.status}
+        </Typography>
+      );
+    },
   },
   {
     field: "1",
-    headerName: "Action 1",
+    headerName: "Accept Donations",
     width: 230,
     disableClickEventBubbling: true,
     sortable: false,
     renderCell: (params) => {
       const onClick = () => {
         // return alert("accept donation " + params.row.id);
-        const obj={donationID:params.row.id};
-        Axios.post('https://foodernity.herokuapp.com/donations/acceptDonations',obj)
-        .then((res) => {
-           
-              console.log(res.data)
-              //dispatch(setDonations(res.data))
-              // history.replace('/admin/donations')
-              // console.log('token: ' + res.data.changePasswordCode)
-              // localStorage.setItem('token', res.data.changePasswordCode)
-           
-              setTimeout(() => window.location.reload(), 0)
-        })
-        .catch((error) => {
-           console.log(error)
-    
-        })
-        
-
+        const obj = { donationID: params.row.id };
+        Axios.post(
+          "https://foodernity.herokuapp.com/donations/acceptDonations",
+          obj
+        )
+          .then((response, err) => {
+            if (err) {
+              return console.log("err" + err);
+            }
+            setTimeout(() => window.location.reload(), 0);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
       };
       return params.row.status === "pending" ? (
         <Button variant="contained" color="primary" onClick={onClick}>
@@ -135,28 +138,46 @@ const column = [
   },
   {
     field: "2",
-    headerName: "Action 2",
+    headerName: "Receive Donations",
     width: 200,
     disableClickEventBubbling: true,
     sortable: false,
     renderCell: (params) => {
       const onClick = () => {
-        const obj={donationID:params.row.id};
-        Axios.post('https://foodernity.herokuapp.com/donations/receiveDonations',obj)
-        .then((res) => {
-           
-              console.log(res.data)
-              //dispatch(setDonations(res.data))
-              // history.replace('/admin/donations')
-              // console.log('token: ' + res.data.changePasswordCode)
-              // localStorage.setItem('token', res.data.changePasswordCode)
-           
-              setTimeout(() => window.location.reload(), 0)
-        })
-        .catch((error) => {
-           console.log(error)
-    
-        })
+        const obj = { donationID: params.row.id };
+
+        Axios.post(
+          "https://foodernity.herokuapp.com/donations/receiveDonations",
+          obj
+        )
+          .then((response, err) => {
+            if (err) {
+              return console.log("err" + err);
+            }
+            const str1 = params.row.donationQuantities;
+            let trimmed1 = str1.slice(1, str1.length - 1);
+            let qtyArr = trimmed1.split(", ");
+
+            const str2 = params.row.donationCategories;
+            let trimmed2 = str2.slice(1, str2.length - 1);
+            let categArr = trimmed2.split(", ");
+            console.log({
+              categArr: categArr,
+              qtyArr: qtyArr,
+            });
+            Axios.post("https://foodernity.herokuapp.com/stocks/addStocks", {
+              categArr: categArr,
+              qtyArr: qtyArr,
+            }).then((response, err) => {
+              if (err) {
+                return console.log("err" + err);
+              }
+              setTimeout(() => window.location.reload(), 1000);
+            });
+          })
+          .catch((error) => {
+            console.log(error);
+          });
       };
       return params.row.status === "accepted" ? (
         <Button
@@ -175,18 +196,18 @@ const column = [
           color="primary"
           onClick={onClick}
         >
-          Mark as Claimed
+          Mark as Received
         </Button>
       ) : (
         <Button variant="contained" color="default" disabled>
-          Mark as Claimed
+          Mark as Received
         </Button>
       );
     },
   },
   {
     field: "3",
-    headerName: "Action 3",
+    headerName: "View more",
     width: 200,
     // disableClickEventBubbling: true,
     sortable: false,
@@ -229,24 +250,3 @@ const StyledDataGrid = withStyles({
     },
   },
 })(DataGrid);
-
-const data = [
-  {
-    id: 1,
-    imgLoc:
-      "https://cdn.shopify.com/s/files/1/0024/9695/4415/products/eggplant_retail_720x.png?v=1587818753",
-    donationName: "Pancit Canton",
-    donationDonor: "Juan Dela Cruz",
-    donationQuantities: 35,
-    status: "Pending",
-  },
-  {
-    id: 2,
-    imgLoc:
-      "https://cdn.shopify.com/s/files/1/0024/9695/4415/products/eggplant_retail_720x.png?v=1587818753",
-    donationName: "Canned Goods",
-    donationDonor: "Juan Dela Cruz",
-    donationQuantities: 35,
-    status: "Accepted",
-  },
-];

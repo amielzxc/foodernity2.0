@@ -11,14 +11,16 @@ import { Provider } from "react-redux";
 // import guidelinesReducer from "./store/Inventory/guidelines";
 // import detailsReducer from "./store/Inventory/details";
 import ctaReducer from "./store/cta";
-import donationsReducer from './store/donations'
+import donationsReducer from "./store/donations";
+import inventoryReducer from "./store/inventory";
 const store = configureStore({
   reducer: {
     // stepper: stepperReducer,
     // guidelines: guidelinesReducer,
     // details: detailsReducer,
     cta: ctaReducer,
-    donations: donationsReducer
+    donations: donationsReducer,
+    inventory: inventoryReducer,
   },
 });
 

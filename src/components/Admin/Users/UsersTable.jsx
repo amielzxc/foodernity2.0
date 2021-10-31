@@ -8,7 +8,7 @@ function UsersTable() {
         // autoPageSize
         rows={data}
         columns={column}
-        pageSize={7}
+        pagination={10}
         checkboxSelection={false}
       />
     </div>

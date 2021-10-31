@@ -54,7 +54,7 @@ function NavBar() {
       <Toolbar>
         <div className={classes.heading__container}>
           <div className={classes.heading__container_wrap}>
-            <Link to="/inventory" className={classes.heading__link}>
+            <Link to="/admin/donations" className={classes.heading__link}>
               <Typography
                 variant="h4"
                 component="h1"

@@ -106,9 +106,6 @@ function ClaimButton() {
   const classes = useStyles();
   return (
     <Box display="flex" justifyContent="flex-end">
-      {/* <Button variant="contained" className={classes.button_lightblue}>
-        <ChatIcon />
-      </Button> */}
       <Button
         disableElevation
         variant="contained"

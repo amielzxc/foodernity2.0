@@ -4,9 +4,26 @@ import { Helmet } from "react-helmet";
 import Main from "../../components/Shared/Main";
 import NavBar from "../../components/Admin/NavBar";
 import NavTab from "../../components/Admin/Inventory/NavTab";
+import { useEffect, useState } from "react";
+import Axios from "axios";
+import { useDispatch } from "react-redux";
+import { setInventory } from "../../store/inventory";
+import Loading from "../../components/Shared/Loading";
 function StockInventory() {
+  const [loading, setLoading] = useState(true);
   const theme = useTheme();
   const responsive = useMediaQuery(theme.breakpoints.down("sm"));
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    Axios.post("https://foodernity.herokuapp.com/stocks/getStocks").then(
+      (res) => {
+        // if err dito?
+        dispatch(setInventory(res.data));
+        setLoading(false);
+      }
+    );
+  }, []);
 
   return (
     <>
@@ -17,6 +34,8 @@ function StockInventory() {
         style={{
           display: "flex",
           flexDirection: responsive ? "column" : "row",
+          justifyContent: "center",
+          alignItems: "center",
         }}
       >
         <Main>
@@ -24,7 +43,7 @@ function StockInventory() {
             <Toolbar />
           </Hidden>
           <NavBar />
-          <NavTab />
+          {loading ? <Loading /> : <NavTab />}
         </Main>
       </div>
     </>

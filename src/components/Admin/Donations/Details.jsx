@@ -7,18 +7,17 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import { useTheme } from "@material-ui/core/styles";
-import { Chip, Typography } from "@material-ui/core";
+import { Typography } from "@material-ui/core";
 
 const ItemDetails = forwardRef((props, ref) => {
-  console.log(props);
-
   const [open, setOpen] = useState(false);
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("sm"));
-
+  const [id, setId] = useState(null);
   useImperativeHandle(ref, () => ({
-    showModal() {
+    showModal(id) {
       setOpen(true);
+      setId(id);
     },
     closeModal() {
       setOpen(false);
@@ -35,7 +34,7 @@ const ItemDetails = forwardRef((props, ref) => {
         {/* <Typography></Typography> */}
         {/* <Typography>Donation: {name}</Typography> */}
         {/* <Typography>Expiry Date: {expiry}</Typography> */}
-        <Typography>Categories</Typography>
+        <Typography>Categories {id}</Typography>
         {/* {categories.map((item, index) => (
           <Chip
             key={index}

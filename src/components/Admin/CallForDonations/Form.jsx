@@ -1,29 +1,22 @@
 import {
   Box,
   Button,
-  Checkbox,
   Dialog,
   DialogActions,
   DialogContent,
   DialogTitle,
   Divider,
-  FormControlLabel,
   TextField,
   Typography,
 } from "@material-ui/core";
 import { forwardRef, useImperativeHandle, useState } from "react";
-import Axios, * as others from 'axios';
+import Axios from "axios";
 
 const Form = forwardRef((props, ref) => {
   const [toggle, setToggle] = useState(false);
   const [alert, setAlert] = useState(false);
-
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  // const [categories, setCategories] = useState({
-  //   "Canned Goods": false,
-  //   "Instant Noodles": false,
-  // });
   const [image, setImage] = useState(null);
 
   useImperativeHandle(ref, () => ({
@@ -37,53 +30,40 @@ const Form = forwardRef((props, ref) => {
   };
 
   const onPostClick = () => {
-    if (!title) return setAlert(true);
-    if (!description) return setAlert(true);
-    // if (Object.values(categories).every((value) => !value))
-    //   return setAlert(true);
-    if (!image) return setAlert(true);
-    //post here
+    if (!title || !description || !image) return setAlert(true);
+
     setAlert(false);
-    console.log(title);
-    console.log(description);
-    // console.log(categories);
-    console.log(image);
 
-
-    const formData = new FormData()
-    formData.append('file', image)
-    formData.append('upload_preset', 'b4jy8nar')
+    const formData = new FormData();
+    formData.append("file", image);
+    formData.append("upload_preset", "b4jy8nar");
     Axios.post(
-       'https://api.cloudinary.com/v1_1/dftq12ab0/image/upload',
-       formData
+      "https://api.cloudinary.com/v1_1/dftq12ab0/image/upload",
+      formData
     ).then(async (response, err) => {
-       if (!err) {
-          console.log(response.data.secure_url)
+      if (!err) {
+        const obj = {
+          title: title,
+          description: description,
+          imgPath: response.data.secure_url,
+          status: "active",
+          date: getDate(),
+        };
 
-          const obj = {
-           title:title,
-           description:description,
-            imgPath:response.data.secure_url,
-            status:"active",
-            date:getDate(),
+        Axios.post(
+          "https://foodernity.herokuapp.com/donations/addCallForDonations",
+          obj
+        ).then((response, err) => {
+          if (err) {
+            console.log("error: " + err);
           }
 
-          Axios.post('https://foodernity.herokuapp.com/donations/addCallForDonations', obj).then(
-             (response, err) => {
-                if (err) {
-                   console.log('error: ' + err)
-                }
-                console.log(response);
-                setTimeout(() => window.location.reload(), 0)
-             }
-          )
-          console.log('call for donation successfully posted')
-          // history.replace('/donations')
-          
-       } else {
-          console.log(err)
-       }
-    })
+          setTimeout(() => window.location.reload(), 0);
+        });
+      } else {
+        console.log(err);
+      }
+    });
     handleClose();
   };
 
@@ -100,10 +80,6 @@ const Form = forwardRef((props, ref) => {
               setDescription={setDescription}
             />
             <Divider />
-            {/* <CategoriesInput
-              categories={categories}
-              setCategories={setCategories}
-            /> */}
             <UploadInput setImage={setImage} />
           </DialogContent>
           <DialogActions>
@@ -155,28 +131,6 @@ function DescriptionInput({ description, setDescription }) {
   );
 }
 
-function CategoriesInput({ categories, setCategories }) {
-  return (
-    <Box mt={1}>
-      <Typography variant="h6">Food Categories Needed</Typography>
-      {Object.entries(categories).map((category, index) => (
-        <FormControlLabel
-        key={index}
-          control={<Checkbox checked={category[1]} />}
-          label={category[0]}
-          onChange={(e) => {
-            setCategories({
-              ...categories,
-              [category[0]]: e.target.checked,
-            });
-            // console.log(e.target.checked);
-          }}
-        />
-      ))}
-    </Box>
-  );
-}
-
 function UploadInput({ setImage }) {
   return (
     <Box mt={2}>
@@ -193,11 +147,24 @@ function UploadInput({ setImage }) {
 }
 
 function getDate() {
-  const months = ['January', 'February', 'March', 'April','May','June','July','August','September','October','November','December']
-  const date = new Date()
-  const month = date.getMonth()
-  const day = date.getDate()
-  const year = date.getFullYear()
+  const months = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+  const date = new Date();
+  const month = date.getMonth();
+  const day = date.getDate();
+  const year = date.getFullYear();
 
-  return `${months[month]} ${day}, ${year}`
+  return `${months[month]} ${day}, ${year}`;
 }
