@@ -9,6 +9,7 @@ import Axios from "axios";
 import { useDispatch } from "react-redux";
 import { setDonations } from "../../store/donations";
 import Loading from "../../components/Shared/Loading";
+
 function Donations() {
   const [loading, setLoading] = useState(true);
   const theme = useTheme();

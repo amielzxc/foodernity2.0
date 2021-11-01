@@ -12,10 +12,10 @@ import Loading from "../../components/Shared/Loading";
 
 function CallForDonations() {
   const [loading, setLoading] = useState(true);
-
   const theme = useTheme();
   const responsive = useMediaQuery(theme.breakpoints.down("sm"));
   const dispatch = useDispatch();
+
   useEffect(() => {
     Axios.post(
       "https://foodernity.herokuapp.com/donations/getCallForDonations"
@@ -27,6 +27,7 @@ function CallForDonations() {
       setLoading(false);
     });
   }, []);
+
   return (
     <>
       <Helmet>

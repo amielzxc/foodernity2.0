@@ -9,6 +9,7 @@ import {
   Typography,
   InputAdornment,
   Divider,
+  Box,
 } from "@material-ui/core";
 import { useSelector } from "react-redux";
 import { forwardRef, useImperativeHandle, useState } from "react";
@@ -143,6 +144,7 @@ const Donate = forwardRef((props, ref) => {
                 );
               })}
             </Grid>
+            <Total quantities={quantities} />
             <Divider style={{ margin: "5px 0" }} />
             <Grid container spacing={2}>
               <Grid item xs={6}>
@@ -280,6 +282,23 @@ function QuantityInput({ label, quantities, setQuantities, limit }) {
   );
 }
 
+function Total({ quantities }) {
+  const total = Object.values(quantities).reduce(
+    (total, value) => total + Number(value),
+    0
+  );
+
+  return (
+    <Box display="flex" justifyContent="flex-end">
+      <Typography>
+        <span style={{ fontWeight: "bold", color: "#42A5F5" }}>
+          Total stocks to be released:
+        </span>{" "}
+        {total} pieces
+      </Typography>
+    </Box>
+  );
+}
 function RemarksInput({ remarks, setRemarks }) {
   return (
     <TextField

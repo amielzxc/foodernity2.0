@@ -10,9 +10,11 @@ import { Provider } from "react-redux";
 // import stepperReducer from "./store/Inventory/stepper";
 // import guidelinesReducer from "./store/Inventory/guidelines";
 // import detailsReducer from "./store/Inventory/details";
-import ctaReducer from "./store/cta";
 import donationsReducer from "./store/donations";
+import ctaReducer from "./store/cta";
 import inventoryReducer from "./store/inventory";
+import usersReducer from "./store/users";
+
 const store = configureStore({
   reducer: {
     // stepper: stepperReducer,
@@ -21,6 +23,7 @@ const store = configureStore({
     cta: ctaReducer,
     donations: donationsReducer,
     inventory: inventoryReducer,
+    users: usersReducer,
   },
 });
 
