@@ -17,6 +17,7 @@ function ReceiveDonationsTable() {
     detailsRef.current.showModal(id);
   };
 
+  console.log(donations);
   return (
     <>
       <div style={{ height: 600, width: "100%" }} onClick={onClick}>
@@ -118,12 +119,27 @@ const column = [
             if (err) {
               return console.log("err" + err);
             }
-            setTimeout(() => window.location.reload(), 0);
+
+            let obj = {
+              donationID: params.row.id,
+              donorEmail: params.row.email,
+              donationName: params.row.donationName,
+            };
+            Axios.post(
+              "https://foodernity.herokuapp.com/notif/notifyAccept",
+              obj
+            ).then((response, err) => {
+              if (err) {
+                return console.log("err" + err);
+              }
+              setTimeout(() => window.location.reload(), 0);
+            });
           })
           .catch((error) => {
             console.log(error);
           });
       };
+
       return params.row.status === "pending" ? (
         <Button variant="contained" color="primary" onClick={onClick}>
           Accept Donation
@@ -171,7 +187,20 @@ const column = [
               if (err) {
                 return console.log("err" + err);
               }
-              setTimeout(() => window.location.reload(), 1000);
+              let obj = {
+                donationID: params.row.id,
+                donorEmail: params.row.email,
+                donationName: params.row.donationName,
+              };
+              Axios.post(
+                "https://foodernity.herokuapp.com/notif/notifyReceive",
+                obj
+              ).then((response, err) => {
+                if (err) {
+                  return console.log("err" + err);
+                }
+                setTimeout(() => window.location.reload(), 0);
+              });
             });
           })
           .catch((error) => {

@@ -9,6 +9,9 @@ import Axios from "axios";
 import { useDispatch } from "react-redux";
 import { setDonations } from "../../store/donations";
 import Loading from "../../components/Shared/Loading";
+import { withRouter } from "react-router";
+import bcryptjs from "bcryptjs";
+import { Redirect } from "react-router-dom";
 
 function Donations() {
   const [loading, setLoading] = useState(true);
@@ -27,7 +30,10 @@ function Donations() {
       });
   }, [dispatch]);
 
-  return (
+  return bcryptjs.compareSync(
+    "MHTPadmin2021@gmail.com",
+    localStorage.getItem("vh") || ""
+  ) ? (
     <>
       <Helmet>
         <title>Donations | Foodernity</title>
@@ -47,7 +53,9 @@ function Donations() {
         </Main>
       </div>
     </>
+  ) : (
+    <Redirect to="/signin" />
   );
 }
 
-export default Donations;
+export default withRouter(Donations);

@@ -90,7 +90,14 @@ function NavigationButtons() {
         <Button component={Link} to="/admin/users">
           Users
         </Button>
-        <Button>Logout</Button>
+        <Button
+          onClick={() => {
+            localStorage.clear();
+            window.location.reload();
+          }}
+        >
+          Logout
+        </Button>
       </div>
     </Hidden>
   );

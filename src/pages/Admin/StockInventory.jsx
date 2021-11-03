@@ -9,6 +9,9 @@ import Axios from "axios";
 import { useDispatch } from "react-redux";
 import { setInventory } from "../../store/inventory";
 import Loading from "../../components/Shared/Loading";
+import { Redirect, withRouter } from "react-router";
+import bcryptjs from "bcryptjs";
+
 function StockInventory() {
   const [loading, setLoading] = useState(true);
   const theme = useTheme();
@@ -25,7 +28,10 @@ function StockInventory() {
     );
   }, [dispatch]);
 
-  return (
+  return bcryptjs.compareSync(
+    "MHTPadmin2021@gmail.com",
+    localStorage.getItem("vh") || ""
+  ) ? (
     <>
       <Helmet>
         <title>Stocks &amp; Inventory | Foodernity</title>
@@ -47,7 +53,9 @@ function StockInventory() {
         </Main>
       </div>
     </>
+  ) : (
+    <Redirect to="/signin" />
   );
 }
 
-export default StockInventory;
+export default withRouter(StockInventory);

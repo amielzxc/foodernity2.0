@@ -4,6 +4,7 @@ import { Helmet } from "react-helmet";
 import Main from "../../components/Shared/Main";
 import NavBar from "../../components/Admin/NavBar";
 import NavTab from "../../components/Admin/Records/NavTab";
+import { withRouter } from "react-router";
 
 function Records() {
   const theme = useTheme();
@@ -32,4 +33,4 @@ function Records() {
   );
 }
 
-export default Records;
+export default withRouter(Records);

@@ -9,6 +9,8 @@ import { useDispatch } from "react-redux";
 import { setCta } from "../../store/cta";
 import Axios from "axios";
 import Loading from "../../components/Shared/Loading";
+import { Redirect, withRouter } from "react-router";
+import bcryptjs from "bcryptjs";
 
 function CallForDonations() {
   const [loading, setLoading] = useState(true);
@@ -28,7 +30,10 @@ function CallForDonations() {
     });
   }, [dispatch]);
 
-  return (
+  return bcryptjs.compareSync(
+    "MHTPadmin2021@gmail.com",
+    localStorage.getItem("vh") || ""
+  ) ? (
     <>
       <Helmet>
         <title>Call For Donations | Foodernity</title>
@@ -48,7 +53,9 @@ function CallForDonations() {
         </Main>
       </div>
     </>
+  ) : (
+    <Redirect to="/signin" />
   );
 }
 
-export default CallForDonations;
+export default withRouter(CallForDonations);

@@ -3,7 +3,9 @@ import { Grid, CssBaseline, makeStyles, Typography } from "@material-ui/core";
 import { Helmet } from "react-helmet";
 import { useForm } from "react-hook-form";
 import { useHistory } from "react-router-dom";
+import { Redirect } from "react-router";
 import Axios from "axios";
+import bcryptjs from "bcryptjs";
 import BackgroundImage from "../../assets/Signinup/signin.png";
 //components
 import {
@@ -28,24 +30,22 @@ function Signin() {
       email: data.emailAddress,
       password: data.password,
     };
-
-    console.log(obj);
     Axios.post("https://foodernity.herokuapp.com/loginAdmin/loginAdmin", obj)
       .then((res) => {
         if (res.data === "Wrong email/password.") {
           setWrongCredentials(true);
-          console.log("Wrong email/password.");
         } else if (res.data === "No existing account.") {
           setNoAccount(true);
-          console.log("No existing account.");
         } else {
           setWrongCredentials(false);
           setNoAccount(false);
-          console.log("hello");
-          console.log(res.data);
-          history.replace("/admin/donations");
-          console.log("token: " + res.data.changePasswordCode);
-          localStorage.setItem("token", res.data.changePasswordCode);
+
+          bcryptjs.hash("MHTPadmin2021@gmail.com", 10, (err, hash) => {
+            if (err) return console.log(err);
+
+            localStorage.setItem("vh", hash);
+            history.replace("/admin/donations");
+          });
         }
       })
       .catch((error) => {
@@ -60,7 +60,20 @@ function Signin() {
     setWrongCredentials(false);
     setNoAccount(false);
   };
-  return (
+
+  console.log(
+    bcryptjs.compareSync(
+      "MHTPadmin2021@gmail.com",
+      localStorage.getItem("vh") || ""
+    )
+  );
+
+  return bcryptjs.compareSync(
+    "MHTPadmin2021@gmail.com",
+    localStorage.getItem("vh") || ""
+  ) ? (
+    <Redirect to="/admin/donations" />
+  ) : (
     <>
       <Helmet>
         <title>Sign In | Foodernity</title>

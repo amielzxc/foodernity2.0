@@ -1,8 +1,10 @@
 import { ThemeProvider } from "@material-ui/styles";
 import { lazy, Suspense } from "react";
 import { Switch, Route } from "react-router-dom";
+import bcryptjs from "bcryptjs";
 import Loading from "./components/Shared/Loading";
 import theme from "./utils/index";
+
 //components
 const Home = lazy(() => import("./pages/Landing/Home"));
 const OurGoal = lazy(() => import("./pages/Landing/OurGoal"));
@@ -16,6 +18,13 @@ const Records = lazy(() => import("./pages/Admin/Records"));
 const Users = lazy(() => import("./pages/Admin/Users"));
 
 function App() {
+  const isAuthenticated = bcryptjs.compareSync(
+    "MHTPadmin2021@gmail.com",
+    localStorage.getItem("vh") || ""
+  );
+
+  console.log(isAuthenticated);
+
   return (
     <Suspense fallback={<Loading />}>
       <ThemeProvider theme={theme}>
@@ -25,6 +34,7 @@ function App() {
           <Route path="/getinvolved" component={GetInvolved} />
           <Route path="/contactus" component={ContactUs} />
           <Route path="/signin" component={Signin} />
+
           <Route path="/admin/donations" component={Donations} />
           <Route path="/admin/callfordonations" component={CallForDonations} />
           <Route path="/admin/inventory" component={StockInventory} />

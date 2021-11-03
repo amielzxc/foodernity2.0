@@ -9,6 +9,8 @@ import Loading from "../../components/Shared/Loading";
 import Axios from "axios";
 import { useDispatch } from "react-redux";
 import { setUsers } from "../../store/users";
+import { Redirect, withRouter } from "react-router";
+import bcryptjs from "bcryptjs";
 
 function Users() {
   const [loading, setLoading] = useState(true);
@@ -30,7 +32,10 @@ function Users() {
     );
   }, [dispatch]);
 
-  return (
+  return bcryptjs.compareSync(
+    "MHTPadmin2021@gmail.com",
+    localStorage.getItem("vh") || ""
+  ) ? (
     <>
       <Helmet>
         <title>Users | Foodernity</title>
@@ -50,7 +55,9 @@ function Users() {
         </Main>
       </div>
     </>
+  ) : (
+    <Redirect to="/signin" />
   );
 }
 
-export default Users;
+export default withRouter(Users);
