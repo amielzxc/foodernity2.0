@@ -26,7 +26,7 @@ function CallForDonations() {
       dispatch(setCta(response.data));
       setLoading(false);
     });
-  }, []);
+  }, [dispatch]);
 
   return (
     <>

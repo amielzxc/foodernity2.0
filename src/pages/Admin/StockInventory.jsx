@@ -23,7 +23,7 @@ function StockInventory() {
         setLoading(false);
       }
     );
-  }, []);
+  }, [dispatch]);
 
   return (
     <>

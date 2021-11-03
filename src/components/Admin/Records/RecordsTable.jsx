@@ -5,7 +5,6 @@ function RecordsTable() {
   return (
     <div style={{ height: 600, width: "100%" }}>
       <StyledDataGrid
-        // autoPageSize
         rows={data}
         columns={column}
         pagination={10}
@@ -29,8 +28,6 @@ const column = [
     headerName: "Image",
     sortable: false,
     width: 100,
-    // disableClickEventBubbling: true,
-
     renderCell: (params) => {
       return (
         <img
@@ -61,10 +58,7 @@ const column = [
     headerName: "Category",
     width: 170,
     renderCell: (params) => {
-      return (
-        // <Chip label={params.row.category} style={{ margin: '0 auto' }} />
-        <Category label={params.row.category} />
-      );
+      return <Category label={params.row.category} />;
     },
   },
   {

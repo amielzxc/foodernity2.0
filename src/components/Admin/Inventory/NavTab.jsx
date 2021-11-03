@@ -6,10 +6,8 @@ import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 import { useRef, useState } from "react";
 import InventoryTable from "./InventoryTable";
-import Stocks from "./Stocks";
 import { Button } from "@material-ui/core";
 import Donate from "./Donate";
-// import Item from "./Item";
 
 function TabPanel(props) {
   const { children, value, index } = props;
@@ -67,16 +65,12 @@ function NavTab() {
             variant="fullWidth"
           >
             <Tab label="Items on hand" />
-            {/* <Tab label="Stocks per category" /> */}
           </Tabs>
         </AppBar>
       </Box>
       <TabPanel value={value} index={0}>
         <InventoryTable />
       </TabPanel>
-      {/* <TabPanel value={value} index={1}>
-        <Stocks />
-      </TabPanel> */}
       <Donate ref={formRef} />
     </div>
   );

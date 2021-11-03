@@ -28,7 +28,8 @@ function Users() {
         dispatch(setUsers(response.data));
       }
     );
-  }, []);
+  }, [dispatch]);
+
   return (
     <>
       <Helmet>

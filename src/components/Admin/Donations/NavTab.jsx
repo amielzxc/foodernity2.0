@@ -51,42 +51,12 @@ function NavTab() {
             variant="fullWidth"
           >
             <Tab label="List of donations " />
-            {/* <Tab label="To be claimed" /> */}
           </Tabs>
         </AppBar>
       </Box>
       <TabPanel value={value} index={0}>
         <ReceiveDonationsTable />
-        {/* <div className={classes.grid}>
-          {data
-            .filter((value) => value.status === "Available")
-            .map((value, index) => (
-              <Item key={index} item={value} />
-            ))}
-        </div> */}
       </TabPanel>
-      {/* <TabPanel value={value} index={1}>
-        <div className={classes.grid}>
-          {data
-            .filter((value) => value.status === "Accepted")
-            .map((value, index) => (
-              <Item
-                key={index}
-                item={value}
-                // donor={value.donor}
-                // image={value.image}
-                // name={value.name}
-                // quantity={value.quantity}
-                // category={value.category}
-                // expiry={value.expiry}
-                // notes={value.notes}
-                // contactNumber={value.contactNumber}
-                // deliverDate={value.deliverDate}
-                // status={value.status}
-              />
-            ))}
-        </div>
-      </TabPanel> */}
     </div>
   );
 }
@@ -116,30 +86,3 @@ const useStyles = makeStyles((theme) => ({
     },
   },
 }));
-
-const data = [
-  {
-    donor: "Fhillip Bagsic",
-    image: "https://c1.staticflickr.com/5/4158/33593402264_bedafb79d1_c.jpg",
-    name: "Pancit Canton Noodles",
-    quantity: 7,
-    categories: ["Instant Noodles", "Canned Goods"],
-    expiry: "10/05/2021",
-    notes: "notes",
-    contactNumber: "09123456789",
-    deliverDate: "October 10, 2021",
-    status: "Available",
-  },
-  {
-    donor: "Fhillip Bagsic",
-    image: "https://c1.staticflickr.com/5/4158/33593402264_bedafb79d1_c.jpg",
-    name: "Pancit Canton Noodles",
-    quantity: 7,
-    categories: ["Instant Noodles", "Canned Goods"],
-    expiry: "10/05/2021",
-    notes: "notes",
-    contactNumber: "09123456789",
-    deliverDate: "October 10, 2021",
-    status: "Accepted",
-  },
-];

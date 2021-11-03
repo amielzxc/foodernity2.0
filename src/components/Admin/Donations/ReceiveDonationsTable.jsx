@@ -109,7 +109,6 @@ const column = [
     sortable: false,
     renderCell: (params) => {
       const onClick = () => {
-        // return alert("accept donation " + params.row.id);
         const obj = { donationID: params.row.id };
         Axios.post(
           "https://foodernity.herokuapp.com/donations/acceptDonations",

@@ -1,4 +1,4 @@
-import { Button, Chip, Typography, withStyles } from "@material-ui/core";
+import { Button, Typography, withStyles } from "@material-ui/core";
 import { DataGrid } from "@mui/x-data-grid";
 import { useSelector } from "react-redux";
 import Axios from "axios";
@@ -9,7 +9,6 @@ function UsersTable() {
   return (
     <div style={{ height: 600, width: "100%" }}>
       <StyledDataGrid
-        // autoPageSize
         rows={users.map((row, index) => {
           const { ...rest } = row;
           return { id: index + 1, ...rest };
@@ -128,7 +127,6 @@ const column = [
             backgroundColor: "#66BB6A",
             "&:hover": {
               backgroundColor: "#57A05A",
-              // Reset on touch devices, it doesn't add specificity
               "@media (hover: none)": {
                 backgroundColor: "#66BB6A",
               },
@@ -163,10 +161,6 @@ const StyledDataGrid = withStyles({
     "& .MuiDataGrid-row": {
       maxHeight: "none !important",
     },
-    // '& .MuiDataGrid-columnHeaderTitleContainer': {
-    //    display: 'flex',
-    //    justifyContent: 'center',
-    // },
     "& .MuiDataGrid-columnHeaderTitle": {
       fontWeight: "bold",
       textAlign: "center",

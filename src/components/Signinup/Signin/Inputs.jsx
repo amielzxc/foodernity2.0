@@ -1,6 +1,6 @@
 import { TextField } from "@material-ui/core";
 import { Controller } from "react-hook-form";
-// returns the contact number input field
+
 function EmailInput(props) {
   return (
     <Controller
@@ -28,7 +28,7 @@ function EmailInput(props) {
     />
   );
 }
-// returns the password input field
+
 function PasswordInput(props) {
   return (
     <Controller

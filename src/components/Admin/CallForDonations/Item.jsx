@@ -11,15 +11,7 @@ import {
 import DoneIcon from "@material-ui/icons/Done";
 import Axios from "axios";
 
-function Item({
-  id,
-  title,
-  description,
-  imgPath,
-
-  date,
-  status,
-}) {
+function Item({ id, title, description, imgPath, date, status }) {
   const classes = useStyles();
   return (
     <Card>
@@ -30,8 +22,6 @@ function Item({
               <IconButton
                 onClick={() => {
                   if (window.confirm(`Are you sure to mark it as fulfilled?`)) {
-                    // post here and fetch
-
                     const obj = { ID: id };
                     Axios.post(
                       "https://foodernity.herokuapp.com/donations/updateCallForDonations",
@@ -39,11 +29,6 @@ function Item({
                     )
                       .then((res) => {
                         console.log(res.data);
-                        //dispatch(setDonations(res.data))
-                        // history.replace('/admin/donations')
-                        // console.log('token: ' + res.data.changePasswordCode)
-                        // localStorage.setItem('token', res.data.changePasswordCode)
-
                         setTimeout(() => window.location.reload(), 0);
                       })
                       .catch((error) => {
@@ -65,19 +50,7 @@ function Item({
         <Typography variant="body1" className={classes.text_bold} noWrap>
           {title}
         </Typography>
-
         <Typography variant="body2">{description}</Typography>
-        {/* <Box my={1}>
-          {categories.map((item, index) => (
-            <Chip
-              key={index}
-              color="primary"
-              label={item}
-              size="small"
-              style={{ marginRight: "5px" }}
-            />
-          ))}
-        </Box> */}
       </CardContent>
     </Card>
   );

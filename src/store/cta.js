@@ -1,7 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-
-
 const ctaSlice = createSlice({
   name: "cta",
   initialState: { value: [] },

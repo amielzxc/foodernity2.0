@@ -7,8 +7,6 @@ import Box from "@material-ui/core/Box";
 import { useState } from "react";
 import UsersTable from "./UsersTable";
 
-// import Item from "./Item";
-
 function TabPanel(props) {
   const { children, value, index } = props;
 

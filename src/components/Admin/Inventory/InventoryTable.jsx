@@ -1,4 +1,4 @@
-import { Button, Chip, Typography, withStyles } from "@material-ui/core";
+import { Chip, Typography, withStyles } from "@material-ui/core";
 import { DataGrid } from "@mui/x-data-grid";
 import { useSelector } from "react-redux";
 function InventoryTable() {
@@ -13,10 +13,6 @@ function InventoryTable() {
         })}
         columns={columns}
         pagination={10}
-
-        //rowsPerPageOptions={[5]}
-        // checkboxSelection
-        // disableSelectionOnClick
       />
     </div>
   );
@@ -70,103 +66,6 @@ const columns = [
       );
     },
   },
-  // {
-  //   field: "id",
-  //   headerName: "ID",
-  //   width: 100,
-  //   type: "number",
-  // },
-  // {
-  //   field: "imgLoc",
-  //   headerName: "Image",
-  //   sortable: false,
-  //   width: 100,
-  //   // disableClickEventBubbling: true,
-
-  //   renderCell: (params) => {
-  //     return (
-  //       <img
-  //         src={params.row.imgLoc}
-  //         alt="donation"
-  //         style={{ width: "50px", height: "50px", margin: "10px" }}
-  //       />
-  //     );
-  //   },
-  // },
-  // {
-  //   field: "donationName",
-  //   headerName: "Donation",
-  //   width: 170,
-  // },
-  // {
-  //   field: "donorName",
-  //   headerName: "Donor",
-  //   width: 170,
-  // },
-  // {
-  //   field: "category",
-  //   headerName: "Category",
-  //   width: 170,
-  //   renderCell: (params) => {
-  //     return (
-  //       // <Chip label={params.row.category} style={{ margin: '0 auto' }} />
-  //       <StyledChip label={params.row.category} />
-  //     );
-  //   },
-  // },
-  // {
-  //   field: "quantity",
-  //   headerName: "Qty.",
-  //   width: 105,
-  //   type: "number",
-  // },
-  // {
-  //   field: "dateClaimed",
-  //   headerName: "Claimed on",
-  //   width: 160,
-  //   type: "date",
-  // },
-  // {
-  //   field: "expiryDate",
-  //   headerName: "Expiry",
-  //   width: 160,
-  //   type: "date",
-  // },
-  // {
-  //   field: "daysLeft",
-  //   headerName: "Before Expiry",
-  //   width: 170,
-  //   type: "number",
-  //   renderCell: (params) => {
-  //     return (
-  //       <StyledTypography daysLeft={params.row.daysLeft} />
-  //       // <Typography style={{ color: 'red', textAlign: 'center' }}>
-  //       //    {params.row.daysLeft} days left
-  //       // </Typography>
-  //     );
-  //   },
-  // },
-  // {
-  //   field: "",
-  //   headerName: "Action",
-  //   width: 200,
-  //   disableClickEventBubbling: true,
-  //   sortable: false,
-  //   renderCell: (params) => {
-  //     const onClick = () => {
-  //       console.log(params.row.donationID);
-  //       return prompt(
-  //         `Enter the recipient of the donation of the donor ${params.row.donorName}.`,
-  //         ""
-  //       );
-  //     };
-  //     return (
-  //       <Button variant="contained" color="primary" onClick={onClick}>
-  //         Mark as Donated
-  //       </Button>
-  //     );
-  //   },
-  // },
 ];
 
 function StyledChip(props) {
@@ -234,21 +133,6 @@ function StyledChip(props) {
   );
 }
 
-// function StyledTypography(props) {
-//   const { daysLeft } = props;
-//   let color;
-
-//   if (daysLeft < 8) {
-//     color = "red";
-//   } else if (daysLeft < 15) {
-//     color = "orange";
-//   } else {
-//     color = "green";
-//   }
-
-//   return <Typography style={{ color: color }}>{daysLeft} days left</Typography>;
-// }
-
 const StyledDataGrid = withStyles({
   root: {
     "& .MuiDataGrid-renderingZone": {
@@ -265,10 +149,6 @@ const StyledDataGrid = withStyles({
     "& .MuiDataGrid-row": {
       maxHeight: "none !important",
     },
-    // '& .MuiDataGrid-columnHeaderTitleContainer': {
-    //    display: 'flex',
-    //    justifyContent: 'center',
-    // },
     "& .MuiDataGrid-columnHeaderTitle": {
       fontWeight: "bold",
       textAlign: "center",

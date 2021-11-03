@@ -127,9 +127,6 @@ const Donate = forwardRef((props, ref) => {
             <DoneeInput donee={donee} setDonee={setDonee} />
             <AddressInput address={address} setAddress={setAddress} />
             <Divider style={{ margin: "5px 0" }} />
-            {/* <Box my={1}>
-              <Typography variant="h6">Categories</Typography>
-            </Box> */}
             <Grid container spacing={2}>
               {Object.entries(quantities).map((category, index) => {
                 return (

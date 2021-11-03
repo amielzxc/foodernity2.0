@@ -19,15 +19,8 @@ function Donations() {
   useEffect(() => {
     Axios.post("https://foodernity.herokuapp.com/donations/getDonations")
       .then((res) => {
-        // setWrongCredentials(false)
-        // setNoAccount(false)
-        // console.log('hello')
-
         dispatch(setDonations(res.data));
         setLoading(false);
-        // history.replace('/admin/donations')
-        // console.log('token: ' + res.data.changePasswordCode)
-        // localStorage.setItem('token', res.data.changePasswordCode)
       })
       .catch((error) => {
         console.log(error);

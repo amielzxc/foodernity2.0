@@ -95,33 +95,6 @@ function Signin() {
               <EmailInput control={control} />
               <PasswordInput control={control} />
               <SignInButton className={classes.button__signin} />
-              {/* <Typography
-                variant="body1"
-                className={`${classes.text} ${classes.text__or}`}
-              >
-                or
-              </Typography>
-              <GoogleSignInButton />
-              <Typography
-                variant="body1"
-                className={`${classes.text} ${classes.text__register}`}
-              >
-                Dont have an account?
-                <Link to="/signup" style={{ textDecoration: "none" }}>
-                  <span className={classes.text__register_signup}>
-                    {" "}
-                    Sign up here
-                  </span>
-                </Link>
-              </Typography>
-              <Link to="/forgotpassword" style={{ textDecoration: "none" }}>
-                <Typography
-                  variant="body1"
-                  className={classes.text__forgotpassword}
-                >
-                  Forgot password?
-                </Typography>
-              </Link> */}
             </form>
           </div>
         </Grid>

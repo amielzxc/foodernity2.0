@@ -13,7 +13,6 @@ import {
 import { deepOrange } from "@material-ui/core/colors";
 import MenuIcon from "@material-ui/icons/Menu";
 import { Link } from "react-router-dom";
-// import { useAdminStore } from "../../store/AdminStore";
 
 const useStyles = makeStyles((theme) => ({
   navbar: {
@@ -71,7 +70,7 @@ function NavBar() {
     </AppBar>
   );
 }
-// returns the navigation buttons of the website
+
 function NavigationButtons() {
   const classes = useStyles();
 
@@ -88,9 +87,6 @@ function NavigationButtons() {
         <Button component={Link} to="/admin/inventory">
           Inventory
         </Button>
-        {/* <Button component={Link} to="/admin/records">
-          Records
-        </Button> */}
         <Button component={Link} to="/admin/users">
           Users
         </Button>
@@ -99,7 +95,7 @@ function NavigationButtons() {
     </Hidden>
   );
 }
-// returns the menu button when the page reaches the responsive layout
+
 function MenuButton() {
   const [anchorEl, setAnchorEl] = useState(null);
 
@@ -130,9 +126,6 @@ function MenuButton() {
         <MenuItem component={Link} to="/admin/inventory">
           Inventory
         </MenuItem>
-        {/* <MenuItem component={Link} to="/admin/records">
-          Records
-        </MenuItem> */}
         <MenuItem to="/admin/users">Users</MenuItem>
         <MenuItem>Logout</MenuItem>
       </Menu>

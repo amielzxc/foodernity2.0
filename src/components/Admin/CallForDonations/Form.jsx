@@ -31,7 +31,6 @@ const Form = forwardRef((props, ref) => {
 
   const onPostClick = () => {
     if (!title || !description || !image) return setAlert(true);
-
     setAlert(false);
 
     const formData = new FormData();
@@ -64,7 +63,6 @@ const Form = forwardRef((props, ref) => {
         console.log(err);
       }
     });
-    handleClose();
   };
 
   return (
