@@ -1,4 +1,5 @@
 import { makeStyles, Typography } from "@material-ui/core";
+import Graph from "./Graph";
 
 function Donations() {
   const classes = useStyles();
@@ -8,6 +9,7 @@ function Donations() {
       <Typography variant="h6" className={classes.title}>
         Donations
       </Typography>
+      <Graph />
     </div>
   );
 }

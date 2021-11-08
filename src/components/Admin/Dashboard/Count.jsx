@@ -1,4 +1,10 @@
-import { Grid, makeStyles, Typography } from "@material-ui/core";
+import { Box, Grid, makeStyles, Typography } from "@material-ui/core";
+import {
+  CallReceivedRounded,
+  GroupRounded,
+  InboxRounded,
+  VisibilityRounded,
+} from "@material-ui/icons";
 
 function RightCount() {
   const classes = useStyles();
@@ -12,21 +18,31 @@ function RightCount() {
           >
             To Receive
           </Typography>
-          <Typography variant="h5" className={classes.count}>
-            50
-          </Typography>
+          <div className={classes.count_container}>
+            <div className={classes.receive_icon}>
+              <CallReceivedRounded />
+            </div>
+            <Typography variant="h5" className={classes.count}>
+              50
+            </Typography>
+          </div>
         </div>
       </Grid>
       <Grid item xs={12}>
         <div className={classes.container}>
           {" "}
           <Typography className={classes.title}>User Count</Typography>
-          <Typography variant="h5" className={classes.count}>
-            50
-          </Typography>
-          <Typography variant="caption" style={{ color: "green" }}>
+          <div className={classes.count_container}>
+            <div className={classes.user_icon}>
+              <GroupRounded />
+            </div>
+            <Typography variant="h5" className={classes.count}>
+              50
+            </Typography>
+          </div>
+          {/* <Typography variant="caption" style={{ color: "green" }}>
             ↑ 10% than last month
-          </Typography>
+          </Typography> */}
         </div>
       </Grid>
     </Grid>
@@ -43,23 +59,33 @@ function LeftCount() {
             className={classes.title}
             style={{ marginBottom: "10px" }}
           >
-            Pending
+            To Accept
           </Typography>
-          <Typography variant="h5" className={classes.count}>
-            50
-          </Typography>
+          <div className={classes.count_container}>
+            <div className={classes.pending_icon}>
+              <InboxRounded />
+            </div>
+            <Typography variant="h5" className={classes.count}>
+              50
+            </Typography>
+          </div>
         </div>
       </Grid>
       <Grid item xs={12}>
         <div className={classes.container}>
-          {" "}
           <Typography className={classes.title}>Visitor Count</Typography>
-          <Typography variant="h5" className={classes.count}>
-            50
-          </Typography>
-          <Typography variant="caption" style={{ color: "red" }}>
+          <div className={classes.count_container}>
+            <div className={classes.visitor_icon}>
+              <VisibilityRounded />
+            </div>
+            <Typography variant="h5" className={classes.count}>
+              50
+            </Typography>
+          </div>
+
+          {/* <Typography variant="caption" style={{ color: "red" }}>
             ↓ 3% than last month
-          </Typography>
+          </Typography> */}
         </div>
       </Grid>
     </Grid>
@@ -83,5 +109,38 @@ const useStyles = makeStyles(() => ({
   count: {
     fontWeight: "bold",
     letterSpacing: ".3px",
+  },
+  count_container: {
+    display: "flex",
+    alignItems: "center",
+    gap: "15px",
+  },
+  user_icon: {
+    background: "rgba(0,0,0,.04)",
+    padding: "10px",
+    borderRadius: "50%",
+    height: "44px",
+    color: "green",
+  },
+  visitor_icon: {
+    background: "rgba(0,0,0,.04)",
+    padding: "10px",
+    borderRadius: "50%",
+    height: "44px",
+    color: "red",
+  },
+  receive_icon: {
+    background: "rgba(0,0,0,.04)",
+    padding: "10px",
+    borderRadius: "50%",
+    height: "44px",
+    color: "blue",
+  },
+  pending_icon: {
+    background: "rgba(0,0,0,.04)",
+    padding: "10px",
+    borderRadius: "50%",
+    height: "44px",
+    color: "orange",
   },
 }));

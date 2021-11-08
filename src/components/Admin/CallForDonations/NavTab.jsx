@@ -82,7 +82,7 @@ function NavTab() {
         <TabPanel value={value} index={0}>
           <div className={classes.grid}>
             {ctaList
-              .filter((item) => item.status === "active")
+              .filter((item) => item.status === "unfulfilled")
               .map((item, index) => (
                 <Item
                   key={index}
