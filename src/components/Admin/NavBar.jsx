@@ -16,7 +16,7 @@ import { Link } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   navbar: {
-    zIndex: theme.zIndex.drawer + 1,
+    // zIndex: theme.zIndex.drawer + 1,
     backgroundColor: "white",
   },
   heading: {
@@ -77,6 +77,9 @@ function NavigationButtons() {
   return (
     <Hidden smDown>
       <div className={classes.navbar__actions}>
+        <Button component={Link} to="/admin/dashboard">
+          Dashboard
+        </Button>
         <Button component={Link} to="/admin/donations">
           Receive Donations
         </Button>
@@ -124,6 +127,9 @@ function MenuButton() {
         open={Boolean(anchorEl)}
         onClose={handleClose}
       >
+        <MenuItem component={Link} to="/admin/dashboard">
+          Dashboard
+        </MenuItem>
         <MenuItem component={Link} to="/admin/donations">
           Receive Donations
         </MenuItem>

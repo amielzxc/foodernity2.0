@@ -3,24 +3,37 @@ import { DataGrid } from "@mui/x-data-grid";
 import { useRef } from "react";
 import ItemDetails from "./Details";
 import Axios from "axios";
-
 import { useSelector } from "react-redux";
+import Loading from "./Loading";
+
 function ReceiveDonationsTable() {
   const donations = useSelector((state) => state.donations.value);
   const detailsRef = useRef(null);
+  const loadingRef = useRef(null);
 
-  const onClick = (e) => {
-    const element = e.target;
-    if (!element.textContent.startsWith("View ")) return;
-    const childElement = element.firstElementChild;
-    const id = childElement.textContent;
-    detailsRef.current.showModal(id);
+  const onButtonClick = (e) => {
+    const buttonElement = e.target.closest("button");
+
+    if (!buttonElement || buttonElement.tagName !== "BUTTON") return;
+    if (!buttonElement.classList.contains("actionButton")) return;
+
+    const firstChildElement = buttonElement.firstElementChild;
+    const textContents = firstChildElement.textContent;
+
+    if (
+      textContents.startsWith("Accept Donation ") ||
+      textContents.startsWith("Mark as Received ")
+    ) {
+      loadingRef.current.openLoading();
+    } else {
+      const [, id] = textContents.split(" ");
+      detailsRef.current.showModal(id);
+    }
   };
 
-  console.log(donations);
   return (
     <>
-      <div style={{ height: 600, width: "100%" }} onClick={onClick}>
+      <div style={{ height: 600, width: "100%" }} onClick={onButtonClick}>
         <StyledDataGrid
           rows={donations.map((row) => {
             const { donationID, ...rest } = row;
@@ -31,6 +44,7 @@ function ReceiveDonationsTable() {
         />
       </div>
       <ItemDetails ref={detailsRef} />
+      <Loading ref={loadingRef} />
     </>
   );
 }
@@ -43,6 +57,9 @@ const column = [
     headerName: "ID",
     width: 100,
     type: "number",
+    renderCell: (params) => {
+      return <Typography>{params.row.id}</Typography>;
+    },
   },
   {
     field: "imgPath",
@@ -65,11 +82,17 @@ const column = [
     field: "donationName",
     headerName: "Donation",
     width: 170,
+    renderCell: (params) => {
+      return <Typography>{params.row.donationName}</Typography>;
+    },
   },
   {
     field: "fullName",
     headerName: "Donor",
     width: 170,
+    renderCell: (params) => {
+      return <Typography>{params.row.fullName}</Typography>;
+    },
   },
   {
     field: "donationQuantities",
@@ -141,8 +164,14 @@ const column = [
       };
 
       return params.row.status === "pending" ? (
-        <Button variant="contained" color="primary" onClick={onClick}>
-          Accept Donation
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={onClick}
+          className="actionButton"
+        >
+          Accept Donation{" "}
+          <span style={{ display: "none" }}>{params.row.id}</span>
         </Button>
       ) : (
         <Button variant="contained" color="default" disabled>
@@ -176,10 +205,7 @@ const column = [
             const str2 = params.row.donationCategories;
             let trimmed2 = str2.slice(1, str2.length - 1);
             let categArr = trimmed2.split(", ");
-            console.log({
-              categArr: categArr,
-              qtyArr: qtyArr,
-            });
+
             Axios.post("https://foodernity.herokuapp.com/stocks/addStocks", {
               categArr: categArr,
               qtyArr: qtyArr,
@@ -214,7 +240,6 @@ const column = [
             backgroundColor: "#66BB6A",
             "&:hover": {
               backgroundColor: "#57A05A",
-              // Reset on touch devices, it doesn't add specificity
               "@media (hover: none)": {
                 backgroundColor: "#66BB6A",
               },
@@ -222,9 +247,11 @@ const column = [
           }}
           variant="contained"
           color="primary"
+          className="actionButton"
           onClick={onClick}
         >
-          Mark as Received
+          Mark as Received{" "}
+          <span style={{ display: "none" }}>{params.row.id}</span>
         </Button>
       ) : (
         <Button variant="contained" color="default" disabled>
@@ -237,14 +264,18 @@ const column = [
     field: "3",
     headerName: "View more",
     width: 200,
-    // disableClickEventBubbling: true,
     sortable: false,
     renderCell: (params) => {
       const onClick = () => {
         return params.row.donationName;
       };
       return (
-        <Button variant="contained" color="secondary" onClick={onClick}>
+        <Button
+          variant="contained"
+          color="secondary"
+          onClick={onClick}
+          className="actionButton"
+        >
           View <span style={{ display: "none" }}>{params.row.id}</span>
         </Button>
       );
@@ -268,10 +299,6 @@ const StyledDataGrid = withStyles({
     "& .MuiDataGrid-row": {
       maxHeight: "none !important",
     },
-    // '& .MuiDataGrid-columnHeaderTitleContainer': {
-    //    display: 'flex',
-    //    justifyContent: 'center',
-    // },
     "& .MuiDataGrid-columnHeaderTitle": {
       fontWeight: "bold",
       textAlign: "center",

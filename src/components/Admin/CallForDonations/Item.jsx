@@ -28,7 +28,6 @@ function Item({ id, title, description, imgPath, date, status }) {
                       obj
                     )
                       .then((res) => {
-                        console.log(res.data);
                         setTimeout(() => window.location.reload(), 0);
                       })
                       .catch((error) => {

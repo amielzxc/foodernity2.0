@@ -3,33 +3,20 @@ import { useTheme } from "@material-ui/styles";
 import { Helmet } from "react-helmet";
 import Main from "../../components/Shared/Main";
 import NavBar from "../../components/Admin/NavBar";
-import NavTab from "../../components/Admin/Users/NavTab";
+import NavTab from "../../components/Admin/Dashboard/NavTab";
 import { useEffect, useState } from "react";
-import Loading from "../../components/Shared/Loading";
-import Axios from "axios";
 import { useDispatch } from "react-redux";
-import { setUsers } from "../../store/users";
+
+import Axios from "axios";
+import Loading from "../../components/Shared/Loading";
 import { Redirect, withRouter } from "react-router";
 import bcryptjs from "bcryptjs";
 
-function Users() {
-  const [loading, setLoading] = useState(true);
-
+function Dashboard() {
+  const [loading, setLoading] = useState(false);
   const theme = useTheme();
   const responsive = useMediaQuery(theme.breakpoints.down("sm"));
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    Axios.post("https://foodernity.herokuapp.com/user/getUsers").then(
-      (response, err) => {
-        if (err) {
-          console.log("error: " + err);
-        }
-        setLoading(false);
-        dispatch(setUsers(response.data));
-      }
-    );
-  }, [dispatch]);
 
   return bcryptjs.compareSync(
     "MHTPadmin2021@gmail.com",
@@ -37,7 +24,7 @@ function Users() {
   ) ? (
     <>
       <Helmet>
-        <title>Users | Foodernity</title>
+        <title>Dashboard | Foodernity</title>
       </Helmet>
       <div
         style={{
@@ -59,4 +46,4 @@ function Users() {
   );
 }
 
-export default withRouter(Users);
+export default withRouter(Dashboard);

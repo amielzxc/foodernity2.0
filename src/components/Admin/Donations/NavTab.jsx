@@ -1,10 +1,10 @@
 import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
-import Tabs from "@material-ui/core/Tabs";
-import Tab from "@material-ui/core/Tab";
+// import Tabs from "@material-ui/core/Tabs";
+// import Tab from "@material-ui/core/Tab";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
-import { useState } from "react";
+// import { useState } from "react";
 import ReceiveDonationsTable from "./ReceiveDonationsTable";
 
 function TabPanel(props) {
@@ -23,11 +23,11 @@ function TabPanel(props) {
 
 function NavTab() {
   const classes = useStyles();
-  const [value, setValue] = useState(0);
+  // const [value, setValue] = useState(0);
 
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
-  };
+  // const handleChange = (event, newValue) => {
+  //   setValue(newValue);
+  // };
 
   return (
     <div className={classes.root}>
@@ -43,7 +43,7 @@ function NavTab() {
           elevation={0}
           className={classes.appbar}
         >
-          <Tabs
+          {/* <Tabs
             value={value}
             onChange={handleChange}
             indicatorColor="primary"
@@ -51,10 +51,10 @@ function NavTab() {
             variant="fullWidth"
           >
             <Tab label="List of donations " />
-          </Tabs>
+          </Tabs> */}
         </AppBar>
       </Box>
-      <TabPanel value={value} index={0}>
+      <TabPanel value={0} index={0}>
         <ReceiveDonationsTable />
       </TabPanel>
     </div>

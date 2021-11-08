@@ -61,13 +61,6 @@ function Signin() {
     setNoAccount(false);
   };
 
-  console.log(
-    bcryptjs.compareSync(
-      "MHTPadmin2021@gmail.com",
-      localStorage.getItem("vh") || ""
-    )
-  );
-
   return bcryptjs.compareSync(
     "MHTPadmin2021@gmail.com",
     localStorage.getItem("vh") || ""

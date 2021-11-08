@@ -1,10 +1,10 @@
 import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
-import Tabs from "@material-ui/core/Tabs";
-import Tab from "@material-ui/core/Tab";
+// import Tabs from "@material-ui/core/Tabs";
+// import Tab from "@material-ui/core/Tab";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import InventoryTable from "./InventoryTable";
 import { Button } from "@material-ui/core";
 import Donate from "./Donate";
@@ -25,11 +25,11 @@ function TabPanel(props) {
 
 function NavTab() {
   const classes = useStyles();
-  const [value, setValue] = useState(0);
+  // const [value, setValue] = useState(0);
   const formRef = useRef(null);
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
-  };
+  // const handleChange = (event, newValue) => {
+  //   setValue(newValue);
+  // };
 
   return (
     <div className={classes.root}>
@@ -57,7 +57,7 @@ function NavTab() {
           elevation={0}
           className={classes.appbar}
         >
-          <Tabs
+          {/* <Tabs
             value={value}
             onChange={handleChange}
             indicatorColor="primary"
@@ -65,10 +65,10 @@ function NavTab() {
             variant="fullWidth"
           >
             <Tab label="Items on hand" />
-          </Tabs>
+          </Tabs> */}
         </AppBar>
       </Box>
-      <TabPanel value={value} index={0}>
+      <TabPanel value={0} index={0}>
         <InventoryTable />
       </TabPanel>
       <Donate ref={formRef} />

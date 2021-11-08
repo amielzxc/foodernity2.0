@@ -74,8 +74,8 @@ function NavTab() {
               textColor="primary"
               variant="fullWidth"
             >
-              <Tab label="Active Requests" />
-              <Tab label="Fulfilled requests" />
+              <Tab label="Active " />
+              <Tab label="Done" />
             </Tabs>
           </AppBar>
         </Box>
