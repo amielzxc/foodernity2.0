@@ -92,7 +92,7 @@ const ItemDetails = forwardRef((props, ref) => {
         <Divider className={classes.divider_margin} />
         <Grid container spacing={2} className={classes.grid_margin}>
           {details.donationCategories.map((category, index) => (
-            <Grid item key={index} xs={6} sm={4}>
+            <Grid item key={index} xs={12} sm={6}>
               <DonationItem
                 category={category}
                 quantity={details.donationQuantities[index]}
