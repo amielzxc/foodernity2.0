@@ -17,7 +17,7 @@ function Item({ id, title, description, imgPath, date, status }) {
     <Card>
       <CardHeader
         action={
-          status === "active" && (
+          status === "unfulfilled" && (
             <Tooltip title="Mark as fulfilled">
               <IconButton
                 onClick={() => {
