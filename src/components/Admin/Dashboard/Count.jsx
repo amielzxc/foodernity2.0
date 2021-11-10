@@ -1,12 +1,17 @@
-import { Box, Grid, makeStyles, Typography } from "@material-ui/core";
+import { Grid, makeStyles, Typography } from "@material-ui/core";
 import {
   CallReceivedRounded,
   GroupRounded,
   InboxRounded,
   VisibilityRounded,
 } from "@material-ui/icons";
+import { useSelector } from "react-redux";
 
 function RightCount() {
+  const userCount = useSelector((state) => state.dashboard.userCount);
+  const acceptedDonations = useSelector(
+    (state) => state.dashboard.acceptedDonations
+  );
   const classes = useStyles();
   return (
     <Grid container item spacing={3}>
@@ -23,7 +28,7 @@ function RightCount() {
               <CallReceivedRounded />
             </div>
             <Typography variant="h5" className={classes.count}>
-              50
+              {acceptedDonations}
             </Typography>
           </div>
         </div>
@@ -37,7 +42,7 @@ function RightCount() {
               <GroupRounded />
             </div>
             <Typography variant="h5" className={classes.count}>
-              50
+              {userCount}
             </Typography>
           </div>
           {/* <Typography variant="caption" style={{ color: "green" }}>
@@ -50,6 +55,9 @@ function RightCount() {
 }
 
 function LeftCount() {
+  const pendingDonations = useSelector(
+    (state) => state.dashboard.pendingDonations
+  );
   const classes = useStyles();
   return (
     <Grid container item spacing={3}>
@@ -66,7 +74,7 @@ function LeftCount() {
               <InboxRounded />
             </div>
             <Typography variant="h5" className={classes.count}>
-              50
+              {pendingDonations}
             </Typography>
           </div>
         </div>

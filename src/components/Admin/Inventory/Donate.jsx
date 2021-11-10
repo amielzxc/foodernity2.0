@@ -10,6 +10,7 @@ import {
   InputAdornment,
   Divider,
   Box,
+  makeStyles,
 } from "@material-ui/core";
 import { useSelector } from "react-redux";
 import { forwardRef, useImperativeHandle, useState } from "react";
@@ -47,6 +48,7 @@ const Donate = forwardRef((props, ref) => {
   const [date, setDate] = useState(new Date());
   const [image, setImage] = useState(null);
   const [remarks, setRemarks] = useState("");
+  const classes = useStyles();
 
   useImperativeHandle(ref, () => ({
     openForm() {
@@ -58,12 +60,21 @@ const Donate = forwardRef((props, ref) => {
     setToggle(false);
   };
 
-  const handleReleaseClick = () => {
-    if (Object.values(quantities).every((value) => !value))
-      return setAlert(true);
-    if (!donee || !address || !date || !image || !remarks)
-      return setAlert(true);
+  const handleReleaseClick = (e) => {
+    if (
+      !donee ||
+      !address ||
+      !date ||
+      !image ||
+      !remarks ||
+      Object.values(quantities).every((value) => !value)
+    ) {
+      setAlert(true);
+      e.stopPropagation();
+      return;
+    }
 
+    setToggle(false);
     let categArr = [];
     let quantityArr = [];
 
@@ -109,7 +120,7 @@ const Donate = forwardRef((props, ref) => {
             return console.log("error: " + err);
           }
           console.log("saved");
-          setTimeout(() => window.location.reload(), 0);
+          setTimeout(() => window.location.reload(), 1000);
         });
       } else {
         console.log(err);
@@ -123,7 +134,11 @@ const Donate = forwardRef((props, ref) => {
         <Dialog open={toggle}>
           <DialogTitle>Release Donation</DialogTitle>
           <DialogContent dividers>
-            {alert && <Typography>Please fill up details</Typography>}
+            {alert && (
+              <Typography className={classes.error_text}>
+                Please fill up all the necessary inputs.
+              </Typography>
+            )}
             <DoneeInput donee={donee} setDonee={setDonee} />
             <AddressInput address={address} setAddress={setAddress} />
             <Divider style={{ margin: "5px 0" }} />
@@ -168,6 +183,7 @@ const Donate = forwardRef((props, ref) => {
               color="primary"
               variant="contained"
               onClick={handleReleaseClick}
+              className="actionButton"
             >
               Release
             </Button>
@@ -313,3 +329,10 @@ function RemarksInput({ remarks, setRemarks }) {
     />
   );
 }
+
+const useStyles = makeStyles(() => ({
+  error_text: {
+    textAlign: "center",
+    color: "red",
+  },
+}));

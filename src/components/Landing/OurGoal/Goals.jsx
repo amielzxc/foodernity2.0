@@ -71,51 +71,6 @@ function GoalTwo() {
   const sm = useMediaQuery(theme.breakpoints.down("sm"));
   const md = useMediaQuery(theme.breakpoints.down("md"));
   return (
-    //  <Grid
-    //    container
-    //    item
-    //    xs={12}
-    //    justify="center"
-    //    direction={sm ? "column-reverse" : "row"}
-    //    style={{ margin: sm ? "2rem 0" : "5rem 0" }}
-    //  >
-    //    <Grid item xs={false} md={1} />
-    //    <Grid container item xs={12} md={5} justify="center" alignItems="center">
-    //      <Typography
-    //        variant={md ? "h4" : "h3"}
-    //        style={{
-    //          fontFamily: "Inter",
-    //          fontWeight: "700",
-    //          textAlign: sm ? "center" : "start",
-    //          marginBottom: sm ? "2rem" : 0,
-    //        }}
-    //      >
-    //        To help achieve zero hunger
-    //      </Typography>
-    //      <Typography
-    //        variant="h5"
-    //        style={{
-    //          textAlign: sm ? "center" : "left",
-    //          fontFamily: "Inter",
-    //          fontWeight: "500",
-    //          marginBottom: "1rem",
-    //        }}
-    //      >
-    //        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Orci viverra
-    //        arcu, amet lobortis donec nibh. Feugiat nisl quis velit pharetra
-    //        mattis nisl.
-    //      </Typography>
-    //    </Grid>
-    //    <Grid item xs={false} md={1} />
-    //    <Grid container item xs={12} md={4} justify="center">
-    //      <img
-    //        src={hunger}
-    //        alt="food-waste"
-    //        style={{ width: sm ? "200px" : "300px" }}
-    //      />
-    //    </Grid>
-    //    <Grid item xs={false} md={1} />
-    //  </Grid>
     <Grid
       container
       item

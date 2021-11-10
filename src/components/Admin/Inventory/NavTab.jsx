@@ -8,31 +8,24 @@ import { useRef } from "react";
 import InventoryTable from "./InventoryTable";
 import { Button } from "@material-ui/core";
 import Donate from "./Donate";
-
-function TabPanel(props) {
-  const { children, value, index } = props;
-
-  return (
-    <div hidden={value !== index}>
-      {value === index && (
-        <Box width="100%" pt={2}>
-          {children}
-        </Box>
-      )}
-    </div>
-  );
-}
-
+import Loading from "../Loading";
 function NavTab() {
   const classes = useStyles();
-  // const [value, setValue] = useState(0);
   const formRef = useRef(null);
-  // const handleChange = (event, newValue) => {
-  //   setValue(newValue);
-  // };
+  const loadingRef = useRef(null);
+
+  const onButtonClick = (e) => {
+    const buttonElement = e.target.closest("button");
+
+    if (!buttonElement || buttonElement.tagName !== "BUTTON") return;
+    if (!buttonElement.classList.contains("actionButton")) return;
+
+    // console.log(buttonElement);
+    loadingRef.current.openLoading();
+  };
 
   return (
-    <div className={classes.root}>
+    <div className={classes.root} onClick={onButtonClick}>
       <Box boxShadow={1} borderRadius={5} bgcolor="white">
         <Box
           p={2}
@@ -72,12 +65,26 @@ function NavTab() {
         <InventoryTable />
       </TabPanel>
       <Donate ref={formRef} />
+      <Loading ref={loadingRef} />
     </div>
   );
 }
 
 export default NavTab;
 
+function TabPanel(props) {
+  const { children, value, index } = props;
+
+  return (
+    <div hidden={value !== index}>
+      {value === index && (
+        <Box width="100%" pt={2}>
+          {children}
+        </Box>
+      )}
+    </div>
+  );
+}
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,

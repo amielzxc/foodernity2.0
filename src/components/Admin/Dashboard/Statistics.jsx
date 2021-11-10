@@ -1,9 +1,16 @@
 import { makeStyles, Typography } from "@material-ui/core";
 import { CallReceived } from "@material-ui/icons";
+import { useSelector } from "react-redux";
 
 function Statistics() {
   const classes = useStyles();
-
+  const donationsReceived = useSelector(
+    (state) => state.dashboard.donationsReceived
+  );
+  const donationsDistributed = useSelector(
+    (state) => state.dashboard.donationsDistributed
+  );
+  const currentStocks = useSelector((state) => state.dashboard.currentStocks);
   return (
     <div className={classes.container}>
       <Typography variant="h6" className={classes.title}>
@@ -13,17 +20,17 @@ function Statistics() {
         <Count
           title="Donations Received"
           icon={<CallReceived style={{ color: "blue" }} />}
-          count="550"
+          count={`${donationsReceived}`}
         />
         <Count
           title="Donations Distributed"
           icon={<CallReceived style={{ color: "green" }} />}
-          count="410"
+          count={`${donationsDistributed}`}
         />
         <Count
           title="Current Donation Stocks"
           icon={<CallReceived style={{ color: "red" }} />}
-          count="140"
+          count={`${currentStocks}`}
         />
         <Count
           title="Active Call for Donations"

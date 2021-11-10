@@ -10,6 +10,7 @@ import { Button, useTheme, useMediaQuery } from "@material-ui/core";
 import AddIcon from "@material-ui/icons/Add";
 import Form from "./Form";
 import { useSelector } from "react-redux";
+import Loading from "../Loading";
 
 function TabPanel(props) {
   const { children, value, index } = props;
@@ -30,6 +31,7 @@ function NavTab() {
   const ctaList = useSelector((state) => state.cta.value);
   const [value, setValue] = useState(0);
   const openFormRef = useRef(null);
+  const loadingRef = useRef(null);
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -37,9 +39,17 @@ function NavTab() {
   const theme = useTheme();
   const responsive = useMediaQuery(theme.breakpoints.down("sm"));
 
+  const onButtonClick = (e) => {
+    const buttonElement = e.target.closest("button");
+
+    if (!buttonElement || buttonElement.tagName !== "BUTTON") return;
+    if (!buttonElement.classList.contains("actionButton")) return;
+
+    loadingRef.current.openLoading();
+  };
   return (
     <>
-      <div className={classes.root}>
+      <div className={classes.root} onClick={onButtonClick}>
         <Box boxShadow={1} borderRadius={5} bgcolor="white">
           <Box
             p={2}
@@ -113,8 +123,9 @@ function NavTab() {
               ))}
           </div>
         </TabPanel>
+        <Form ref={openFormRef} />
       </div>
-      <Form ref={openFormRef} />
+      <Loading ref={loadingRef} />
     </>
   );
 }

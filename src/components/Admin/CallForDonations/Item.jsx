@@ -1,4 +1,5 @@
 import {
+  Box,
   Card,
   CardContent,
   CardHeader,
@@ -49,6 +50,7 @@ function Item({ id, title, description, imgPath, date, status }) {
         <Typography variant="body1" className={classes.text_bold} noWrap>
           {title}
         </Typography>
+
         <Typography variant="body2">{description}</Typography>
       </CardContent>
     </Card>
@@ -61,7 +63,6 @@ const useStyles = makeStyles((theme) => ({
   text_bold: {
     fontWeight: "bold",
   },
-
   media: {
     height: 0,
     paddingTop: "56.25%", // 16:9

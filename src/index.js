@@ -6,6 +6,7 @@ import reportWebVitals from "./reportWebVitals";
 import { configureStore } from "@reduxjs/toolkit";
 import { BrowserRouter as Router } from "react-router-dom";
 import { Provider } from "react-redux";
+import dashboardReducer from "./store/dashboard";
 import donationsReducer from "./store/donations";
 import ctaReducer from "./store/cta";
 import inventoryReducer from "./store/inventory";
@@ -13,6 +14,7 @@ import usersReducer from "./store/users";
 
 const store = configureStore({
   reducer: {
+    dashboard: dashboardReducer,
     cta: ctaReducer,
     donations: donationsReducer,
     inventory: inventoryReducer,

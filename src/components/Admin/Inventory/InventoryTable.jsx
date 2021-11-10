@@ -60,7 +60,9 @@ const columns = [
     type: "number",
     renderCell: (params) => {
       return (
-        <Typography style={{ color: params.row.stocks < 30 ? "red" : "green" }}>
+        <Typography
+          style={{ color: params.row.stocks <= 50 ? "red" : "green" }}
+        >
           {params.row.stocks} pcs left
         </Typography>
       );

@@ -8,6 +8,7 @@ import {
   Divider,
   TextField,
   Typography,
+  makeStyles,
 } from "@material-ui/core";
 import { forwardRef, useImperativeHandle, useState } from "react";
 import Axios from "axios";
@@ -18,6 +19,7 @@ const Form = forwardRef((props, ref) => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [image, setImage] = useState(null);
+  const classes = useStyles();
 
   useImperativeHandle(ref, () => ({
     openForm() {
@@ -29,10 +31,14 @@ const Form = forwardRef((props, ref) => {
     setToggle(false);
   };
 
-  const onPostClick = () => {
-    if (!title || !description || !image) return setAlert(true);
+  const onPostClick = (e) => {
+    if (!title || !description || !image) {
+      setAlert(true);
+      e.stopPropagation();
+      return;
+    }
     setAlert(false);
-
+    setToggle(false);
     const formData = new FormData();
     formData.append("file", image);
     formData.append("upload_preset", "b4jy8nar");
@@ -45,7 +51,7 @@ const Form = forwardRef((props, ref) => {
           title: title,
           description: description,
           imgPath: response.data.secure_url,
-          status: "active",
+          status: "unfulfilled",
           date: getDate(),
         };
 
@@ -71,7 +77,11 @@ const Form = forwardRef((props, ref) => {
         <Dialog open={toggle}>
           <DialogTitle>Make a Call for Donation</DialogTitle>
           <DialogContent dividers>
-            {alert && <Typography>Please fill up</Typography>}
+            {alert && (
+              <Typography className={classes.error_text}>
+                Please fill up all of the inputs.
+              </Typography>
+            )}
             <TitleInput title={title} setTitle={setTitle} />
             <DescriptionInput
               description={description}
@@ -84,7 +94,12 @@ const Form = forwardRef((props, ref) => {
             <Button color="primary" onClick={handleClose}>
               Cancel
             </Button>
-            <Button color="primary" variant="contained" onClick={onPostClick}>
+            <Button
+              color="primary"
+              variant="contained"
+              onClick={(e) => onPostClick(e)}
+              className="actionButton"
+            >
               Post
             </Button>
           </DialogActions>
@@ -143,6 +158,13 @@ function UploadInput({ setImage }) {
     </Box>
   );
 }
+
+const useStyles = makeStyles(() => ({
+  error_text: {
+    textAlign: "center",
+    color: "red",
+  },
+}));
 
 function getDate() {
   const months = [

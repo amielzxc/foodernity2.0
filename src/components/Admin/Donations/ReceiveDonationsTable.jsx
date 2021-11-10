@@ -4,7 +4,7 @@ import { useRef } from "react";
 import ItemDetails from "./Details";
 import Axios from "axios";
 import { useSelector } from "react-redux";
-import Loading from "./Loading";
+import Loading from "../Loading";
 
 function ReceiveDonationsTable() {
   const donations = useSelector((state) => state.donations.value);
@@ -193,45 +193,43 @@ const column = [
         Axios.post(
           "https://foodernity.herokuapp.com/donations/receiveDonations",
           obj
-        )
-          .then((response, err) => {
+        ).then((response, err) => {
+          if (err) {
+            return console.log("err" + err);
+          }
+          const str1 = params.row.donationQuantities;
+          let trimmed1 = str1.slice(1, str1.length - 1);
+          let qtyArr = trimmed1.split(", ");
+
+          const str2 = params.row.donationCategories;
+          let trimmed2 = str2.slice(1, str2.length - 1);
+          let categArr = trimmed2.split(", ");
+
+          console.log(categArr);
+          console.log(qtyArr);
+          Axios.post("https://foodernity.herokuapp.com/stocks/addStocks", {
+            categArr: categArr,
+            qtyArr: qtyArr,
+          }).then((response, err) => {
             if (err) {
               return console.log("err" + err);
             }
-            const str1 = params.row.donationQuantities;
-            let trimmed1 = str1.slice(1, str1.length - 1);
-            let qtyArr = trimmed1.split(", ");
-
-            const str2 = params.row.donationCategories;
-            let trimmed2 = str2.slice(1, str2.length - 1);
-            let categArr = trimmed2.split(", ");
-
-            Axios.post("https://foodernity.herokuapp.com/stocks/addStocks", {
-              categArr: categArr,
-              qtyArr: qtyArr,
-            }).then((response, err) => {
+            let obj = {
+              donationID: params.row.id,
+              donorEmail: params.row.email,
+              donationName: params.row.donationName,
+            };
+            Axios.post(
+              "https://foodernity.herokuapp.com/notif/notifyReceive",
+              obj
+            ).then((response, err) => {
               if (err) {
                 return console.log("err" + err);
               }
-              let obj = {
-                donationID: params.row.id,
-                donorEmail: params.row.email,
-                donationName: params.row.donationName,
-              };
-              Axios.post(
-                "https://foodernity.herokuapp.com/notif/notifyReceive",
-                obj
-              ).then((response, err) => {
-                if (err) {
-                  return console.log("err" + err);
-                }
-                setTimeout(() => window.location.reload(), 0);
-              });
+              setTimeout(() => window.location.reload(), 0);
             });
-          })
-          .catch((error) => {
-            console.log(error);
           });
+        });
       };
       return params.row.status === "accepted" ? (
         <Button

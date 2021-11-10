@@ -25,17 +25,6 @@ export default function Footer() {
           Foodernity
         </Typography>
       </Grid>
-      <Grid item>
-        <Typography
-          style={{
-            color: "white",
-            fontFamily: "Inter",
-            fontWeight: "300",
-          }}
-        >
-          About
-        </Typography>
-      </Grid>
 
       <Grid item>
         <Typography
@@ -70,30 +59,6 @@ export default function Footer() {
           }}
         >
           Contact Us
-        </Typography>
-      </Grid>
-
-      <Grid item>
-        <Typography
-          style={{
-            color: "white",
-            fontFamily: "Inter",
-            fontWeight: "300",
-          }}
-        >
-          Sign In
-        </Typography>
-      </Grid>
-
-      <Grid item>
-        <Typography
-          style={{
-            color: "white",
-            fontFamily: "Inter",
-            fontWeight: "300",
-          }}
-        >
-          Sign Up
         </Typography>
       </Grid>
 
