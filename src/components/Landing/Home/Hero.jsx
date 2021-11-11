@@ -6,7 +6,7 @@ import {
   useMediaQuery,
   useTheme,
 } from "@material-ui/core";
-import phone_mockup from "../../../assets/Landing/phone_mockup.png";
+import phone_mockup from "../../../assets/Landing/announcement_page.png";
 
 function Hero() {
   const classes = useStyles();
@@ -148,7 +148,11 @@ function Hero() {
         <img
           src={phone_mockup}
           alt="phone-mockup"
-          style={{ marginLeft: "1rem", marginTop: xs ? "1rem" : "none" }}
+          style={{
+            marginLeft: "1rem",
+            marginTop: xs ? "1rem" : "none",
+            width: "70%",
+          }}
         />
       </Grid>
     </Grid>

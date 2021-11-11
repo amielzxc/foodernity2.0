@@ -1,18 +1,13 @@
 import { Grid, Typography, useMediaQuery, useTheme } from "@material-ui/core";
-import device_mockup from "../../../assets/Landing/device_mockup.png";
+import donation_accepted from "../../../assets/Landing/donation_accepted.png";
+import donation_received from "../../../assets/Landing/donation_received.png";
+
 function DonatingSteps() {
   const theme = useTheme();
   const sm = useMediaQuery(theme.breakpoints.down("sm"));
 
   return (
-    <Grid
-      container
-      item
-      xs={12}
-      spacing={10}
-      direction={sm ? "column-reverse" : "row"}
-      style={{ marginBottom: "5rem" }}
-    >
+    <Grid container item xs={12} spacing={10} style={{ marginBottom: "5rem" }}>
       <Grid container item xs={12} md={7}>
         <Grid item>
           <div
@@ -36,7 +31,7 @@ function DonatingSteps() {
                 color: "white",
               }}
             >
-              1
+              4
             </Typography>
           </div>
           <Typography
@@ -46,7 +41,7 @@ function DonatingSteps() {
               fontWeight: "600",
             }}
           >
-            Acknowledge the donating guidelines
+            When your donation gets accepted
           </Typography>
           <Typography
             style={{
@@ -54,7 +49,9 @@ function DonatingSteps() {
               fontWeight: "400",
             }}
           >
-            To protect the safety of everyone, several guidelines are implem
+            Once your donation has been accepted by the organization, you can
+            now proceed to deliver your donations to a designated drop-off
+            location.
           </Typography>
         </Grid>
         <Grid item>
@@ -80,19 +77,18 @@ function DonatingSteps() {
                 color: "white",
               }}
             >
-              2
+              5
             </Typography>
           </div>
           <Typography
             variant="h5"
             style={{ fontFamily: "Inter", fontWeight: "600" }}
           >
-            Fill up the donation details
+            When your donation has been received
           </Typography>
           <Typography style={{ fontFamily: "Inter", fontWeight: "400" }}>
-            Simply fill up the name, category, expiry date, and an optional
-            notes of your donation. You can also set the pickup location, date,
-            and time for your own convenience.
+            You will be notified once your donation has been received by the
+            organization.
           </Typography>
         </Grid>
         <Grid item>
@@ -118,20 +114,20 @@ function DonatingSteps() {
                 color: "white",
               }}
             >
-              3
+              6
             </Typography>
           </div>
           <Typography
             variant="h5"
             style={{ fontFamily: "Inter", fontWeight: "600" }}
           >
-            Post it right away
+            Where are the donations headed to
           </Typography>
           <Typography style={{ fontFamily: "Inter", fontWeight: "400" }}>
-            You can get to take a look at what your donation looks like to
-            others. This helps confirm if there are incorrect details. If
-            everything is right, all it takes is to post it and everything is
-            done!
+            The organizations makes a post in announcement page where all of the
+            donation drives to beneficiaries are posted. You can check all of
+            the details as well as remarks for the donors coming from the
+            organization.
           </Typography>
         </Grid>
       </Grid>
@@ -145,13 +141,18 @@ function DonatingSteps() {
               textAlign: sm ? "center" : "left",
             }}
           >
-            ...so does sharing a donation.
+            Get updated about the status of your donation.
           </Typography>
           <Grid item>
             <img
-              src={device_mockup}
+              src={donation_accepted}
               alt="device-mockup"
-              style={{ width: "100%", marginTop: "2rem" }}
+              style={{ width: "50%", marginTop: "2rem" }}
+            />
+            <img
+              src={donation_received}
+              alt="device-mockup"
+              style={{ width: "50%", marginTop: "2rem" }}
             />
           </Grid>
         </Grid>

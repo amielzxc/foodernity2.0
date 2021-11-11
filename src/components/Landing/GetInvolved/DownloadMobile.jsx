@@ -1,6 +1,6 @@
 import { Grid, useTheme, useMediaQuery, Typography } from "@material-ui/core";
 
-import phoneMockup from "../../../assets/Landing/phone_mockup.png";
+import phoneMockup from "../../../assets/Landing/announcement_page.png";
 
 import gpbadge from "../../../assets/Landing/gpbadge.png";
 import apbadge from "../../../assets/Landing/apbadge.png";
@@ -38,7 +38,7 @@ function DownloadMobile() {
             }}
             variant={xs ? "h4" : "h3"}
           >
-            Share and request donations right at your fingertips.
+            Donate your food donations right at your fingertips.
           </Typography>
         </Grid>
 
@@ -53,9 +53,8 @@ function DownloadMobile() {
               display: "block",
             }}
           >
-            Instantly share as well as request for donations around you. Help
-            make your community a sustainable place where no one gets left
-            behind.
+            Instantly make a food donation as easy as one two three. Help make
+            your community a sustainable place where no one gets left behind.
           </Typography>
         </Grid>
         <Grid container item xs={12} justify={sm ? "center" : "flex-start"}>
@@ -72,7 +71,11 @@ function DownloadMobile() {
         <img
           src={phoneMockup}
           alt="phone-mockup"
-          style={{ marginLeft: "1rem", marginTop: xs ? "1rem" : "none" }}
+          style={{
+            marginLeft: "1rem",
+            marginTop: xs ? "1rem" : "none",
+            width: "75%",
+          }}
         />
       </Grid>
     </Grid>
