@@ -1,5 +1,5 @@
 import { Grid, Typography, Divider } from "@material-ui/core";
-
+import { Link } from "react-router-dom";
 export default function Footer() {
   return (
     <Grid
@@ -28,10 +28,13 @@ export default function Footer() {
 
       <Grid item>
         <Typography
+          component={Link}
+          to="/ourgoal"
           style={{
             color: "white",
             fontFamily: "Inter",
             fontWeight: "300",
+            textDecoration: "none",
           }}
         >
           Our Goal
@@ -40,10 +43,13 @@ export default function Footer() {
 
       <Grid item>
         <Typography
+          component={Link}
+          to="/getinvolved"
           style={{
             color: "white",
             fontFamily: "Inter",
             fontWeight: "300",
+            textDecoration: "none",
           }}
         >
           Get Involved
@@ -52,27 +58,19 @@ export default function Footer() {
 
       <Grid item>
         <Typography
+          component={Link}
+          to="/contactus"
           style={{
             color: "white",
             fontFamily: "Inter",
             fontWeight: "300",
+            textDecoration: "none",
           }}
         >
           Contact Us
         </Typography>
       </Grid>
 
-      <Grid item>
-        <Typography
-          style={{
-            color: "white",
-            fontFamily: "Inter",
-            fontWeight: "300",
-          }}
-        >
-          Privacy &amp; Policy
-        </Typography>
-      </Grid>
       <Grid item xs={12}>
         <Divider style={{ backgroundColor: "#343434" }} />
       </Grid>

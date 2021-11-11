@@ -94,15 +94,15 @@ function StyledChip(props) {
     },
     {
       category: "Bread & Pastry",
-      color: "#8D6E63",
+      color: "#42A5F5",
     },
     {
       category: "Fruits",
-      color: "#FFA726",
+      color: "#42A5F5",
     },
     {
       category: "Condiments and sauces",
-      color: "#BA68C8",
+      color: "#42A5F5",
     },
     {
       category: "Beverages",
@@ -128,7 +128,7 @@ function StyledChip(props) {
       label={props.label}
       style={{
         margin: "0",
-        backgroundColor: color[0].color,
+        backgroundColor: "#42A5F5",
         color: "white",
       }}
     />

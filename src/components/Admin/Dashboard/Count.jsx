@@ -33,7 +33,7 @@ function RightCount() {
           </div>
         </div>
       </Grid>
-      <Grid item xs={12}>
+      {/* <Grid item xs={12}>
         <div className={classes.container}>
           {" "}
           <Typography className={classes.title}>User Count</Typography>
@@ -45,11 +45,9 @@ function RightCount() {
               {userCount}
             </Typography>
           </div>
-          {/* <Typography variant="caption" style={{ color: "green" }}>
-            ↑ 10% than last month
-          </Typography> */}
+         
         </div>
-      </Grid>
+      </Grid> */}
     </Grid>
   );
 }
@@ -79,7 +77,7 @@ function LeftCount() {
           </div>
         </div>
       </Grid>
-      <Grid item xs={12}>
+      {/* <Grid item xs={12}>
         <div className={classes.container}>
           <Typography className={classes.title}>Visitor Count</Typography>
           <div className={classes.count_container}>
@@ -91,11 +89,9 @@ function LeftCount() {
             </Typography>
           </div>
 
-          {/* <Typography variant="caption" style={{ color: "red" }}>
-            ↓ 3% than last month
-          </Typography> */}
+       
         </div>
-      </Grid>
+      </Grid> */}
     </Grid>
   );
 }
